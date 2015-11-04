@@ -1,0 +1,181 @@
+
+#e320 coredump decode related:
+	##################################################################################################
+	#once login, do some automation works
+	#here we use 'dirty' implementation,to automate all coredump file handlings job in JTAC work
+	#'dirty' in terms of: some user-defined vars,like caseid,caselog_file,caseid_pattern,
+	#are also referenced directly from within main codes
+	#this is quite un-scalable and hard to maintain, need time to make it clean
+	#ideally user var should be seperated from the main codes for the most extent
+	##################################################################################################
+	#action 1) set pattern_action_timeout to -1 for time consuming tasks
+	#action 2) change caseid , decode mode, dmpfilebasename, fullpath, probably junoe also
+
+	set caseid 			"2011-0729-0333"
+
+	#this is for log cmd only
+	set caselog_file 		"~/vzlogs/$caseid.log"
+
+	#for !lc xxxx-xxxx-xxxx cmd only
+	#set caseid_pattern 		"\[1-9]\[0-9]\[0-9]\[0-9]-\[0-9]\[0-9]\[0-9]\[0-9]-\[0-9]\[0-9]\[0-9]\[0-9]"
+	set caseid_pattern 		{[1-9][0-9][0-9][0-9]-[0-9][0-9][0-9][0-9]-[0-9][0-9][0-9][0-9]}
+	#this doesn't work, don't know why
+	#set caseid_pattern 		{[1-9]{4}-[0-9]{4}-[0-9]{4}}
+	
+
+	
+
+	#set dmpfilebasename 		"LM-10_28_05_18_2011_19_21" 
+	set dmpfilebasename 		"SRP-320_7_SC_07_29_2011_06_51" 
+	#make sure corefiles are only located in one of these 2 folders!
+	set dmpfileftppath 		"/mnt/ftp/$caseid/$dmpfilebasename.dmp"
+	#set dmpfileftppath 		"/mnt/ftp/$dmpfilebasename.dmp"
+	set dmpfilehomepath 		"/mnt/home/public_html/$caseid/$dmpfilebasename.dmp"
+	#set dmpfilehomepath 		"/mnt/home/$dmpfilebasename.dmp"
+
+	set junose 			"9-0-1p0-7-5-2"
+	#-hw  {srp, srp310, srp320, lm4, lm10, linecard}
+	set hw 				"lm10"
+	set mem 			256
+	switch -- $hw \
+	"lm10" {
+	    set mem 1024
+	} "lm4" {
+	    set mem 512
+	} "srp320" {
+	    set mem 4096
+	}
+
+	set siteid 			"VFTTP-126"
+
+	set decode_only 		0
+	set decompress_only 		0
+	#these are for !ea cmd only
+	set decodelog_file 		"~/vzlogs/$caseid-$dmpfilebasename.decode.log"
+
+	set dmp_upload_dir 		"/mnt/coredumps/$caseid/"
+
+	#set decompress 		"coreDumpDecompress.exe \\\\wf-ccstage\\coredumps\\2011\\$caseid\\$dmpfilebasename.dmp"
+	set decompress 			"coreDumpDecompress.exe $caseid/$dmpfilebasename.dmp"
+
+	set mounthome 			{net use N: \\10.10.4.35\pings}
+	set umounthome 			{net use N: /delete}
+	set dmpcp2pc 			"rsync -aP /cygdrive/n/public_html/$caseid/$dmpfilebasename.dmp $caseid/$dmpfilebasename.dmp"
+	#set decode 			"pccl_pang.exe -debug C:\\pings\\$junose\\lm10.debug -core \\\\wf-ccstage\\coredumps\\2011\\$caseid\\$dmpfilebasename.udmp -mem 1024 -hw lm10"
+	set decode 			"pccl_pang.exe -debug C:\\pings\\$junose\\lm10.debug -core C:\\pings\\$caseid\\$dmpfilebasename.udmp -mem $mem -hw $hw"
+
+	
+	#"shell" is used as hostname when spawning a local shell instead of login to remote host, 
+	#this is sometimes very useful when interaction with more than 1 (usually remote) apps are needed
+	#e.g. login to a ftp server, get a file, exit ftp, ftp to another ftp server,put the file, etc
+	#execution of list prework will be triggered wthen:
+	#1) doprework set to 1
+	#2) '!w' get pressed under interact mode
+	set prework1(SHELL) 								\
+					[ list 						\
+					    "\\\$" "ls -lta /mnt/ftp | grep $siteid | grep dmp | head -1" 	\
+					    ">" "ls -lta /mnt/home/ | grep $siteid | grep dmp | head -1" 	\
+					]
+
+
+	#start the customerized work when ready, here is an example of long task list,to:
+	# upload,decompress,decode the dmp file and
+	# then process,upload,or extract the log file
+	set core(SHELL) 		{ E_dmp_pre_handle 				\
+					  dmp_decompress_decode_from_win 		\
+					  dmp_post_handle  				\
+					}
+
+
+	set E_dmp_pre_handle(SHELL) 							\
+					[ list 						\
+					    "\\\$" "if \[ ! -d $dmp_upload_dir \]; then mkdir $dmp_upload_dir; fi" 		\
+					    "\\\$" "dmpfileftppath=$dmpfileftppath" 	\
+					    "\\\$" "dmpfilehomepath=$dmpfilehomepath" 	\
+					    "\\\$" {file $dmpfileftppath $dmpfilehomepath} 	\
+					    "\\\$" {if [ -e $dmpfilehomepath ]; then dmpf=$dmpfilehomepath; else dmpf=$dmpfileftppath;fi} 	\
+					    "\\\$" "if \[ ! -e \$dmpfilehomepath \]; then mkdir /mnt/home/public_html/$caseid; fi " 	\
+					    "\\\$" "if \[ ! -e \$dmpfilehomepath \]; then rsync -aP \$dmpf \$dmpfilehomepath; fi" 		\
+					    "\\\$" {echo $dmpf} 			\
+					    "\\\$" {stat -t $dmpf} 	 		\
+					 ]
+
+	set dmp_decompress_decode_from_win(SHELL) { E_dmp_telnet_mount E_dmp_copy2pc 	\
+					   dmp_decompress_and_or_decode  		\
+					   E_dmp_exit_umount 				\
+					}
+
+	set dmp_post_handle(SHELL) { E_dmp_post_handle E_dmp_upload_to_de }
+	set E_dmp_telnet_mount(SHELL) 						\
+					[ list 					\
+					    "\\\$" "telnet radius" 		\
+					    "ogin" "lab" 			\
+					    "assword" "herndon" 		\
+					    ">" "cd \\"  			\
+					    ">" "$mounthome" 			\
+					]
+
+	set E_dmp_copy2pc(SHELL)	[ list 					\
+					    ">" "cd pings" 			\
+					    ">" "mkdir $caseid" 		\
+					    ">" "$dmpcp2pc" 			\
+					]
+
+	if $decompress_only {
+	    set dmp_decompress_and_or_decode(SHELL) { E_dmp_decompress }
+	} elseif $decode_only {
+	    set dmp_decompress_and_or_decode(SHELL) { E_dmp_decode }
+	} else {
+	    set dmp_decompress_and_or_decode(SHELL) { E_dmp_decompress E_dmp_decode }
+	}
+
+	set E_dmp_decompress(SHELL) 	[ list ">" "$decompress" ]
+	
+	set E_dmp_decode(SHELL) 					\
+					[ list 					\
+					    ">" "$decode" 			\
+					    "$lm10_dmp_decode_shell" 		\
+					]
+
+	#set E_dmp_decode_clis(SHELL) 	"$lm10_dmp_decode_shell"
+
+	set E_dmp_exit_umount(SHELL) 						\
+					[ list 					\
+					    "->" "exit" 			\
+					    "\\\>" "rm $caseid/*.udmp" 	\
+					    ">" "$umounthome" 			\
+					    "\\\>" "exit" 			\
+					]
+
+	set E_dmp_upload_to_de(SHELL) 							\
+					[ list 						\
+					    "\\\$" "rsync -aP \$dmpf $dmp_upload_dir" 	\
+					]
+	set E_dmp_upload_to_home(SHELL) 							\
+					[ list 						\
+					    "\\\$" "rsync -aP \$dmpf \$dmpfilehomepath" \
+					]
+	set E_dmp_post_handle(SHELL) 						\
+					[ list 					\
+					    "\\\$" "todos $decodelog_file" 				\
+					    "\\\$" "cp $decodelog_file $dmp_upload_dir" 		\
+					    "\\\$" "cd $dmp_upload_dir" 				\
+					    "\\\$" "decoded_fbase=$caseid-$dmpfilebasename" 		\
+					    "\\\$" "sed '1,60d' \$decoded_fbase.decode.log > \$decoded_fbase-decoded.log" 	\
+					    "\\\$" "rm \$decoded_fbase.decode.log" 			\
+					    "\\\$" "cd" 						\
+					]
+					    #other options:
+					    #"\\\$" "myfilename=\$(basename $decodelog_file)" 		\
+					    #"\\\$" "mybasename=\$\{\$myfilename%.*.*\}" 			\
+					    #"\\\$" "mydirname=\$(dirname $mylog_file)" 			\
+					    #"\\\$" "newfilename=$caseid.decode.log" 			\
+					    #"\\\$" "newfullname=\$mydirname\$newfilename" 		\
+					    #"\\\$" "cp $mylog_file \$newfullname"			\
+					    #"name" "herndon" 			\
+#					    more automated, get dmp file name per site name, using glob
+#					    "\\\$" "rsync -aP `ls *$siteid*.dmp` /mnt/coredumps/$caseid/`ls *$siteid*.dmp`" 	\
+#					    attached the decode result to case
+#					    "$" "attachcase.sh $caseid" 	\
+#					    "\\\$" "attachcase.sh \$decoded_fbase-decoded.log"		\
+#

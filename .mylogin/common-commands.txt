@@ -1,0 +1,77 @@
+! please help to capture following checking command:
+
+!part 1) basic CMDS for any cases
+show clock
+term leng 0
+term wid 512
+show version
+show hardware
+show environment all
+show utili detail
+show subscribers summary slot
+show log data sev deb
+!SEL check, before this , need to first drop into shell and then exit
+tech-support encoded-string <18ALq27.Kh*;-Kr.68K;Cj;C;8;x0=*=>L<$/dIS
+
+!part 2) more details
+show fabric-queue detail
+show subscribers summary port
+show log data
+show log data nv-file
+show issu
+show issu brief
+show redundancy history
+show flash
+show version all
+show log data nv-file sev deb
+show reboot
+dir
+show redundancy history detail
+
+
+!part 3) fabric drops and the real time updates
+show fabric-queue detail | in (^ *[^ ][^ ]*  *[0-9][0-9]*  *[^ ][^ ]*  *[0-9][0-9]*  *[0-9][0-9]*  *[^0 ]) 
+"sleep 5"
+show fabric-queue detail | in (^ *[^ ][^ ]*  *[0-9][0-9]*  *[^ ][^ ]*  *[0-9][0-9]*  *[0-9][0-9]*  *[^0 ] 
+"sleep 5"
+show fabric-queue detail | in (^ *[^ ][^ ]*  *[0-9][0-9]*  *[^ ][^ ]*  *[0-9][0-9]*  *[0-9][0-9]*  *[^0 ]) 
+"sleep 5"
+show fabric-queue detail | in (^ *[^ ][^ ]*  *[0-9][0-9]*  *[^ ][^ ]*  *[0-9][0-9]*  *[0-9][0-9]*  *[^0 ]) 
+"sleep 5"
+show fabric-queue detail | in (^ *[^ ][^ ]*  *[0-9][0-9]*  *[^ ][^ ]*  *[0-9][0-9]*  *[0-9][0-9]*  *[^0 ]) 
+
+!part 4) fan check
+tech-support encoded-string /*7i0;2@.L;i2<I95*CLn7/8KDX$_Z[%S
+tech-support encoded-string /*7h087=;L855.L;x18IAn7/I8$ug[S
+
+!part 5) fabricslice check
+tech-support encoded-string ,6x1C8Ak*C+x52I,.j;C;8;<L$iZ;S
+tech-support encoded-string ,6x1C8Ak*C+x52I,.j;C;8;<L$iZ;S
+tech-support encoded-string ,6x1C8Ak*C+x52I,.j;C;8;<L$iZ;S
+tech-support encoded-string ,6h5C.*;k0*+x5C2,.j0;;8;L<r)l9S                                    
+
+tech-support encoded-string ,6x1C8Ak*C+x52I,.j;C;8;<L$iZ;S
+tech-support encoded-string ,6x1C8Ak*C+x52I,.j;C;8;<L$iZ;S
+tech-support encoded-string ,6x1C8Ak*C+x52I,.j;C;8;<L$iZ;S
+
+!part 6) suspicious flows
+show susp flow
+show susp count
+sleep 5
+show susp count
+sleep 5
+show suspicious-control-flow-detection count
+show suspicious-control-flow-detection info
+show suspicious-control-flow-detection protocol
+base suspicious-control-flow-detection count
+show suspicious-control-flow-detection info delta
+sleep 5
+show suspicious-control-flow-detection info delta
+sleep 5
+show suspicious-control-flow-detection info delta
+show suspicious-control-flow-detection count delta
+sleep 5
+show suspicious-control-flow-detection count delta
+sleep 5
+show suspicious-control-flow-detection count delta
+

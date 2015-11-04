@@ -1,0 +1,61 @@
+#record log in file session-year-month-date.screen.log
+logfile $HOME/temp/%t-%Y-%m%d-.screen.log
+#this doesn't work as expected
+log on
+#scrollback to 10k lines in cp/paste mode
+defscrollback 100000
+# hardstatus line
+hardstatus alwayslastline
+#hardstatus alwayslastline "%{Yk}%-w%{.Yk}%n %t%{-}%+w %=%{.w}"
+hardstatus string "%{= B}:%{= b}: %{= r}[ %{=b G}%H%{= r} ] %= %{=b b}%-w%{=rb db}%>%n %t%{-}%+w %=%{= r}[ %{G}%c %{M}%D %m-%d %{r}] %{= b}:%{B}:"
+# Make the xterm scroller work in screen, also works
+# with mouse scrollwheel(does not work...)
+#terminfo xterm*|rxvt ti@:te@
+# use audio bell
+#vbell off
+vbell on
+vbell_msg " Wuff ---- Wuff!! "
+#use zshell as default shell
+#shell zsh
+#for vim integration, 
+#def 300ms,causing esc key slow(very annoying) (2014-11-16) 
+maptimeout 5
+
+#caption always "%{+b Yk}%w"
+
+#looks these no much use...
+#bindkey -m ) eval "stuff ' '" "writebuf /tmp/sx" "!sh -c 'xsel -b < /tmp/sx'"
+#bind 	   ( eval "stuff ' '" "!sh -c 'xsel -b > /tmp/sx'" "readbuf /tmp/sx"
+
+backtick 1 5 5 uptime
+
+setenv DISPLAY :0.0
+
+bind ')' select 10
+bind '!' select 11
+bind '@' select 12
+bind '#' select 13
+bind '$' select 14
+bind '%' select 15
+bind '^' select 16
+bind '&' select 17
+bind '*' select 18
+bind '(' select 19
+
+
+
+#screen 0 -t fuf vim -S fuf
+#screen 1 -t mylogin vim -S mylogin
+#screen 2 -t asciidoc vim -S asciidoc
+#screen 3 -t log vim
+#screen 4 -t w3m w3m -v
+#screen 5 -t login vim
+#screen 6 -t bash
+
+#add for color in vim 
+#http://vim.wikia.com/wiki/256_colors_setup_for_console_Vim
+#this might cause trouble if login some servers don't support this
+#set to xterm-color to solve this: TERM=xterm-color 
+#term "screen-256color"
+term "xterm-color"
+attrcolor b ".I" # use bright colors for bold

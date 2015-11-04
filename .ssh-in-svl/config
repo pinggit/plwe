@@ -1,0 +1,45 @@
+# START_VMM
+
+StrictHostKeyChecking=no
+CheckHostIP=no
+UserKnownHostsFile=/dev/null
+
+Host olive0
+	Hostname 10.94.163.84
+	User root
+Host olive1
+	Hostname 10.94.165.113
+	User root
+# END_VMM
+
+######to verizon######
+Host vz
+ HostName 199.45.47.14
+#User rgollamudi
+#User z419513
+ User z427047
+#pass token
+ port 5000
+
+######to xo######
+Host xo 
+ HostName bastion.svc.us.xo.net
+#User rgollamudi
+ User vendortemp
+#pass token
+ port 222 
+
+Host xo70
+ HostName 206.173.138.70
+ User vendortemp
+ port 222
+
+Host MX1
+ HostName 172.25.84.201
+ User lab
+
+Host scooby
+ HostName 192.168.46.146
+ User jtac
+#pass jnpr
+#/mnt/NAS/media/jtac/ping/

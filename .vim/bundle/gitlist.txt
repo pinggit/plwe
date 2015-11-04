@@ -1,0 +1,36 @@
+https://github.com/Lokaltog/vim-distinguished
+https://github.com/vimwiki/vimwiki
+origin	https://github.com/plasticboy/vim-markdown (fetch)
+origin	https://github.com/plasticboy/vim-markdown (push)
+
+#removed, need compile
+git clone https://github.com/Valloric/YouCompleteMe.git
+
+https://github.com/vim-scripts/AutoComplPop
+https://github.com/vim-scripts/fencview.vim
+git clone https://github.com/scrooloose/syntastic
+git clone https://github.com/tpope/vim-surround
+git clone https://github.com/ervandew/supertab
+git clone https://github.com/tpope/vim-fugitive
+git clone https://github.com/majutsushi/tagbar
+git clone https://github.com/mileszs/ack.vim
+git clone https://github.com/wesQ3/vim-windowswap ~/.vim/bundle/vim-windowswap
+https://github.com/vim-scripts/ZoomWin
+https://github.com/bronson/vim-visual-star-search
+https://github.com/godlygeek/tabular
+git clone https://github.com/Shougo/vimproc.vim
+git clone https://github.com/Shougo/unite.vim
+git clone https://github.com/Shougo/neocomplete.vim
+git clone https://github.com/tpope/vim-repeat
+git clone https://github.com/asins/vimcdoc
+git clone https://github.com/ianva/vim-youdao-translater
+https://github.com/arecarn/crunch.vim
+git clone git://github.com/godlygeek/tabular.git
+git clone https://github.com/vim-scripts/Align
+git clone https://github.com/terryma/vim-multiple-cursors
+git clone https://github.com/vim-scripts/MPage
+git clone https://github.com/deris/vim-duzzle
+git clone https://github.com/othree/xml.vim
+git clone https://github.com/vim-scripts/matchit.zip
+git clone https://github.com/scottdware/vim-slax
+https://github.com/vim-scripts/VisIncr
