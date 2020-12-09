@@ -53,7 +53,6 @@
 
 "#########, leading {{{2
 ",ab 		turn to (asciidoc) bullet list(add * in front of line)
-",ac            toggle acp(autocomplpop)
 ",ad		archive done
 ",aD		archive done reopen
 ",ag 		line-through 
@@ -89,13 +88,11 @@
 ",C		compare curr buff with disk
 " 		(not quite good for large or encrypted file)
 ",cd 		go to folders of current shell
-",co            colorscheme toggling
+",cf            colorscheme default
+",ck            colorscheme koehler
+",ct            colorscheme toggling
 ",cv 		Conqterm, send visual text to recent conqterm buffer
-"                   (disabled, not quite oftenly used)
-"               start conqterm in split window(vertically) 
-",cs            start conqterm in split window(herizontally)
 ",ct            start conqterm in new tab
-
 
 ",di 		insert a timestamp in curr cursor place
 ",da 		append a timestamp in curr cursor place
@@ -111,9 +108,9 @@
 ",em            mapping for keyword searching cmd from junose command captures
 ",en            mapping for keyword searching cmd from junose command captures
 
-",fo            set format=+a
+",f             easymotion
+"
 ",gr 		recursive grep operator
-",gp            get pr
 ",gq            v  ,gq           :s/\s\+/ /g<CR>gvgq
 "               Last set from ~/.vim/plugin/justify.vim
 ",gQ 
@@ -160,10 +157,9 @@
 ",ml            markdown link, todo
 ",mp            :Mpage 2
 "
-",nc            neocompletetoggle
 ",nf            no files: turn off all additional files: nobackup, noudf
 ",o             visual select the command output
-",tp             :TabMessage CMD - put ex command capture to a new tab buffer
+",p             :TabMessage CMD - put ex command capture to a new tab buffer
 ",qp            query-pr
 ",qt            quit translation win(dict)
 ",qv|vV         quit the NR window pairs caused by vv(not working yet)
@@ -171,19 +167,16 @@
 ",qq            g:/^\S/gqq (not difined yet)
 ",r 		call ranger(console vim only)
 ",R 		call !ranger-cd(console vim only), not working yet
-",st            :VimShellTab
-"                :shell
+",s             :shell
 ",S 		toggle syntax=ON/OFF (enable/disable syn hl only for curr buff)
 
 ",ta 		type of file: set ft=asciidoc|set conceallevel=0
-",tb            :TagBarToggle
 ",tA 		type of file: set ft=asciidoc2
 ",tc            toggle colorcolumn
-",tC            set ft=tcl
 ",td            toggle drawit line style
 ",tf 		toggle asciidoc foldexpr
 ",th            toggle syntax highlight
-",p 		toggle set paste/nopaste
+",tp 		toggle set paste/nopaste
 ",ti            toggle vimim Punctuation
 ",tr            toggle wrap
 ",ts		translate with sdcv(startdic console), horizontally
@@ -209,12 +202,10 @@
 ",wf            wiki following link
 ",ws             wiki split and edit linked page (disabled, no much use)
 ",wv            wiki vsplit and edit linked page
-",yd            youdao
-",yy            youdao
 "
 ",>             indent just pasted texts
 "
-",i             indent junos
+",,             indent junos
 "
 " ""            visual map, :CopyFold
 
@@ -222,8 +213,8 @@
 
 "#########double keys {{{2
 "
-",,             escape
-"vv             VoomToggle
+",,             indent junos
+"vv             voom
 "aa             voom built-in
 "AA             voom built-in
 "#########other keys: {{{2
@@ -246,136 +237,17 @@
 
 "common config {{{1
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"must haves {{{2
 "no compatible with vi
 "should be on very start,otherwise there will be
 "side effects to other options,maps
 set nocp 	    
 
-
-set ruler
-set showcmd 			"seems no effect, maybe because existing config
-"space page down ,shift-space doesn't work
-map <SPACE> <C-F>
-"map <S-SPACE> <C-B>
-"this is inspired from mutt
-map - <C-B>
-set hls				"highlight search,set nohls to turn off
-set nowrapscan
-set is				"increamental(realtime) search,
-set backspace=indent,eol,start	"control backspace key
-
-set whichwrap=b,s,<,>,[,]	"which key stroke can go back to prev line:
-				" backspace,space,left,right,left,right in
-				" insert mode
-
-"highlighted with ColorColumn,Useful to align
-"long code.  Will make screen redrawing slower.
-"and looks annoying when not coding
-"set colorcolumn=80
-
-set number			"set line number
-"set nonumber			"to turn it off
-filetype plugin	indent on
-"helptags ~/.vimdoc
-"enable mouse under normal/insert mode, so "visual" mode can be used to ignore
-"mouse (so mouse can be used by terminal to , say, select texts)
-set mouse=ni			
-
-syntax on			"syntax highlight
-"syntax enable			"
-"per vim manual, syntax on/enable is not the same
-"The ':syntax enable' command will keep your current color settings.  This
-"allows using ':highlight' commands to set your preferred colors before or
-"after using this command.  If you want Vim to overrule your settings with the
-"defaults, use: syntax on
-"
-"syntax manual			"syntax highlight
-"
-"change the number of space characters inserted for indentation
-set shiftwidth=4		">> will indent 4 CH
-
-"To control the number of space characters that will be inserted when the tab
-"key is pressed
-set tabstop=8			"while tab will indent 8,don't change this value
-				"otherwise will get much trouble!
-				"
-"http://vim.wikia.com/wiki/Converting_tabs_to_spaces
-"insert space characters whenever the tab key is pressed, set the 'expandtab' option:
-"With this option set, if you want to enter a real tab character use Ctrl-V<Tab>
-"key sequence
-set expandtab
-
-"this looks good and work fine(2014-12-06) 
-"http://vim.wikia.com/wiki/Search_for_visually_selected_text
-" Search for selected text.
-" http://vim.wikia.com/wiki/VimTip171
-let s:save_cpo = &cpo | set cpo&vim
-if !exists('g:VeryLiteral')
-  let g:VeryLiteral = 0
-endif
-function! s:VSetSearch(cmd)
-  let old_reg = getreg('"')
-  let old_regtype = getregtype('"')
-  normal! gvy
-  if @@ =~? '^[0-9a-z,_]*$' || @@ =~? '^[0-9a-z ,_]*$' && g:VeryLiteral
-    let @/ = @@
-  else
-    let pat = escape(@@, a:cmd.'\')
-    if g:VeryLiteral
-      let pat = substitute(pat, '\n', '\\n', 'g')
-    else
-      let pat = substitute(pat, '^\_s\+', '\\s\\+', '')
-      let pat = substitute(pat, '\_s\+$', '\\s\\*', '')
-      let pat = substitute(pat, '\_s\+', '\\_s\\+', 'g')
-    endif
-    let @/ = '\V'.pat
-  endif
-  normal! gV
-  call setreg('"', old_reg, old_regtype)
-endfunction
-vnoremap <silent> * :<C-U>call <SID>VSetSearch('/')<CR>/<C-R>/<CR>
-vnoremap <silent> # :<C-U>call <SID>VSetSearch('?')<CR>?<C-R>/<CR>
-vmap <kMultiply> *
-nmap <silent> <Plug>VLToggle :let g:VeryLiteral = !g:VeryLiteral
-  \\| echo "VeryLiteral " . (g:VeryLiteral ? "On" : "Off")<CR>
-if !hasmapto("<Plug>VLToggle")
-  nmap <unique> <Leader>vl <Plug>VLToggle
-endif
-let &cpo = s:save_cpo | unlet s:save_cpo
-
-"must have mini--- {{{2
-"  for fast paste into other machines
-"copy and paste below lines in new vim ex mode
-":set nocp 	    
-":set ruler
-":set showcmd 			"seems no effect, maybe because existing config
-":set nowrapscan
-":map <SPACE> <C-F>
-":map - <C-B>
-":set hls				"highlight search,set nohls to turn off
-":set is				"increamental(realtime) search,
-":set backspace=indent,eol,start	"control backspace key
-":set whichwrap=b,s,<,>,[,]	"which key stroke can go back to prev line:
-":				" backspace,space,left,right,left,right in
-":				" insert mode
-":set number			"set line number
-":filetype plugin	indent on
-":set mouse=ni			
-":syntax on			"syntax highlight
-":set shiftwidth=4		">> will indent 4 CH
-":set tabstop=8			"while tab will indent 8,don't change this value
-":				"otherwise will get much trouble!
-":				"
-":set expandtab
-"
-""others {{{2
-""(2013-12-23) for perl fold, doesn't work, don't understand
-"set foldlevelstart=2
-"let perl_fold=1
-"let sh_fold_enabled=1
-"let perl_extended_vars=1
-"let perl_sync_dist=250
+"(2013-12-23) for perl fold, doesn't work, don't understand
+set foldlevelstart=2
+let perl_fold=1
+let sh_fold_enabled=1
+let perl_extended_vars=1
+let perl_sync_dist=250
 
 function! TogglePaste()
     if (&paste == 0)
@@ -384,19 +256,7 @@ function! TogglePaste()
 	setl nopaste
     endif
 endfu
-nn ,p :call TogglePaste()<CR>:set paste?<CR>
-
-let g:format=0
-function! ToggleFormat()
-    if (g:format == 0)
-        let g:format=1
-        setl fo+=a
-    else
-        let g:format=0
-        setl fo-=a
-    endif
-endfu
-nn ,fo :call ToggleFormat()<CR>:set fo?<CR>
+nn ,tp :call TogglePaste()<CR>:set paste?<CR>
 
 let g:togglesyntax=0
 function! ToggleSyntax()
@@ -409,35 +269,6 @@ function! ToggleSyntax()
     endif
 endfu
 nn ,th :call ToggleSyntax()<CR>:syntax sync<CR>
-
-let g:toggleacp=0
-function! ToggleAcp()
-    if (g:toggleacp == 0)
-	:AcpEnable
-        let g:toggleacp=1
-        echo "Acp enabled"
-    else
-	:AcpDisable
-        let g:toggleacp=0
-        echo "Acp disabled"
-    endif
-endfu
-nn ,ac :call ToggleAcp()<CR>
-
-let g:ToggleNcp=0
-function! ToggleNcp()
-    if (g:ToggleNcp == 0)
-	:NeoCompleteToggle
-        let g:ToggleNcp=1
-        echo "Neocomplete enabled"
-    else
-	:NeoCompleteToggle
-        let g:ToggleNcp=0
-        echo "NeoComplete disabled"
-    endif
-endfu
-nn ,nc :call ToggleNcp()<CR>
-nn ,nc :NeoCompleteToggle<CR>
 
 function! ToggleWrap()
     if (&wrap == 0)
@@ -511,13 +342,20 @@ set laststatus=2
 "permanent undo
 set udf
 
+"space page down ,shift-space doesn't work
+map <SPACE> <C-F>
+"map <S-SPACE> <C-B>
+"this is inspired from mutt
+map - <C-B>
+
 "set terminal color, def 8.
 "set t_Co doesnt work since it's a var,not option
 "let t_Co=256 			
 
 
-
 "these are from user manual
+set ruler
+set showcmd 			"seems no effect, maybe because existing config
 set backup
 "set backupext=.bak 		"change backup file from xxx~ to xxx.bak
 set writebackup			"delete backup after write
@@ -527,6 +365,11 @@ set writebackup			"delete backup after write
 "setlocal noswapfile 		"disable swapfile, 
 "set nobackup
 "set nowritebackup
+
+set nowrapscan
+set hls				"highlight search,set nohls to turn off
+set is				"increamental(realtime) search,
+
 
 "this is for asciidoc syntax file, 
 "otherwise got following error and highlight scheme gone
@@ -539,6 +382,34 @@ set maxmempattern=20000
 "syntax sync minlines=100
 syntax sync minlines=150
 
+set backspace=indent,eol,start	"control backspace key
+
+set whichwrap=b,s,<,>,[,]	"which key stroke can go back to prev line:
+				" backspace,space,left,right,left,right in
+				" insert mode
+
+"highlighted with ColorColumn,Useful to align
+"text.  Will make screen redrawing slower.
+"set colorcolumn=80
+
+set number			"set line number
+"set nonumber			"to turn it off
+filetype plugin	indent on
+"helptags ~/.vimdoc
+"enable mouse under normal/insert mode, so "visual" mode can be used to ignore
+"mouse (so mouse can be used by terminal to , say, select texts)
+set mouse=ni			
+
+syntax on			"syntax highlight
+"syntax enable			"
+"per vim manual, syntax on/enable is not the same
+"The ':syntax enable' command will keep your current color settings.  This
+"allows using ':highlight' commands to set your preferred colors before or
+"after using this command.  If you want Vim to overrule your settings with the
+"defaults, use: syntax on
+"
+"syntax manual			"syntax highlight
+"
 
 "this only works when :syntax manual
 "the goal is:
@@ -574,6 +445,20 @@ set    fileformats=unix,dos,mac
 set    encoding=utf-8
 set    fileencodings=ucs-bom,utf-8,gk2312,gbk,gb18030,cp936,latin1,utf-16le
 
+"change the number of space characters inserted for indentation
+set shiftwidth=4		">> will indent 4 CH
+
+"To control the number of space characters that will be inserted when the tab
+"key is pressed
+set tabstop=8			"while tab will indent 8,don't change this value
+				"otherwise will get much trouble!
+				"
+"http://vim.wikia.com/wiki/Converting_tabs_to_spaces
+"insert space characters whenever the tab key is pressed, set the 'expandtab' option:
+"With this option set, if you want to enter a real tab character use Ctrl-V<Tab>
+"key sequence
+set expandtab
+
 				
 "need to turn off when 'gqap' provide wired result (for a text blocks)
 "check my gmail thread vim: strange issue with gq
@@ -601,12 +486,8 @@ set nospell
 
 "this looks better than default (with which voom fold looks ugly)
 "colorscheme elflord
-"colorscheme molokai
-colorscheme default
 colorscheme koehler
-"this generate some warnings
-"colorscheme Tomorrow-Night-Bright 
-"colorscheme torte
+"colorscheme molokai
 
 
 
@@ -622,23 +503,15 @@ colorscheme koehler
 
 
 "my own maps {{{1
-"not working
-"let helptags=$VIM."/vimfiles/doc"
-"set helplang=cn
 
 "nn qq :q<cr>
 
-"this will overide some good thing (like :cw)
 nn <CR> <C-W>w
-
-"(2014-11-08) disable original vim c-wc-o (:only) and make it same as ZoomWin
-nmap <C-w><C-o> <C-w>o
-
 "turn comment (#) lines into empty line(but except:
 " 1) shebang line), 
 " 2) .."..#..
 "then remove empty lines, and the lines with only # (tested)
-map ,dE :perldo s/(^\s*#[^!].*)//g<CR> :%s/^[\ \t#]*\n//g<CR>:nohls<CR>
+map ,dE :perldo s/(^\s*#[^!].*)//g<CR> :%s/^[\ \t#]*\n//g<CR>
 
 "clear empty lines (including those containing spaces/tabs)
 vn ,de :s/^[\ \t]*\n//g<CR>:nohls<CR>
@@ -1085,8 +958,6 @@ function! SetColorColumn()
 endfunction
 map ,tc :call SetColorColumn()<CR>
 
-map ,tC :set ft=tcl<CR>
-
 "indent guide plugin
 "The default mapping to toggle the plugin is `<Leader>ig` 
 let g:indent_guides_guide_size=1
@@ -1099,13 +970,16 @@ set scrolloff=3
 nn n nzt
 nn N Nzt
 
+"this will overide some good thing (like :cw)
+"nn <CR> <c-w>w
+"
 nn ,jf :set ft=jel<CR>
 nn ,jc :set ft=jec<CR>
 nn ,jz :set foldmethod=marker<CR>:set foldmarker=\ {,}<CR><c-l>
 
 "nn ,>  0/{<cr>mj%mu%jmj'ukmu>'j:nohls<cr>
+nn ,,  0/{<cr>mj%mu%jmj'ukmu>'j:nohls<cr>
 nn ,i  0/{<cr>ma%dd'addzc
-nn ,i  0/{<cr>mj%mu%jmj'ukmu>'j:nohls<cr>
 
 
 "no need, plugin built-in map: <c-w>o
@@ -1114,7 +988,7 @@ nn ,i  0/{<cr>mj%mu%jmj'ukmu>'j:nohls<cr>
 "move done task to ArchiveDone section
 "phaseI(01/07/2013)
 "vn ,ad d/ArchiveDone<cr>o<cr><esc>P<c-o>
-vmap ,ad d:set wrapscan<cr>/ArchiveDone$<cr>o<cr>.archived@<F5><cr><esc>P<c-o>dd:set nowrapscan<cr>
+vmap ,ad d/ArchiveDone<cr>o<cr>.archived@<F5><cr><esc>P<c-o>dd
 "vn ,aD d?ArchiveDoneReopen<cr>o<cr><esc>P<c-o>
 vmap ,aD d?ArchiveDoneReopen<cr>o<cr>.reopened@<F5><cr><esc>P<c-o>
 vmap ,ap d/ArchiveNotDone<cr>o<cr>.archived@<F5><cr><esc>P<c-o>dd
@@ -1139,7 +1013,6 @@ nn ,o '[<S-v>'.
 "nmap ,, ,v>
 nmap ,> ,v>
 
-
 "toggle spellcheck
 "http://vim.wikia.com/wiki/Toggle_spellcheck_with_function_keys
 map ,tS :setlocal spell! spelllang=en_us<CR>
@@ -1148,13 +1021,14 @@ map ,tS :setlocal spell! spelllang=en_us<CR>
 "change dir to curr file folder,only for curr win
 "print the directory after changing, so you know where you ended up. 
 nnoremap ,cd :lcd %:p:h<CR>:pwd<CR>
-"maybe change dir globally is more convenient?
-nnoremap ,cd :cd %:p:h<CR>:pwd<CR>
+
+nn ,cf :colorscheme default<CR>
+nn ,ck :colorscheme koehler<CR>
 
 "(2013-02-26) 
 "toggling between default/koehler/mololai
 "a shortcut/quick way to do a complicated map but bypassing function calls
-map ,co :
+map ,ct :
     \if g:colors_name == 'default' <Bar>
         \:colorscheme koehler <Bar>
     \elseif g:colors_name == 'koehler' <Bar>
@@ -1256,18 +1130,12 @@ map <F9> <ESC>qqJjq@q
 
 
 "use s-arrow key to resize window
-
+"map <S-right> <ESC>gt<CR>
 nnoremap <S-right> <ESC><c-w>>
+"map <S-left> <ESC>gT<CR>
 nnoremap <S-left> <ESC><c-w><
 nnoremap <S-up> <ESC><c-w>+
 nnoremap <S-down> <ESC><c-w>-
-
-"for vim under tmux
-nnoremap ^[[1;2D <ESC><c-w>>
-nnoremap ^[[1;2C <ESC><c-w><
-nnoremap ^[[1;2A <ESC><c-w>+
-nnoremap ^[[1;2B <ESC><c-w>-
-
 
 "sometime not working(e.g, from ssh,or tmux)
 nnoremap <S-right> <ESC><c-w>>
@@ -1348,11 +1216,11 @@ endif
 " return result
 return join( lines, has( "balloon_multiline" ) ? "\n" : " " )
 endfunction
-"set balloonexpr=FoldSpellBalloon()
-"set ballooneval
+set balloonexpr=FoldSpellBalloon()
+set ballooneval
 
 "in the .myabbreviations.vim there will be a lot of abbreviations
-":source ~/.vim/.myabbreviations.vim
+:source ~/.vim/.myabbreviations.vim
 
 
 "When the "unnamed" string is included in the 'clipboard' option, the unnamed
@@ -1412,8 +1280,6 @@ nnoremap 'c 'czt
 "http://learnvimscriptthehardway.stevelosh.com/chapters/34.html
 nnoremap ,gr :set operatorfunc=<SID>GrepOperator<cr>g@
 vnoremap ,gr :<C-U>call <SID>GrepOperator(visualmode())<cr>
-
-nmap ,gp :read !ssh svl-jtac-tool02 "query-pr -F "
 
 function! s:GrepOperator(type)
     let saved_unnamed_register = @@
@@ -1912,7 +1778,6 @@ map ,aH :w !asciidoc
     \ -a data-uri
     \ -o ~/Dropbox/temp-transfer/temp.html 
     \ -a showcomments
-    \ -a max-width=100em
     \ -a leveloffset=-1@ 
     \ -b html5 -d book -&
 
@@ -2135,11 +2000,8 @@ endfunc
 nn ,mc <esc>O<esc>0C<!--<esc>jo<esc>0C--><esc>k
 nn ,mC <esc>o<esc>0C<!--<cr>--><esc>k
 
-"work for most cases
-"nn ,mt <esc>OTABLE OF CONTENT<enter><enter>* auto-gen TOC:<enter>{:toc}<enter><enter>- - -<enter><esc>  
-"this even works for markdown plugin (which has some magic to auto format markdown
-"list when hit return)
-nn ,mt <esc>OTABLE OF CONTENT<enter><enter>* auto-gen TOC:<enter><esc>d0i{<esc>d0i<right>:toc}<enter><enter>- - -<enter><esc>dd
+nn ,mt <esc>OTABLE OF CONTENT<enter><enter>* auto-gen TOC:<enter>{:toc}<enter><enter>- - -<enter><esc>  
+
 nn ,mr <esc>O<enter>---<enter><enter><c-o>mr<enter><enter>---<enter><c-o>'r  
 
 nn ,mi <esc>O![packet flow]({{ site.BASE_PATH }}/images/asciiart-images.png "packet flow")<enter><esc>
@@ -2257,7 +2119,7 @@ nn <expr> ,jL  RangerChooser(g:jekyll_path . "/_posts") <bar> sleep 3
 
 "Asciidoc to Jekyll--- {{{3
 
-function! s:esctitle(str) "{{{4
+function s:esctitle(str) "{{{4
   let str = a:str
   let str = tolower(str)
   let str = substitute(str, g:jekyll_title_pattern, '-', 'g')
@@ -2267,7 +2129,7 @@ function! s:esctitle(str) "{{{4
 endfunction
 
 
-function! JekyllTemplate() "{{{4
+function JekyllTemplate() "{{{4
     "always build template per current data:
     "if g:jekyll_template == ''
     let tags = input("use previous tag? [" . 
@@ -2517,6 +2379,7 @@ com! -range=% -nargs=* A2J :<line1>,<line2>call A2J(<f-args>)
 "don't support:         don't work for visual range
 "nmap <expr> ,jA A2J(-1) . repeat("\<left>", 24)
 nmap <expr> ,jA A2J(-1) . "\<c-b>" . repeat("\<delete>",3)
+
 "support:               all non-range or range
 "don't support:         returning CLIes for user selection
 map ,ja :A2J
@@ -2617,7 +2480,7 @@ endf
 command! -nargs=* JekyllGit exec JekyllGit(<q-args>)
 nn <expr> ,jg JekyllGit(g:jekyll_title) . repeat("\<left>", 24)
 
-func! JekyllThemeSelect()
+func JekyllThemeSelect()
     let supported_themes="\n  1-twitter\n  2-holligan\n  3-the-minimum\n  4-the-program\n  5-dinky\n  6-mark-reid\n  7-tom\n"
     let theme=input("use which theme?" . "\n[" . supported_themes . "]\n" . "(1/2/3/..):",'1')
     if theme==1
@@ -3063,12 +2926,11 @@ function! TabMessage(cmd)
   set nomodified
 endfunction
 command! -nargs=+ -complete=command TabMessage call TabMessage(<q-args>)
-nn ,tp :TabMessage 
+nn ,p :TabMessage 
 
 "conditional map of h--- {{{2
 
 "gmail thread map a key to "conditionally" override built-in behavior
-"disabled (2014-10-29) , often close buffers accidentally
 function! <SID>Maph()
   "if cursor stays in leftmost[virtcol(".")==1] and upmost[line(".")==1] 
   "  corner of the buffer
@@ -3084,313 +2946,46 @@ function! <SID>Maph()
   endif
 endfunction
 
-"nmap <expr> h <SID>Maph()
+nmap <expr> h <SID>Maph()
 
 
 "plugin tuning options {{{1
-"youdao--- {{{2
-"great!
-"(2014-11-22) 
-vnoremap <silent> ,yd <Esc>:Ydv<CR> 
-nnoremap <silent> ,yd <Esc>:Ydc<CR> 
-noremap ,yy :Yde<CR>
+"Sum--- {{{2
+let g:Sum_yank=0
 
-"tagbar {{{2
-"disabled => can't close
-"autocmd BufEnter *.tcl nested TagbarOpen
-"autocmd BufEnter *.exp nested TagbarOpen
-"autocmd BufEnter *.sh nested TagbarOpen
-"autocmd BufEnter *.pl nested TagbarOpen
+"MPage--- {{{2
+nn ,mp :MPage 2<CR>
 
-"vimshell--- {{{2
+"taglist {{{2
+nnoremap <silent> ,tt :TlistToggle<CR>
 
-"not working
-"in <C-p> <Plug>(vimshell_previous_prompt)
-"let g:vimshell_cd_command='TabpageCD'
-
-"supertab--- {{{2
-"
-"no button to turn on/off?
-let g:SuperTabMappingForward = '<s-tab>'
-let g:SuperTabMappingBackward = '<tab>'
-"Acp(autocomplpop) {{{2
-
-"enable (,ac) only when needed (new word spelling prompt)
-let g:acp_enableAtStartup = 0
-
-"neocomplete --- {{{2
-"enable (,nc) only when needed
-let g:neocomplete#enable_at_startup = 0
-"(2014-11-07), copied from help neocomplete 
-""Note: This option must set it in .vimrc(_vimrc).  NOT IN .gvimrc(_gvimrc)!
-"" Disable AutoComplPop.
-"let g:acp_enableAtStartup = 0
-"" Use neocomplete.
-"let g:neocomplete#enable_at_startup = 1
-"" Use smartcase.
-"let g:neocomplete#enable_smart_case = 1
-"" Set minimum syntax keyword length.
-"let g:neocomplete#sources#syntax#min_keyword_length = 3
-"let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
-"
-"" Define dictionary.
-"let g:neocomplete#sources#dictionary#dictionaries = {
-"    \ 'default' : '',
-"    \ 'vimshell' : $HOME.'/.vimshell_hist',
-"    \ 'scheme' : $HOME.'/.gosh_completions'
-"        \ }
-"
-"" Define keyword.
-"if !exists('g:neocomplete#keyword_patterns')
-"    let g:neocomplete#keyword_patterns = {}
-"endif
-"let g:neocomplete#keyword_patterns['default'] = '\h\w*'
-"
-"" Plugin key-mappings.
-"inoremap <expr><C-g>     neocomplete#undo_completion()
-"inoremap <expr><C-l>     neocomplete#complete_common_string()
-"
-"" Recommended key-mappings.
-"" <CR>: close popup and save indent.
-"inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
-"function! s:my_cr_function()
-"  return neocomplete#close_popup() . "\<CR>"
-"  " For no inserting <CR> key.
-"  "return pumvisible() ? neocomplete#close_popup() : "\<CR>"
-"endfunction
-"" <TAB>: completion.
-"inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-"" <C-h>, <BS>: close popup and delete backword char.
-"inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
-"inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
-"inoremap <expr><C-y>  neocomplete#close_popup()
-"inoremap <expr><C-e>  neocomplete#cancel_popup()
-"" Close popup by <Space>.
-""inoremap <expr><Space> pumvisible() ? neocomplete#close_popup() : "\<Space>"
-"
-"" For cursor moving in insert mode(Not recommended)
-""inoremap <expr><Left>  neocomplete#close_popup() . "\<Left>"
-""inoremap <expr><Right> neocomplete#close_popup() . "\<Right>"
-""inoremap <expr><Up>    neocomplete#close_popup() . "\<Up>"
-""inoremap <expr><Down>  neocomplete#close_popup() . "\<Down>"
-"" Or set this.
-""let g:neocomplete#enable_cursor_hold_i = 1
-"" Or set this.
-""let g:neocomplete#enable_insert_char_pre = 1
-"
-"" AutoComplPop like behavior.
-""let g:neocomplete#enable_auto_select = 1
-"
-"" Shell like behavior(not recommended).
-""set completeopt+=longest
-""let g:neocomplete#enable_auto_select = 1
-""let g:neocomplete#disable_auto_complete = 1
-""inoremap <expr><TAB>  pumvisible() ? "\<Down>" : "\<C-x>\<C-u>"
-"
-"" Enable omni completion.
-"autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-"autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-"autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-"autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-"autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-"
-"" Enable heavy omni completion.
-"if !exists('g:neocomplete#sources#omni#input_patterns')
-"  let g:neocomplete#sources#omni#input_patterns = {}
-"endif
-""let g:neocomplete#sources#omni#input_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
-""let g:neocomplete#sources#omni#input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
-""let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
-"
-"" For perlomni.vim setting.
-"" https://github.com/c9s/perlomni.vim
-"let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
-
-"tabname (1678)--- {{{2
-" File: tab_name.vim
-" Author: Nickolay Golubev
-" Email: golubev.nikolay@gmail.com
-" Description: script allow set names for tab pages ( "Call stack", "Help tab", "Broswser" for example ). Useful for console tab mode
-" Usage:
-"   :TName 'tabname' - set name for current tab page
-"   :TNoName - remove name (page name = buffer name)
-
-"if exists('tab_name_plugin')
-"    finish
-"endif
-"
-"let tab_name_plugin = 1
-
-function! s:SetTabName(name)
-    let t:tab_name = a:name
-
-    for win_number in range(1, winnr('$'))
-        call setwinvar(win_number, "tab_win_name", a:name)
-    endfor
-
-    call s:RefreshTab()
-endfunction
-
-function! s:RemoveTabName()
-    for win_number in range(1, winnr('$'))
-        call setwinvar(win_number, "tab_win_name", '')
-    endfor
-    unlet t:tab_name
-
-    call s:RefreshTab()
-endfunction
-
-function! s:RefreshTab()
-    set tabline=%!TabCaptionLineFunction()
-        set guitablabel=%{TabGuiCaptionLabel()}
-endfunction
-
-function! TabCaptionLabel(number)
-    let caption = ' '
-    let tab_name = gettabwinvar(a:number, 1, 'tab_win_name') 
-
-    let buflist = tabpagebuflist(a:number)
-    let winnr = tabpagewinnr(a:number)
-        let buf_name = bufname(buflist[winnr - 1])
-
-    if tab_name == ''
-        let caption .= pathshorten(buf_name)
-    else
-        let caption .= tab_name
-    endif
-    return caption.' '
-endfunction
-
-
-function! TabCaptionLineFunction()
-    let line = ''
-    for i in range(tabpagenr('$'))
-
-        let modified_part = ''
-        let bufnrlist = tabpagebuflist(i+1)
-        for bufnr in bufnrlist
-            if getbufvar(bufnr, "&modified")
-                let modified_part = '+'
-                break
-            endif
-        endfor
-
-        let caption = '['.(i+1).modified_part.']'
-        let line .= '%#String#'.caption
-        " select the highlighting
-        if i + 1 == tabpagenr()
-            let line .= '%#TabLineSel#'
-        else
-            if i % 2 == 0
-                let line .= '%#TabLine#'
-            else
-                let line .= '%#TabLine#'
-            endif
-        endif
-
-        let line .= '%' . (i + 1) . 'T'
-
-        let line .= TabCaptionLabel(i + 1)
-    endfor
-
-    let line .= '%#TabLineFill#%T'
-
-    if tabpagenr('$') > 1
-        let line .= '%=%#TabLine#%999Xclose'
-    endif
-
-    return line
-endfunction
-
-function! TabGuiCaptionLabel()
-    let caption = '['
-    let tab_number = v:lnum
-    let bufnrlist = tabpagebuflist(tab_number)
-    let tab_name = gettabwinvar(tab_number, 1, 'tab_win_name') 
-
-    let caption .= tab_number
-
-    for bufnr in bufnrlist
-        if getbufvar(bufnr, "&modified")
-            let caption .= '+'
-            break
-        endif
-    endfor
-
-    let caption .= '] '
-
-    let winnr = tabpagewinnr(tab_number)
-        let buf_name = bufname(bufnrlist[winnr - 1])
-    if tab_name == ''
-        let caption .= pathshorten(buf_name)
-    else
-        let caption .= tab_name
-    endif
-
-    return caption
-endfunction
-
-
-function! s:TabWinEnter()
-    if exists('t:tab_name')
-        call setwinvar(winnr(), "tab_win_name", t:tab_name)
-    endif
-endfunction
-    
-augroup TabLabelNameAU
-    au!
-    au WinEnter * call s:TabWinEnter()
-augroup END
-
-call s:RefreshTab()
-
-command! -nargs=1 TName call s:SetTabName(<args>)
-command! TNoName call s:RemoveTabName()
-
-
-
-
-"csapprox--- {{{2
-"(2014-10-11) pathogen-ized but then removed.
-"caused colorscheme issue: always need to execute colorscheme again
-"after started vim, otherwise colorscheme mess up
-
-"vim-colorschemes--- {{{2
-"https://github.com/flazz/vim-colorschemes
-"(2014-10-11) pathogen install
-
-"scrollcolors--- {{{2
-"https://github.com/vim-scripts/ScrollColors
-"(2014-10-11) pathogen
-
-"easymotion--- {{{2
-"conflcting with DrawIt, pending..
-"let g:EasyMotion_leader_key = '\'
-"(2014-10-11) pathogen-ized (bundle/vim-easymotion)
-
-"markdown--- {{{2
-
-"for https://github.com/plasticboy/vim-markdown, removed(slow)
-"let g:vim_markdown_frontmatter=1
+"only display tags of current file and fold all others
+let Tlist_File_Fold_Auto_Close = 1
+"display only tags of current file
+"let Tlist_Show_One_File = 1
+"exit vim when only taglist window left
+let Tlist_Exit_OnlyWindow = 1
+"process tag even if no taglist win
+let Tlist_Process_File_Always =1
 
 "vim-airline--- {{{2
 "disable this plugin
 "let g:loaded_airline = 1
 "let g:airline_theme             = 'powerlineish'
-let g:airline#extensions#branch#enabled = 1
-let g:airline#extensions#syntastic#enabled = 1
+let g:airline_enable_branch     = 1
+let g:airline_enable_syntastic  = 1
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#tab_nr_type = 1
 let g:airline#extensions#bufferline#enabled = 1
 let g:airline#extensions#tabline#buffer_nr_show = 1
 
-"bash-support--- {{{2
-"merged in vim-plugin, auto pathogen ized
+"easymotion--- {{{2
+"let g:EasyMotion_leader_key = 'f'
 
-let g:BASH_AuthorName   = 'ping'
-let g:BASH_Email        = 'pings@juniper.net'
-let g:BASH_Company      = 'Juniper Networks'
+"csv--- {{{2
 
+"disable map of space
+let g:csv_nomap_space = 1
 
 "drawit {{{2
 "for drawit plugin only, see the doc of the first version of this plugin,
@@ -3422,192 +3017,19 @@ map ,td :call ToggleDrawitDrawingCH()<CR>
 
 "map ,dd :call SetDrawIt('.','.','.','\','/','X','*')
 
-"taglist {{{2
-nnoremap <silent> ,tt :TlistToggle<CR>
-nnoremap <silent> ,tb :TagbarToggle<CR>
+"bash-support--- {{{2
 
-"only display tags of current file and fold all others
-let Tlist_File_Fold_Auto_Close = 1
-"display only tags of current file
-"let Tlist_Show_One_File = 1
-"exit vim when only taglist window left
-let Tlist_Exit_OnlyWindow = 1
-"process tag even if no taglist win
-let Tlist_Process_File_Always =1
-
-"easytags {{{2
-"disable in an attemp to speed up conqterm (2013-12-06) 
-"let g:loaded_easytags = 1
-"it looks Conqterm make the "updatetime" real short (40ms),
-"use this knob in that case
-let g:easytags_updatetime_autodisable = 1
-"You can execute the following Vim commands to disable the plug-in temporarily:
-"	let g:easytags_auto_update = 0
-"	let g:easytags_auto_highlight = 0
-"Those commands are global (for all buffers, windows, tab pages). You can also do it for a single buffer (window, tab page) with:
-"	let b:easytags_auto_update = 0
-"	let b:easytags_auto_highlight = 0
-
-"Hope this helps,
+let g:BASH_AuthorName   = 'ping'
+let g:BASH_Email        = 'pings@juniper.net'
+let g:BASH_Company      = 'Juniper Networks'
 
 
+"googletranslator--- {{{2
+"http://www.vim.org/scripts/script.php?script_id=3404
 
-"Voom {{{2
-"by def voom map it's voom_tab_key to <tab>|<C-I> to toggle bet. tree&body
-"but C-I|tab is useful to jump forward (oppsite to C-O),map voom_tab_key to
-"other key (here it is backspace), will get the vim C-I back
-
-let g:voom_tab_key = '<BS>'
-
-"The following two settings allow to use keys or key combinations other than
-"<Return> and <Tab>.                                                        
-"let g:voom_return_key = '<S-Return>'
-"let g:voom_tab_key = '<C-Tab>'
-"let g:voom_return_key = ''
-
-let g:voom_ft_modes = {'asciidoc': 'asciidoc',
-    \'asciidoc2': 'asciidoc', 
-    \'vimwiki': 'vimwiki',
-    \'markdown': 'markdown',
-    \'md': 'markdown',
-    \'mkd': 'markdown',
-    \}
-"let g:voom_default_mode = 'asciidoc'
-
-"call VOom to format the text, 
-nn vv :VoomToggle<CR>
-"and (<Bar> --> '|')
-"jump back (c-w w) to original text
-"disable, doesn't work as expected
-"nn vv :Voom<CR> <Bar> :exec "wincmd w"<CR>
-nn va :Voom asciidoc<CR><Bar> :exec "wincmd w"<CR>
-nn vm :Voom markdown<CR><Bar> :exec "wincmd w"<CR>
-vm vv :NR<CR>,tavv<CR>
-
-"ping's code: 
-"(02/06/2013) doesn't work yet, normal! <CR> doesn't jump to the other win
-"(02/07/2013) works! call Voom function: Voom_ToTreeOrBodyWin() to switch
-function! QuitNR()
-    "get number of (current) one win in voom
-    let wn_curr=winnr()
-
-    "jump to other win in voom, this doesn't work, and fail the whole thing
-    "tips about hitting return in Voom:
-    "1) this doesn't work
-    "normal! <CR>
-    "reason:
-    "   (very rare, ) here need to use normal <CR> , instead of normal! <CR>
-    "   normal! will disable all maps, but if it's vim map which make the <cr>
-    "   to 'jump', the map should be retained here
-    "
-    "2) it doesn't work even without '!'
-    "normal <CR>
-    "reason:
-    "
-    "3) this works!
-    :execute "normal \<CR>"
-    "reason:
-    "   help :normal
-    "   :exe "normal \<c-w>\<c-w>"
-    "
-    "4) another way:use Voom internal jump function
-    "call Voom_ToTreeOrBodyWin()
-    "reason:
-    "   per .vim/plugin/voom.vim code:
-    "   exe "vnoremap <buffer><silent> ".g:voom_tab_key." <Esc>:<C-u>call Voom_ToTreeOrBodyWin()<CR>"
-    "
-    "5) this is not correct
-    "exec "<C-u>call Voom_ToTreeOrBodyWin()<CR>"
-    "reason(per gmail thread):
-    "   To call a function it is enough to write:
-    "   call VoomTreeSelect(0)
-    "   
-    "   in you vimscript.  However if you want to use :execute command (but you
-    "   don't need to):
-    "   
-    "   exe 'call VoomTreeSelect(0)'
-    "   
-    "   Both <c-u> and <cr> are not needed.  An example of a usage of <c-u>  and
-    "   <cr> is when you define a map via :exe :
-    "   
-    "   exe 'map E :<C-U>call VoomTreeSelect(0)<CR>'
-    "   
-    "   and I presume you took your syntax from here.  The difference is that
-    "   the right hand side of a map is not the same as what exe statement is
-    "   using.  :exe executes expressions as an Ex command while the right hand
-    "   side of a map is a bunch of normal commands, where ':' is used to enter
-    "   the command line.  If you enter it in the visual mode, then it will
-    "   start with range '<,>' and <c-u> is used to delete it.
-
-    "get number of that win in voom
-    "win will be re-numbered once one win got closed
-    "so have to close the larger win first to garantee it work
-    "find out larger/smaller win#
-    let wn_pair=winnr()
-    let wn_larger=wn_curr > wn_pair ? wn_curr : wn_pair
-    let wn_smaller=wn_curr < wn_pair ? wn_curr : wn_pair
-
-    "jump larger win first
-    exec wn_larger . "wincmd w"
-    "close the win
-    quit
-    "close the other one only if there IS another win (2 win# is not same)
-    if wn_larger > wn_smaller
-        "then jump to the smaller win and close it out
-        exec wn_smaller . "wincmd w"
-        quit
-
-        "after above, the cursor is in left tree area. better move it back to body
-        :execute "normal \<BS>"
-    endif
-endfu 
-nn ,qv :call QuitNR()<CR>
-"nn <silent> vV :call Voom_DeleteOutline('close')<CR>
-
-"email thread: Function to put full stop at the end of my sentences
-"seems not working yet
-"(2014-02-02) it works, but annoying when scripting! disable for now
-"by: iunmap <expr> <CR>
-fun! LazyFullStop()
-  if getline('.') =~ '\w$'
-    return ".\<CR>"
-  end
-  return "\<CR>"
-endf
-
-"ino <expr> <CR> LazyFullStop() 
-
-"add Voom mark at end of the line
-"use exe here just to escape the Voom { { { mark
-exe "map <F6> A {"."{{1"
-
-"this will:
-" reload the file
-" find all cisco/junoes-CLI-like lines and mark them with Voom marks
-"   
-" call Voom
-"map <F6> :edit!<CR> :perldo s/(.*?)(\(\S+\))??(\#\|\w\w+>\|^->\|slot \d\d?->)(\s*\w+.*$)/$2$3$4 \{\{\{1/gi <CR> :Voom <CR>
-map <C-F6> :perldo s/(.*?)(\(\S+\))??(\#\|\w\w+>\|^->\|slot \d\d?->)(\s*\w+.*$)/$2$3$4 \{\{\{1/gi <CR> :Voom <CR>
-" 				$1 	$2 	$3 				$4
-map <S-F6> :perldo s/(\w+ \{)/$1 \{\{\{1/gi <CR> :Voom <CR>
-
-    "this was designed to only expose the 1st level config CLI, but not work
-    "looks perl don't have ability to say "anything but not abc"
-    "map <S-F7> :perldo s/((?!\(config\-)).*?)(\(config\))??(\#\|^->\|slot \d\d?->)(\s*\w+.*$)/$2$3$4 \{\{\{1/gi <CR> :Voom <CR>
-    " 		     $1     $2                  $3                $4
-    "map <S-F7> :perldo s/((?<!\(config\-)).*?)(\(config\))??(\#\|^->\|slot \d\d?->)(\s*\w+.*$)/$2$3$4 \{\{\{1/gi <CR> :Voom <CR>
-
-    "more example of perldo:
-    "get rid of every(most) things and only keep things inside ""
-    ":perldo s/(.*?)(".*")(.*)/$2/gi
-    "
-
-
-
-"csv--- {{{2
-
-"disable map of space
-let g:csv_nomap_space = 1
+let g:goog_user_conf = {
+    \'langpair': 'en|zh',
+    \'v_key': 'T' }
 
 "vimwiki--- {{{2
 "
@@ -3763,35 +3185,6 @@ let g:vimwiki_ignore_newline=0
 "enable folding of list, this will make it really slow if more than 300 lines
 "let g:vimwiki_folding=1
 
-"nrrw--- {{{2
-
-let g:nrrw_rgn_vert = 1
-let g:nrrw_topbot_leftright = 'botright'
-"turn off the highlighting (because this can be distracting)
-let g:nrrw_rgn_nohl = 1
-let g:nrrw_rgn_wdth = 90
-
-"Utl {{{2x
-let g:utl_cfg_hdl_mt_application_msword="VIM"
-"Utl debug option, turn on when Utl doesn't work as expected
-"let utl_opt_verbose=1 
-
-"pathogen--- {{{2
-execute pathogen#infect()
-
-"Sum--- {{{2
-let g:Sum_yank=0
-
-"MPage--- {{{2
-nn ,mp :MPage 2<CR>
-
-"googletranslator--- {{{2
-"http://www.vim.org/scripts/script.php?script_id=3404
-
-let g:goog_user_conf = {
-    \'langpair': 'en|zh',
-    \'v_key': 'T' }
-
 "vimrepress--- {{{2
 let VIMPRESS = 
 	\[
@@ -3880,6 +3273,14 @@ endfunction
 "icalendar syntax--- {{{2
 autocmd! BufRead,BufNewFile *.ics setfiletype icalendar
 
+"nrrw--- {{{2
+
+let g:nrrw_rgn_vert = 1
+let g:nrrw_topbot_leftright = 'botright'
+"turn off the highlighting (because this can be distracting)
+let g:nrrw_rgn_nohl = 1
+let g:nrrw_rgn_wdth = 90
+
 "conqTerm--- {{{2
 "
 "insert mode quick paste, seems not supported in conqterm {{{2
@@ -3888,14 +3289,8 @@ inoremap 1 scp://jtac@192.168.46.146:/mnt/NAS/media/jtac/ping/ inoremap 2 scp:
 "currently experimenting
 "Use this key to send the currently selected text to the most recently created
 "Conque buffer.
-"let g:ConqueTerm_SendVisKey = ',cv'
+let g:ConqueTerm_SendVisKey = ',cv'
 nn ,ct :tabnew <bar> :ConqueTerm bash<cr>cd<cr>
-nn ,cs :new <bar> :ConqueTerm bash<cr>cd<cr>
-nn ,cv :vnew <bar> :ConqueTerm bash<cr>cd<cr>
-
-nn ,st :VimShellTab<cr>
-nn ,ss :new <bar> :VimShellCreate<cr>
-nn ,sv :vnew <bar> :VimShellCreate<cr>
 
 let g:ConqueTerm_FastMode = 1
 "let g:ConqueTerm_ToggleKey = '<F8>'
@@ -4034,6 +3429,23 @@ let g:netrw_dirhistmax = 50
 "let g:mwHistAdd = '/@'
 let g:mwHistAdd = ''
 
+"easytags {{{2
+"disable in an attemp to speed up conqterm (2013-12-06) 
+"let g:loaded_easytags = 1
+"it looks Conqterm make the "updatetime" real short (40ms),
+"use this knob in that case
+let g:easytags_updatetime_autodisable = 1
+"You can execute the following Vim commands to disable the plug-in temporarily:
+"	let g:easytags_auto_update = 0
+"	let g:easytags_auto_highlight = 0
+"Those commands are global (for all buffers, windows, tab pages). You can also do it for a single buffer (window, tab page) with:
+"	let b:easytags_auto_update = 0
+"	let b:easytags_auto_highlight = 0
+
+"Hope this helps,
+
+
+
 "TOhtml {{{2
 "for TOhtml, don’t show line numbers, and also seems no color, just raw
 let html_number_lines = 0 
@@ -4162,10 +3574,167 @@ nn ,ti :call ToggleVimimPunctuation()<CR>
 ":help mark-colors
 let g:mwDefaultHighlightingPalette = 'extended'
 
+"Utl {{{2x
+let g:utl_cfg_hdl_mt_application_msword="VIM"
+"Utl debug option, turn on when Utl doesn't work as expected
+"let utl_opt_verbose=1 
+
 "Align {{{2
 "this makes the align plugin works for chinese CH.
 "let it 1 if it's too slow for long file w/ CN CH.
 let g:Align_xstrlen= 3
+
+"Voom {{{2
+"by def voom map it's voom_tab_key to <tab>|<C-I> to toggle bet. tree&body
+"but C-I|tab is useful to jump forward (oppsite to C-O),map voom_tab_key to
+"other key (here it is backspace), will get the vim C-I back
+
+let g:voom_tab_key = '<BS>'
+
+"The following two settings allow to use keys or key combinations other than
+"<Return> and <Tab>.                                                        
+"let g:voom_return_key = '<S-Return>'
+"let g:voom_tab_key = '<C-Tab>'
+"let g:voom_return_key = ''
+
+let g:voom_ft_modes = {'asciidoc': 'asciidoc',
+    \'asciidoc2': 'asciidoc', 
+    \'vimwiki': 'vimwiki',
+    \'markdown': 'markdown',
+    \'md': 'markdown',
+    \'mkd': 'markdown',
+    \}
+"let g:voom_default_mode = 'asciidoc'
+
+"call VOom to format the text, 
+nn vv :Voom<CR>
+"and (<Bar> --> '|')
+"jump back (c-w w) to original text
+"disable, doesn't work as expected
+"nn vv :Voom<CR> <Bar> :exec "wincmd w"<CR>
+nn va :Voom asciidoc<CR><Bar> :exec "wincmd w"<CR>
+nn vm :Voom markdown<CR><Bar> :exec "wincmd w"<CR>
+vm vv :NR<CR>,tavv<CR>
+
+"ping's code: 
+"(02/06/2013) doesn't work yet, normal! <CR> doesn't jump to the other win
+"(02/07/2013) works! call Voom function: Voom_ToTreeOrBodyWin() to switch
+function! QuitNR()
+    "get number of (current) one win in voom
+    let wn_curr=winnr()
+
+    "jump to other win in voom, this doesn't work, and fail the whole thing
+    "tips about hitting return in Voom:
+    "1) this doesn't work
+    "normal! <CR>
+    "reason:
+    "   (very rare, ) here need to use normal <CR> , instead of normal! <CR>
+    "   normal! will disable all maps, but if it's vim map which make the <cr>
+    "   to 'jump', the map should be retained here
+    "
+    "2) it doesn't work even without '!'
+    "normal <CR>
+    "reason:
+    "
+    "3) this works!
+    :execute "normal \<CR>"
+    "reason:
+    "   help :normal
+    "   :exe "normal \<c-w>\<c-w>"
+    "
+    "4) another way:use Voom internal jump function
+    "call Voom_ToTreeOrBodyWin()
+    "reason:
+    "   per .vim/plugin/voom.vim code:
+    "   exe "vnoremap <buffer><silent> ".g:voom_tab_key." <Esc>:<C-u>call Voom_ToTreeOrBodyWin()<CR>"
+    "
+    "5) this is not correct
+    "exec "<C-u>call Voom_ToTreeOrBodyWin()<CR>"
+    "reason(per gmail thread):
+    "   To call a function it is enough to write:
+    "   call VoomTreeSelect(0)
+    "   
+    "   in you vimscript.  However if you want to use :execute command (but you
+    "   don't need to):
+    "   
+    "   exe 'call VoomTreeSelect(0)'
+    "   
+    "   Both <c-u> and <cr> are not needed.  An example of a usage of <c-u>  and
+    "   <cr> is when you define a map via :exe :
+    "   
+    "   exe 'map E :<C-U>call VoomTreeSelect(0)<CR>'
+    "   
+    "   and I presume you took your syntax from here.  The difference is that
+    "   the right hand side of a map is not the same as what exe statement is
+    "   using.  :exe executes expressions as an Ex command while the right hand
+    "   side of a map is a bunch of normal commands, where ':' is used to enter
+    "   the command line.  If you enter it in the visual mode, then it will
+    "   start with range '<,>' and <c-u> is used to delete it.
+
+    "get number of that win in voom
+    "win will be re-numbered once one win got closed
+    "so have to close the larger win first to garantee it work
+    "find out larger/smaller win#
+    let wn_pair=winnr()
+    let wn_larger=wn_curr > wn_pair ? wn_curr : wn_pair
+    let wn_smaller=wn_curr < wn_pair ? wn_curr : wn_pair
+
+    "jump larger win first
+    exec wn_larger . "wincmd w"
+    "close the win
+    quit
+    "close the other one only if there IS another win (2 win# is not same)
+    if wn_larger > wn_smaller
+        "then jump to the smaller win and close it out
+        exec wn_smaller . "wincmd w"
+        quit
+
+        "after above, the cursor is in left tree area. better move it back to body
+        :execute "normal \<BS>"
+    endif
+endfu 
+nn ,qv :call QuitNR()<CR>
+"nn <silent> vV :call Voom_DeleteOutline('close')<CR>
+
+"email thread: Function to put full stop at the end of my sentences
+"seems not working yet
+"(2014-02-02) it works, but annoying when scripting! disable for now
+"by: iunmap <expr> <CR>
+fun! LazyFullStop()
+  if getline('.') =~ '\w$'
+    return ".\<CR>"
+  end
+  return "\<CR>"
+endf
+
+"ino <expr> <CR> LazyFullStop() 
+
+"add Voom mark at end of the line
+"use exe here just to escape the Voom { { { mark
+exe "map <F6> A {"."{{1"
+
+"this will:
+" reload the file
+" find all cisco/junoes-CLI-like lines and mark them with Voom marks
+"   
+" call Voom
+"map <F6> :edit!<CR> :perldo s/(.*?)(\(\S+\))??(\#\|\w\w+>\|^->\|slot \d\d?->)(\s*\w+.*$)/$2$3$4 \{\{\{1/gi <CR> :Voom <CR>
+map <C-F6> :perldo s/(.*?)(\(\S+\))??(\#\|\w\w+>\|^->\|slot \d\d?->)(\s*\w+.*$)/$2$3$4 \{\{\{1/gi <CR> :Voom <CR>
+" 				$1 	$2 	$3 				$4
+map <S-F6> :perldo s/(\w+ \{)/$1 \{\{\{1/gi <CR> :Voom <CR>
+
+    "this was designed to only expose the 1st level config CLI, but not work
+    "looks perl don't have ability to say "anything but not abc"
+    "map <S-F7> :perldo s/((?!\(config\-)).*?)(\(config\))??(\#\|^->\|slot \d\d?->)(\s*\w+.*$)/$2$3$4 \{\{\{1/gi <CR> :Voom <CR>
+    " 		     $1     $2                  $3                $4
+    "map <S-F7> :perldo s/((?<!\(config\-)).*?)(\(config\))??(\#\|^->\|slot \d\d?->)(\s*\w+.*$)/$2$3$4 \{\{\{1/gi <CR> :Voom <CR>
+
+    "more example of perldo:
+    "get rid of every(most) things and only keep things inside ""
+    ":perldo s/(.*?)(".*")(.*)/$2/gi
+    "
+
+
 
 "temporary maps {{{1=
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -4348,14 +3917,15 @@ map <S-F10> :%s/ge-9\/0\/0/em1/g<CR>:%s/ge-9\/0\/1/em2/g<CR>:%s/ge-9\/0\/2/em3/g
 "map <C-c> "+y
 "map <C-S-c> "*y
 "map <C-S-v> "*p
-map oo o<Esc>k<esc>
-map OO O<Esc>j<esc>
+map oo o<Esc>k
+map OO O<Esc>j
 "n/w for consolevim, w/ for gvim
 map <M-o> o<Esc>k
 
 "testing, may not working {{{1 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
-":nnoremap <leader>g :grep <cword> .<cr>
+
+:nnoremap <leader>g :grep <cword> .<cr>
 "function! stopwatch()
 "
 

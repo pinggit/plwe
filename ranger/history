@@ -1,0 +1,50 @@
+search posts
+search gem
+search file
+search theme
+search kb
+open_with vim
+search post
+search ping.blog
+search tcp
+rename 2020-02-04-tcp-topic-list.markdown
+search pyng
+search pyth
+search learning
+search juni
+rename 2020-02-05-remove-duplicate-numbers.markdown
+!wstart
+open_with wstart
+search cd
+search dc
+open_with wireshark
+search blog
+open_with 
+rename %f _config.yml.ori
+rename _config.yml.ori
+search Drop
+search python
+search learn
+search pyn
+search conf
+open_with 1
+search site
+search page
+open_with 4
+open_with 3
+rename 2020-02-24-minimum-moves-to-equal-array-elements.markdown
+search read
+open_with 0
+
+search dt
+search py
+search juniper
+search pynb
+search tmux
+search config
+search sheet
+search style
+search ascii
+search Dropbox
+search living
+delete
