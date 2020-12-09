@@ -1,0 +1,46 @@
+[user]
+	name = ping
+	email = songpingemail@gmail.com
+	signingkey = A7323182
+[color]
+	status = auto
+	branch = auto
+	ui = true
+[core]
+	excludesfile = /home/ping/.gitignore
+	autocrlf = input
+        editor = "vim -u ~/.vimrc.mini"
+[merge]
+	tool = vimdiff
+[alias]
+	co = checkout
+	br = branch
+	st = status
+        #usage: git d <hash> <filename>
+        #has to call 'd' explicitly!
+	d = difftool
+	last = log -1 HEAD
+	cm = commit
+	cst = status
+        lo = log --pretty=oneline --abbrev-commit
+        #lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%C(bold blue)<%an>%Creset' --abbrev-commit
+        #                                         switch color to red
+        #                                              abbreviated commit hash
+        #                                                reset color
+        #                                                                   ref names subject    committer date, relative
+        #change: display author time, not commitor time                                                            author name
+	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%ar)%C(bold blue)<%an>%Creset' --abbrev-commit
+        #                                                                                        author relative
+        ref = reflog --relative-date
+
+[diff]
+	tool = vimdiff
+[difftool]
+        #prompt = No
+	prompt = false
+[credential]
+	helper = cache --timeout=3600
+[github]
+	user = pinggit
+[push]
+	followTags = true

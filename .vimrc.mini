@@ -1,0 +1,78 @@
+"must have mini--- {{{2
+"  for fast paste into other machines
+"copy and paste below lines in new vim ex mode
+:set nocp 	    
+:set ruler
+:set showcmd 			"seems no effect, maybe because existing config
+:set nowrapscan
+:map <SPACE> <C-F>
+:map - <C-B>
+:set hls				"highlight search,set nohls to turn off
+:set is				"increamental(realtime) search,
+:set backspace=indent,eol,start	"control backspace key
+:set whichwrap=b,s,<,>,[,]	"which key stroke can go back to prev line:
+":				" backspace,space,left,right,left,right in
+":				" insert mode
+:set number			"set line number
+:filetype plugin	indent on
+:set mouse=ni			
+:syntax on			"syntax highlight
+:set shiftwidth=4		">> will indent 4 CH
+:set tabstop=8			"while tab will indent 8,don't change this value
+":				"otherwise will get much trouble!
+:set expandtab
+:set udf
+:nn ,sa /[^\d0-\d127]
+"copy selected text (ctrl-c), originally a not-so-useful key in vim
+:vmap <C-c> "+y"*y
+:vmap <A-c> "*y
+"Paste clipboard contents (ctrl-p), originally a not-so-useful key in vim
+:nnoremap <C-p> "+p
+:map ,dE :perldo s/(^\s*#[^!].*)//g<CR> :%s/^[\ \t#]*\n//g<CR>:nohls<CR>
+":map ,dE :g/\v^\s*#([^!]|$)|^\s*$/d
+map <UP> <C-y>
+map <DOWN> <C-e>
+map <left> zh
+map <right> zl
+let g:lasttab = 1
+au TabLeave * let g:lasttab = tabpagenr()
+function! s:switch()
+  if tabpagenr("$") > 1
+    exe "tabnext" g:lasttab
+  else
+    "without this, any change in a buffer will 
+    "generate a warning before switch to other buffer
+    set hidden
+    b #
+  endif
+endfunction
+noremap <silent> ,l :call <SID>switch()<enter>
+
+"conditional map of h--- {{{2
+
+"gmail thread map a key to "conditionally" override built-in behavior
+"disabled (2014-10-29) , often close buffers accidentally
+function! <SID>Maph()
+  "if cursor stays in leftmost[virtcol(".")==1] and upmost[line(".")==1] 
+  "  corner of the buffer
+  "if line(".") == 1 && virtcol(".") == 1
+  if virtcol(".") == 1
+  "this also works
+  "if col(".") == 1
+    return ":q\r"
+    "not only quit current win, but 'pairing' win, if has
+    "return ",qv"
+  else
+    return "h"
+  endif
+endfunction
+nmap <expr> h <SID>Maph()
+
+"others {{{2
+"(2013-12-23) for perl fold, doesn't work, don't understand
+set foldlevelstart=2
+let perl_fold=1
+let sh_fold_enabled=1
+let perl_extended_vars=1
+let perl_sync_dist=250
+colorscheme koehler
