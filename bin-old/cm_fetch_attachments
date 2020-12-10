@@ -1,0 +1,259 @@
+#!/usr/bin/perl
+
+use warnings;
+use strict;
+use File::Basename;
+use LWP::Simple;
+use LWP::UserAgent;
+use XML::LibXML;
+use Data::Dumper;
+use FileHandle;
+
+my $skipattachments	= 0;
+
+my $apihost;
+$apihost = 'snpoc01';
+$apihost = 'snpoc02';
+# $apihost = 'ebugs71';
+
+sub caseHeaderURL	{ "http://${apihost}/api/sr/$_[0]" }
+sub caseAttachmentURL	{ "http://${apihost}/api/sr/$_[0]/attachments" }
+
+=head RTFM
+see http://www.perlmonks.org/?node_id=490846
+=cut
+
+sub fetchCaseAttachments {      #{{{1}}}
+	my $oops;	# catch LWP::is_error($) result
+	my $case	= shift;
+	my $xmlCaseFile	= "$case/$case-CaseHeader.xml";
+	my $xmlAttached	= "$case/$case-AttachmentHeader.xml";
+	my $fh		= FileHandle->new;
+		
+	local $|	= 1;
+	my $parser	= XML::LibXML->new();
+	my $x;
+	my $rc;		# response code; use with is_error($rc);
+
+	unless (-d $case) {
+		mkdir $case || warn "Cannot mkdir $case: $!";
+	}
+
+	print __LINE__.":Saving $xmlCaseFile ...";
+
+	$rc = mirror (caseHeaderURL($case),$xmlCaseFile);
+	print "\n";
+	if ($oops = is_error($rc)) {
+		warn "Cannot save to $xmlCaseFile, caught http result $rc while downloading "
+			.caseHeaderURL($case)." .";
+		return;
+	}
+	if (! -s $xmlCaseFile) {
+		warn "is_error($rc) returned $oops and $xmlCaseFile is empty/missing. Check "
+			.caseHeaderURL($case);
+		return;
+	}
+
+	print __LINE__.":Saving $xmlAttached ...";
+	$rc = mirror (caseAttachmentURL($case),$xmlAttached);
+	if ($oops = is_error($rc)) {
+		warn "Cannot save to $xmlCaseFile, caught http result $rc while downloading "
+			.caseHeaderURL($case)." .";
+		return;
+	}
+	if (! -s $xmlAttached) {
+		warn "is_error($rc) returned $oops and $xmlAttached is empty/missing. Check "
+			.caseAttachmentURL($case);
+		return;
+	}
+
+	print "\n";
+return if $skipattachments;
+	my $xmlExclude 	= "$case/$case-AttachmentHeader-exclusions.xml";
+	my $domExclude;
+	if (-s $xmlExclude) {
+		$domExclude	= $parser->parse_file( $xmlExclude );
+		print "Parsed, and now blacklisting downloads from $xmlExclude\n";
+	}
+
+	my $dom		= $parser->parse_file( $xmlAttached ); 
+
+# debug.csv
+# $fh->open("> $case/debug$$.csv");
+# debug.csv
+
+	my @domAttachmentNodes = $dom->findnodes('/attachments/item');
+	if (!scalar(@domAttachmentNodes)) {
+		print __LINE__.":No attachments, unlink $xmlCaseFile, $xmlAttached and $case and return.\n";
+		unlink $xmlCaseFile or warn "Cannot unlink $xmlCaseFile: $!";
+		unlink $xmlAttached or warn "Cannot unlink $xmlAttached: $!";
+		rmdir $case or warn "Cannot rmdir $case: $!";
+		print __LINE__.":SFTP uploads should attach within 1H after upload is final.\n";
+		print "FTP uploads should notify only (KB21000) within 1H after upload is final.\n";
+		print "Consider scp -r svl-jtac-tool01:/volume/ftp/incoming/$case/ $case/\n";
+		
+		return;
+	}
+	ATTACHMENT:
+	for my $attachment (@domAttachmentNodes) {
+		my $self;
+		my $lastseqno = 0;
+		for (qw(sequenceNo fileTitle createdDate fileSize uploadedBy apiurl)) {
+			my ($m) = $attachment->findnodes("./$_");
+			next ATTACHMENT unless defined $m;
+			$self->{$_} = $m->to_literal;
+			if ($_ eq "sequenceNo" && defined $domExclude) {
+				$lastseqno = $self->{$_};
+				my ($nada) = $domExclude->findnodes('/attachments/attachment[sequenceNo='.$lastseqno.']');
+				next ATTACHMENT if (defined $nada);
+			}
+			if ($_ eq "apiurl" and exists($ENV{cm_fetch_attachment_url_rewrite})) {
+				$self->{URL} =~ s!^ftp://ftp.juniper.net/!scp://ebugs71/volume/ftp/!;
+
+=head mod_rewrite
+# mod_rewrite black magic.
+# ftp:// is br0ken for me,
+# so i'm going to fall back to scp
+# warn when the destination is reachable via a direct route.
+# This is a sign you are on pulse/sa/nc and the local subnet is trying to take jnpr corp hostage....
+# FIX: install two smaller prefixes of the local subnet to pulse tunnel as next hop.
+# new tool: sniff dns traffic...
+
+				local $@ = '';
+				for ($self->{URL}) {
+					warn 'Will eval{ '.$ENV{cm_fetch_attachment_url_rewrite}.' } ';
+					eval {
+					$ENV{cm_fetch_attachment_url_rewrite};
+					};
+					$self->{URL} = $_;
+					warn $@ if $@; $@ = '';
+				}
+				$self->{$_} =~ s!^ftp://ftp.juniper.net/!scp://jtac-tools/volume/ftp/!;
+
+				warn "URL: ".$self->{URL};
+=cut
+			}
+		}
+		-d $case."/".$self->{sequenceNo} || mkdir $case."/".$self->{sequenceNo};
+		my $fn = $case."/".$self->{sequenceNo}."/".$self->{fileTitle};
+# 
+# if ($fn =~ /core/) {
+# 	print __LINE__.":Yuck, no want $fn\n";
+# 	next;
+# }
+		my $KB		= 1024;
+		if (-s $fn && $self->{fileSize}) {
+			my @lstats	= lstat($fn);
+			my $have_blocks	= 0;
+			if ($lstats[7]) {
+				$have_blocks = int($lstats[7] / $KB);
+			}
+			my $kbsize	= $KB * $self->{fileSize};
+			my $kb_short	= $self->{fileSize} - $have_blocks;
+			$kb_short	= 0 if $kb_short == 1;
+
+			my $b_fetch	= $kbsize;
+			my $short	= $kbsize - $lstats[7];
+
+			# print $fh join("," => $fn,@lstats,$self->{fileSize})."\n";
+
+			if ( $kb_short ) {
+				print __LINE__.":$fn: Too small by $kb_short blocks ($short bytes)? Wanted $b_fetch, got $lstats[7].\n";
+next;
+			} else {
+				print __LINE__.":$fn: OK\n";
+				next;
+			}
+		}
+		if (not -s $fn) {
+			print __LINE__.":Saving $fn ($self->{fileSize} KiB) ...";
+		}
+		if (`which rsync` && $self->{apiurl} =~ m/^scp:/) {
+			my $u = $self->{apiurl};
+			my $o = $fn;
+			my $d = dirname $fn;
+
+			$u =~ s!^scp://([^/]*)/!$1:/!;
+			mkdir $d unless -d $d;
+
+			print __LINE__.":system rsync -avP --chmod=u=rw,go=r $u $o:\n";
+
+			$u = quotemeta $u;
+			$o = quotemeta $o;
+# TODO
+# http://unix.stackexchange.com/questions/50508/reusing-ssh-session-for-repeated-rsync-commands
+			system("rsync -avP --chmod=u=rw,go=r $u $o");
+			print "\n";
+		} elsif ($self->{fileSize} < (5*$KB)) {
+			if (1) {
+				mirror($self->{apiurl},$fn);
+			} else {
+				my $uuu = $self->{URL};
+				$uuu =~ s/int-tools.juniper.net/127.0.0.1:6066/;
+				$uuu =~ s/https/http/;
+				warn $uuu;
+				mirror($uuu,$fn);
+			}
+		} elsif ($self->{fileSize} < (50*$KB)) {
+			my $lwp = LWP::UserAgent->new;
+			eval {
+			$lwp->show_progress(1);
+			};
+			warn "mirror($self->{apiurl},$fn);";
+			$lwp->mirror($self->{apiurl},$fn);
+			eval {
+			$lwp->show_progress(0);
+			};
+		} else {
+			my $u = quotemeta $self->{apiurl};
+			my $o = quotemeta $fn;
+			print __LINE__.":curl -o $fn $self->{apiurl}\n";
+			system "curl -o $o $u\n";
+		}
+		print "(".__LINE__.")\n";
+		if ( (-e $fn) && (! -s $fn) ) {
+			my $baddir = dirname $fn;
+			print __LINE__.":file was empty, unlink $fn and rmdir $baddir\n";
+			unlink $fn or warn "Cannot unlink $fn: $!";
+			rmdir $baddir or warn "Cannot rmdir $baddir: $!";
+		}
+	}
+	$fh->close if defined $fh;
+	unlink "$case/debug$$.csv" unless -s "$case/debug$$.csv";
+}
+
+if (scalar(@ARGV)) {
+	if ($ARGV[0] eq "--skip-attachments") {
+		shift @ARGV;
+		$skipattachments++;
+	}
+
+	print STDERR "See https://matrix.juniper.net/docs/DOC-176210 for additional usage.\n";
+	fetchCaseAttachments $_ for @ARGV;
+
+} else  {
+	my @z=split(/\//,$0);
+	my $ME = pop @z;
+	print STDERR __LINE__.":$ME: SAP bulk case attachment download utility
+See https://matrix.juniper.net/docs/DOC-176210 for additional usage.
+
+Specify one or more case numbers. Attachments are downloaded in this pattern:
+
+case-case-case/unique-attachment-id/attachment-file.txt
+
+The unique attachment id offers the same attachment each time, and allows to 
+distinguish differences between attachments uploaded with the same filename 
+over time.  Higher attachment id's are newer. Sometime later this will be 
+configurable (ignore old attachments with the same name).
+
+Some utilties required locally: rsync, curl, 
+Needed Perl libs: grep ^use \"$0\"
+
+This tool was created by Scott Edwards (now ex-jnpr) to support clarify. 
+The tool was hacked by Chris Jenn <crj\@juniper.net> to support SAP.
+
+-- Please include any related xml files from your side.
+For issues with $apihost, address to Jim Boyle <jboyle\@juniper.net>
+";
+
+}

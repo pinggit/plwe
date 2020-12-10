@@ -1,0 +1,1 @@
+xmodmap /etc/X11/Xsession.d/99swap_esc_capslk

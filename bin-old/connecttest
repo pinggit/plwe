@@ -1,0 +1,33 @@
+#!/bin/bash
+
+#usage "connecttest MASESS# HOSTNAME
+maxsess=$1
+hostname=$2
+sess_intv=1
+
+#there must be space(s) bet [ and -z
+#if there is no param, use default hostname and maxsess
+if [[ -z "$@" ]]; then
+    hostname='172.25.84.204'
+    maxsess=20
+    echo "--quick test--"
+fi
+
+
+if [[ -z "$2" ]]; then
+    hostname="172.25.84.204"
+fi
+
+count=1 
+echo "--$maxsess sessions will be initiated for $hostname--"
+
+while [ $count -le $maxsess ]; do
+    screen -fn -L -t test_s_$count mylogin13.tcl telnet $hostname
+    count=$((count + 1))
+    sleep $sess_intv
+done
+
+
+#screen -t email mutt
+#screen -t chat irssi
+#screen -t smth /bin/telnet newsmth.org

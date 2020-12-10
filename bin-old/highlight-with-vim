@@ -1,0 +1,29 @@
+#!/bin/bash
+# Usage: $0 {vim-option} ...
+#
+# Notes:
+# - For some reason "-" doesn't work to read from the standard input.
+# - :TOhtml makes a link for each URI, but it's unwanted service.
+# - :TOhtml makes empty <span>s in many cases, but it's invalid result.
+# - For some reason Vim always exits with non-zero status.
+# - Vim can take up to 10 "-c" flags.
+
+vim -u NONE -i NONE -N -e -s \
+-c 'set encoding=utf-8' \
+-c 'syntax enable' \
+-c "setlocal ${*:-nonumber}" \
+-S <(cat <<'END'
+  let g:html_ignore_folding = 1
+  let g:html_use_css = 1
+  let g:html_use_xhtml = 1
+  silent! runtime syntax/2html.vim
+  % substitute!\c<a\s\+[^<>]*>\([^<>]\{-}\)</a>!\1!g
+  % substitute!\c<span\s\+[^<>]*>\(\_s\{-}\)<\/span>!\1!g
+  /^<pre>$/+1,/^<\/pre>$/-1 print
+  qall!
+END
+) /dev/stdin
+
+true
+
+# __END__

@@ -1,0 +1,5 @@
+cp ~/work/launches/launch-case.ica ~/work/launches/launch-case1.ica
+#old version
+gksu ~/ICAClient/linuxx86/wfica.sh ~/work/launches/launch-case1.ica
+#new version
+#gksu /opt/Citrix/ICAClient/wfica.sh ~/work/launches/launch-case1.ica

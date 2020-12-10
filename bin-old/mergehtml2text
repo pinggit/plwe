@@ -1,0 +1,4 @@
+#!/bin/bash
+find ./ -type f -name "*.html" -exec cat {} \; | w3m -T text/html -dump | less 
+#less temp.txt
+

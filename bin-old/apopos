@@ -1,0 +1,6 @@
+
+cp ~/work/launches/launch-new-apopos.ica ~/work/launches/launch-new-apopos1.ica
+#old version
+#gksu ~/ICAClient/linuxx86/wfica.sh ~/work/launches/launch-new-apopos1.ica
+#new version
+gksu /opt/Citrix/ICAClient/wfica.sh ~/work/launches/launch-new-apopos1.ica

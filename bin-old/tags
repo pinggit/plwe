@@ -1,0 +1,593 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+BOLD	dict.py	/^BOLD = "\\033[1m";$/;"	v
+DATA_SIGNATURE	check-cnf-dup.pl	/^use constant DATA_SIGNATURE => 0xabbadaba ;$/;"	c
+DATA_SIGNATURE	checkids.pl	/^use constant DATA_SIGNATURE => 0xabbadaba ;$/;"	c
+DEFAULT	dict.py	/^DEFAULT = "\\033[0;49m";$/;"	v
+GREEN	dict.py	/^GREEN = "\\033[1;32m";$/;"	v
+MAX_LINE_SIZE	ded.c	41;"	d	file:
+MAX_STRING_SIZE	realTimeGetterAllFromShowVersion-v4.c	81;"	d	file:
+MIN_DATA_SIZE	check-cnf-dup.pl	/^use constant MIN_DATA_SIZE => 12 ;$/;"	c
+MIN_DATA_SIZE	checkids.pl	/^use constant MIN_DATA_SIZE => 12 ;$/;"	c
+MIN_HD_SIZE	check-cnf-dup.pl	/^use constant MIN_HD_SIZE => 73 ;$/;"	c
+MIN_HD_SIZE	checkids.pl	/^use constant MIN_HD_SIZE => 73 ;$/;"	c
+NORMAL	dict.py	/^NORMAL = "\\033[m";$/;"	v
+RED	dict.py	/^RED = "\\033[1;31m"$/;"	v
+TmTbl_cfg	check-cnf-dup.pl	/^sub TmTbl_cfg {$/;"	s
+TmTbl_cfg	checkids.pl	/^sub TmTbl_cfg {$/;"	s
+UNDERLINE	dict.py	/^UNDERLINE = "\\033[4m";$/;"	v
+_addto	todo.sh	/^_addto() {$/;"	f
+_list	todo.sh	/^_list() {$/;"	f
+aaa_aaaDomainToRouterConfigFile_cfg	check-cnf-dup.pl	/^sub aaa_aaaDomainToRouterConfigFile_cfg {$/;"	s
+aaa_aaaDomainToRouterConfigFile_cfg	checkids.pl	/^sub aaa_aaaDomainToRouterConfigFile_cfg {$/;"	s
+ar1EthernetUid_cfg	check-cnf-dup.pl	/^sub ar1EthernetUid_cfg {$/;"	s
+ar1EthernetUid_cfg	checkids.pl	/^sub ar1EthernetUid_cfg {$/;"	s
+ar1SonetUid_cfg	check-cnf-dup.pl	/^sub ar1SonetUid_cfg {$/;"	s
+ar1SonetUid_cfg	checkids.pl	/^sub ar1SonetUid_cfg {$/;"	s
+archive	todo.sh	/^archive()$/;"	f
+atmInterfaces_cfg	check-cnf-dup.pl	/^sub atmInterfaces_cfg {$/;"	s
+atmInterfaces_cfg	checkids.pl	/^sub atmInterfaces_cfg {$/;"	s
+auto_login_retry	temp/mylogin9lib.tcl	/^proc auto_login_retry {max_login_retry success_login_pattern login_timeout} {$/;"	p
+bgp_addressFamilies_cfg	check-cnf-dup.pl	/^sub bgp_addressFamilies_cfg {$/;"	s
+bgp_addressFamilies_cfg	checkids.pl	/^sub bgp_addressFamilies_cfg {$/;"	s
+bgp_vrfs_cfg	check-cnf-dup.pl	/^sub bgp_vrfs_cfg {$/;"	s
+bgp_vrfs_cfg	checkids.pl	/^sub bgp_vrfs_cfg {$/;"	s
+cleaninput	todo.sh	/^cleaninput()$/;"	f
+cleanup	todo.sh	/^cleanup()$/;"	f
+cli_cfg	check-cnf-dup.pl	/^sub cli_cfg {$/;"	s
+cli_cfg	checkids.pl	/^sub cli_cfg {$/;"	s
+cnfFile	check-cnf-dup.pl	/^package cnfFile;$/;"	p
+cnfFile	checkids.pl	/^package cnfFile;$/;"	p
+config	launch-vpn	/^config () {$/;"	f
+console_cfg	check-cnf-dup.pl	/^sub console_cfg {$/;"	s
+console_cfg	checkids.pl	/^sub console_cfg {$/;"	s
+crawl_xml	dict.py	/^def crawl_xml(queryword):$/;"	f
+debug	dict.py	/^def debug():$/;"	f
+dhcpExAdd_cfg	check-cnf-dup.pl	/^sub dhcpExAdd_cfg {$/;"	s
+dhcpExAdd_cfg	checkids.pl	/^sub dhcpExAdd_cfg {$/;"	s
+dhcpRel_cfg	check-cnf-dup.pl	/^sub dhcpRel_cfg {$/;"	s
+dhcpRel_cfg	checkids.pl	/^sub dhcpRel_cfg {$/;"	s
+diag_on_error	mylogin-server.tcl	/^proc diag_on_error {} {$/;"	p
+diag_on_error	mylogin-sourceforge.tcl	/^proc diag_on_error {} {$/;"	p
+diag_on_error	mylogin.tcl	/^proc diag_on_error {} {$/;"	p
+diag_on_error	temp/mylogin10lib.tcl	/^proc diag_on_error {} {$/;"	p
+diag_on_error	temp/mylogin11lib.tcl	/^proc diag_on_error {} {$/;"	p
+diag_on_error	temp/mylogin12lib.tcl	/^proc diag_on_error {} {$/;"	p
+diag_on_error	temp/mylogin13lib.tcl	/^proc diag_on_error {} {$/;"	p
+diag_on_error	temp/mylogin14lib.tcl	/^proc diag_on_error {} {$/;"	p
+diag_on_error	temp/mylogin15lib.tcl	/^proc diag_on_error {} {$/;"	p
+diag_on_error	temp/mylogin16lib.tcl	/^proc diag_on_error {} {$/;"	p
+diag_on_error	temp/mylogin17lib.tcl	/^proc diag_on_error {} {$/;"	p
+diag_on_error	temp/mylogin18lib.tcl	/^proc diag_on_error {} {$/;"	p
+diag_on_error	temp/mylogin19lib.tcl	/^proc diag_on_error {} {$/;"	p
+diag_on_error	temp/mylogin20.tcl	/^proc diag_on_error {} {$/;"	p
+diag_on_error	temp/mylogin6lib.tcl	/^proc diag_on_error {} {$/;"	p
+diag_on_error	temp/mylogin7lib.tcl	/^proc diag_on_error {} {$/;"	p
+diag_on_error	temp/mylogin8lib.tcl	/^proc diag_on_error {} {$/;"	p
+diag_on_error	temp/mylogin9lib.tcl	/^proc diag_on_error {} {$/;"	p
+diag_on_error	temp/myloginlib.tcl	/^proc diag_on_error {} {$/;"	p
+die	launch-vpn	/^die () {$/;"	f
+die	todo.sh	/^die()$/;"	f
+dnsLocalDomainGroup_cfg	check-cnf-dup.pl	/^sub dnsLocalDomainGroup_cfg {$/;"	s
+dnsLocalDomainGroup_cfg	checkids.pl	/^sub dnsLocalDomainGroup_cfg {$/;"	s
+do_autologin	temp/mylogin1.tcl	/^proc do_autologin {username loginpasswdfile} {$/;"	p
+do_autologin	temp/mylogin10lib.tcl	/^proc do_autologin {hostname timeout} {$/;"	p
+do_autologin	temp/mylogin11lib.tcl	/^proc do_autologin {hostname timeout} {$/;"	p
+do_autologin	temp/mylogin2lib.tcl	/^proc do_autologin {username loginpasswdfile} {$/;"	p
+do_autologin	temp/mylogin3lib.tcl	/^proc do_autologin {username loginpasswdfile} {$/;"	p
+do_autologin	temp/mylogin4lib.tcl	/^proc do_autologin {hostname} {$/;"	p
+do_autologin	temp/mylogin5lib.tcl	/^proc do_autologin {hostname timeout} {$/;"	p
+do_autologin	temp/mylogin6lib.tcl	/^proc do_autologin {hostname timeout} {$/;"	p
+do_autologin	temp/mylogin7lib.tcl	/^proc do_autologin {hostname timeout} {$/;"	p
+do_autologin	temp/mylogin8lib.tcl	/^proc do_autologin {hostname timeout} {$/;"	p
+do_autologin	temp/mylogin9lib.tcl	/^proc do_autologin {hostname timeout} {$/;"	p
+do_autologin_retry	mylogin-server.tcl	/^proc do_autologin_retry {max_login_retry success_login_pattern login_timeout pa_intv} {$/;"	p
+do_autologin_retry	mylogin-sourceforge.tcl	/^proc do_autologin_retry {max_login_retry success_login_pattern login_timeout pa_intv} {$/;"	p
+do_autologin_retry	mylogin.tcl	/^proc do_autologin_retry {max_login_retry success_login_pattern login_timeout pa_intv} {$/;"	p
+do_autologin_retry	temp/mylogin10lib.tcl	/^proc do_autologin_retry {max_login_retry success_login_pattern login_timeout} {$/;"	p
+do_autologin_retry	temp/mylogin11lib.tcl	/^proc do_autologin_retry {max_login_retry success_login_pattern login_timeout} {$/;"	p
+do_autologin_retry	temp/mylogin12lib.tcl	/^proc do_autologin_retry {max_login_retry success_login_pattern login_timeout} {$/;"	p
+do_autologin_retry	temp/mylogin13lib.tcl	/^proc do_autologin_retry {max_login_retry success_login_pattern login_timeout pa_intv} {$/;"	p
+do_autologin_retry	temp/mylogin14lib.tcl	/^proc do_autologin_retry {max_login_retry success_login_pattern login_timeout pa_intv} {$/;"	p
+do_autologin_retry	temp/mylogin15lib.tcl	/^proc do_autologin_retry {max_login_retry success_login_pattern login_timeout pa_intv} {$/;"	p
+do_autologin_retry	temp/mylogin16lib.tcl	/^proc do_autologin_retry {max_login_retry success_login_pattern login_timeout pa_intv} {$/;"	p
+do_autologin_retry	temp/mylogin17lib.tcl	/^proc do_autologin_retry {max_login_retry success_login_pattern login_timeout pa_intv} {$/;"	p
+do_autologin_retry	temp/mylogin18lib.tcl	/^proc do_autologin_retry {max_login_retry success_login_pattern login_timeout pa_intv} {$/;"	p
+do_autologin_retry	temp/mylogin19lib.tcl	/^proc do_autologin_retry {max_login_retry success_login_pattern login_timeout pa_intv} {$/;"	p
+do_autologin_retry	temp/mylogin20.tcl	/^proc do_autologin_retry {max_login_retry success_login_pattern login_timeout pa_intv} {$/;"	p
+do_autologin_retry	temp/myloginlib.tcl	/^proc do_autologin_retry {max_login_retry success_login_pattern login_timeout pa_intv} {$/;"	p
+do_cmd	mylogin-server.tcl	/^proc do_cmd {pattern cmd timeout1} {$/;"	p
+do_cmd	mylogin-sourceforge.tcl	/^proc do_cmd {pattern cmd timeout1} {$/;"	p
+do_cmd	mylogin.tcl	/^proc do_cmd {pattern cmd timeout1} {$/;"	p
+do_cmd	temp/mylogin1.tcl	/^proc do_cmd {cmd timeout1} {$/;"	p
+do_cmd	temp/mylogin10lib.tcl	/^proc do_cmd {pattern cmd timeout} {$/;"	p
+do_cmd	temp/mylogin11lib.tcl	/^proc do_cmd {pattern cmd timeout} {$/;"	p
+do_cmd	temp/mylogin12lib.tcl	/^proc do_cmd {pattern cmd timeout} {$/;"	p
+do_cmd	temp/mylogin13lib.tcl	/^proc do_cmd {pattern cmd timeout} {$/;"	p
+do_cmd	temp/mylogin14lib.tcl	/^proc do_cmd {pattern cmd timeout1} {$/;"	p
+do_cmd	temp/mylogin15lib.tcl	/^proc do_cmd {pattern cmd timeout1} {$/;"	p
+do_cmd	temp/mylogin16lib.tcl	/^proc do_cmd {pattern cmd timeout1} {$/;"	p
+do_cmd	temp/mylogin17lib.tcl	/^proc do_cmd {pattern cmd timeout1} {$/;"	p
+do_cmd	temp/mylogin18lib.tcl	/^proc do_cmd {pattern cmd timeout1} {$/;"	p
+do_cmd	temp/mylogin19lib.tcl	/^proc do_cmd {pattern cmd timeout1} {$/;"	p
+do_cmd	temp/mylogin20.tcl	/^proc do_cmd {pattern cmd timeout1} {$/;"	p
+do_cmd	temp/mylogin2lib.tcl	/^proc do_cmd {cmd timeout1} {$/;"	p
+do_cmd	temp/mylogin3lib.tcl	/^proc do_cmd {cmd timeout} {$/;"	p
+do_cmd	temp/mylogin4lib.tcl	/^proc do_cmd {cmd timeout} {$/;"	p
+do_cmd	temp/mylogin5lib.tcl	/^proc do_cmd {pattern cmd timeout} {$/;"	p
+do_cmd	temp/mylogin6lib.tcl	/^proc do_cmd {pattern cmd timeout} {$/;"	p
+do_cmd	temp/mylogin7lib.tcl	/^proc do_cmd {pattern cmd timeout} {$/;"	p
+do_cmd	temp/mylogin8lib.tcl	/^proc do_cmd {pattern cmd timeout} {$/;"	p
+do_cmd	temp/mylogin9lib.tcl	/^proc do_cmd {pattern cmd timeout} {$/;"	p
+do_cmd	temp/myloginlib.tcl	/^proc do_cmd {pattern cmd timeout1} {$/;"	p
+do_cmds	mylogin-server.tcl	/^proc do_cmds {pattern cmds cmd_interval waittime} {$/;"	p
+do_cmds	mylogin-sourceforge.tcl	/^proc do_cmds {pattern cmds cmd_interval waittime} {$/;"	p
+do_cmds	mylogin.tcl	/^proc do_cmds {pattern cmds cmd_interval waittime} {$/;"	p
+do_cmds	temp/mylogin10lib.tcl	/^proc do_cmds {pattern cmds cmd_interval waittime} {$/;"	p
+do_cmds	temp/mylogin11lib.tcl	/^proc do_cmds {pattern cmds cmd_interval waittime} {$/;"	p
+do_cmds	temp/mylogin12lib.tcl	/^proc do_cmds {pattern cmds cmd_interval waittime} {$/;"	p
+do_cmds	temp/mylogin13lib.tcl	/^proc do_cmds {pattern cmds cmd_interval waittime} {$/;"	p
+do_cmds	temp/mylogin14lib.tcl	/^proc do_cmds {pattern cmds cmd_interval waittime} {$/;"	p
+do_cmds	temp/mylogin15lib.tcl	/^proc do_cmds {pattern cmds cmd_interval waittime} {$/;"	p
+do_cmds	temp/mylogin16lib.tcl	/^proc do_cmds {pattern cmds cmd_interval waittime} {$/;"	p
+do_cmds	temp/mylogin17lib.tcl	/^proc do_cmds {pattern cmds cmd_interval waittime} {$/;"	p
+do_cmds	temp/mylogin18lib.tcl	/^proc do_cmds {pattern cmds cmd_interval waittime} {$/;"	p
+do_cmds	temp/mylogin19lib.tcl	/^proc do_cmds {pattern cmds cmd_interval waittime} {$/;"	p
+do_cmds	temp/mylogin2.tcl	/^proc do_cmds {} {$/;"	p
+do_cmds	temp/mylogin20.tcl	/^proc do_cmds {pattern cmds cmd_interval waittime} {$/;"	p
+do_cmds	temp/mylogin3lib.tcl	/^proc do_cmds {cmds sleeptime} {$/;"	p
+do_cmds	temp/mylogin4lib.tcl	/^proc do_cmds {cmds sleeptime} {$/;"	p
+do_cmds	temp/mylogin5lib.tcl	/^proc do_cmds {pattern cmds cmd_interval waittime} {$/;"	p
+do_cmds	temp/mylogin6lib.tcl	/^proc do_cmds {pattern cmds cmd_interval waittime} {$/;"	p
+do_cmds	temp/mylogin7lib.tcl	/^proc do_cmds {pattern cmds cmd_interval waittime} {$/;"	p
+do_cmds	temp/mylogin8lib.tcl	/^proc do_cmds {pattern cmds cmd_interval waittime} {$/;"	p
+do_cmds	temp/mylogin9lib.tcl	/^proc do_cmds {pattern cmds cmd_interval waittime} {$/;"	p
+do_cmds	temp/myloginlib.tcl	/^proc do_cmds {pattern cmds cmd_interval waittime} {$/;"	p
+do_cmds_groups	mylogin-server.tcl	/^proc do_cmds_groups {pattern cmds_group_list cmds_groups_intv cmd_interval waittime} {$/;"	p
+do_cmds_groups	mylogin-sourceforge.tcl	/^proc do_cmds_groups {pattern cmds_group_list cmds_groups_intv cmd_interval waittime} {$/;"	p
+do_cmds_groups	mylogin.tcl	/^proc do_cmds_groups {pattern cmds_group_list cmds_groups_intv cmd_interval waittime} {$/;"	p
+do_cmds_groups	temp/mylogin10lib.tcl	/^proc do_cmds_groups {pattern cmds_groups_to_be_executed cmd_interval waittime} {$/;"	p
+do_cmds_groups	temp/mylogin11lib.tcl	/^proc do_cmds_groups {pattern cmds_groups_to_be_executed cmd_interval waittime} {$/;"	p
+do_cmds_groups	temp/mylogin12lib.tcl	/^proc do_cmds_groups {pattern cmds_groups_to_be_executed cmd_interval waittime} {$/;"	p
+do_cmds_groups	temp/mylogin13lib.tcl	/^proc do_cmds_groups {pattern cmds_groups_to_be_executed cmd_interval waittime} {$/;"	p
+do_cmds_groups	temp/mylogin14lib.tcl	/^proc do_cmds_groups {pattern cmds_groups_to_be_executed cmd_interval waittime} {$/;"	p
+do_cmds_groups	temp/mylogin15lib.tcl	/^proc do_cmds_groups {pattern cmds_groups_to_be_executed cmd_interval waittime} {$/;"	p
+do_cmds_groups	temp/mylogin16lib.tcl	/^proc do_cmds_groups {pattern cmds_groups_to_be_executed cmd_interval waittime} {$/;"	p
+do_cmds_groups	temp/mylogin17lib.tcl	/^proc do_cmds_groups {pattern cmds_groups_to_be_executed cmd_interval waittime} {$/;"	p
+do_cmds_groups	temp/mylogin18lib.tcl	/^proc do_cmds_groups {pattern CGS cmd_interval waittime} {$/;"	p
+do_cmds_groups	temp/mylogin19lib.tcl	/^proc do_cmds_groups {pattern CGS cmd_interval waittime} {$/;"	p
+do_cmds_groups	temp/mylogin20.tcl	/^proc do_cmds_groups {pattern CGS cmd_interval waittime} {$/;"	p
+do_cmds_groups	temp/myloginlib.tcl	/^proc do_cmds_groups {pattern cmds_groups_to_be_executed cmd_interval waittime} {$/;"	p
+do_confirm	mylogin-server.tcl	/^proc do_confirm {} {$/;"	p
+do_confirm	mylogin-sourceforge.tcl	/^proc do_confirm {} {$/;"	p
+do_confirm	mylogin.tcl	/^proc do_confirm {} {$/;"	p
+do_confirm	temp/mylogin10lib.tcl	/^proc do_confirm {} {$/;"	p
+do_confirm	temp/mylogin11lib.tcl	/^proc do_confirm {} {$/;"	p
+do_confirm	temp/mylogin12lib.tcl	/^proc do_confirm {} {$/;"	p
+do_confirm	temp/mylogin13lib.tcl	/^proc do_confirm {} {$/;"	p
+do_confirm	temp/mylogin14lib.tcl	/^proc do_confirm {} {$/;"	p
+do_confirm	temp/mylogin15lib.tcl	/^proc do_confirm {} {$/;"	p
+do_confirm	temp/mylogin16lib.tcl	/^proc do_confirm {} {$/;"	p
+do_confirm	temp/mylogin17lib.tcl	/^proc do_confirm {} {$/;"	p
+do_confirm	temp/mylogin18lib.tcl	/^proc do_confirm {} {$/;"	p
+do_confirm	temp/mylogin19lib.tcl	/^proc do_confirm {} {$/;"	p
+do_confirm	temp/mylogin20.tcl	/^proc do_confirm {} {$/;"	p
+do_confirm	temp/mylogin6lib.tcl	/^proc do_confirm {} {$/;"	p
+do_confirm	temp/mylogin7lib.tcl	/^proc do_confirm {} {$/;"	p
+do_confirm	temp/mylogin8lib.tcl	/^proc do_confirm {} {$/;"	p
+do_confirm	temp/mylogin9lib.tcl	/^proc do_confirm {} {$/;"	p
+do_confirm	temp/myloginlib.tcl	/^proc do_confirm {} {$/;"	p
+do_interact	mylogin-server.tcl	/^proc do_interact {code} {$/;"	p
+do_interact	mylogin-sourceforge.tcl	/^proc do_interact {code} {$/;"	p
+do_interact	mylogin.tcl	/^proc do_interact {code} {$/;"	p
+do_interact	temp/mylogin10lib.tcl	/^proc do_interact {code} {$/;"	p
+do_interact	temp/mylogin11lib.tcl	/^proc do_interact {code} {$/;"	p
+do_interact	temp/mylogin12lib.tcl	/^proc do_interact {code} {$/;"	p
+do_interact	temp/mylogin13lib.tcl	/^proc do_interact {code } {$/;"	p
+do_interact	temp/mylogin14lib.tcl	/^proc do_interact {code } {$/;"	p
+do_interact	temp/mylogin15lib.tcl	/^proc do_interact {code } {$/;"	p
+do_interact	temp/mylogin16lib.tcl	/^proc do_interact {code} {$/;"	p
+do_interact	temp/mylogin17lib.tcl	/^proc do_interact {code} {$/;"	p
+do_interact	temp/mylogin18lib.tcl	/^proc do_interact {code} {$/;"	p
+do_interact	temp/mylogin19lib.tcl	/^proc do_interact {code} {$/;"	p
+do_interact	temp/mylogin20.tcl	/^proc do_interact {code} {$/;"	p
+do_interact	temp/mylogin2lib.tcl	/^proc do_interact {} {$/;"	p
+do_interact	temp/mylogin3lib.tcl	/^proc do_interact {} {$/;"	p
+do_interact	temp/mylogin4lib.tcl	/^proc do_interact {} {$/;"	p
+do_interact	temp/mylogin5lib.tcl	/^proc do_interact {} {$/;"	p
+do_interact	temp/mylogin6lib.tcl	/^proc do_interact {} {$/;"	p
+do_interact	temp/mylogin7lib.tcl	/^proc do_interact {} {$/;"	p
+do_interact	temp/mylogin8lib.tcl	/^proc do_interact {code} {$/;"	p
+do_interact	temp/mylogin9lib.tcl	/^proc do_interact {code} {$/;"	p
+do_interact	temp/myloginlib.tcl	/^proc do_interact {code} {$/;"	p
+do_pags	mylogin-server.tcl	/^proc do_pags {pags host pattern_timeout pa_intv} {$/;"	p
+do_pags	mylogin-sourceforge.tcl	/^proc do_pags {pags host pattern_timeout pa_intv} {$/;"	p
+do_pags	mylogin.tcl	/^proc do_pags {pags host pattern_timeout pa_intv} {$/;"	p
+do_pags	temp/mylogin17lib.tcl	/^proc do_pags {pags host pattern_timeout pa_intv} {$/;"	p
+do_pags	temp/mylogin18lib.tcl	/^proc do_pags {pags host pattern_timeout pa_intv} {$/;"	p
+do_pags	temp/mylogin19lib.tcl	/^proc do_pags {pags host pattern_timeout pa_intv} {$/;"	p
+do_pags	temp/mylogin20.tcl	/^proc do_pags {pags host pattern_timeout pa_intv} {$/;"	p
+do_pags_original_obsolete	mylogin-server.tcl	/^proc do_pags_original_obsolete {pags host pattern_timeout pa_intv} {$/;"	p
+do_pags_original_obsolete	mylogin-sourceforge.tcl	/^proc do_pags_original_obsolete {pags host pattern_timeout pa_intv} {$/;"	p
+do_pags_original_obsolete	mylogin.tcl	/^proc do_pags_original_obsolete {pags host pattern_timeout pa_intv} {$/;"	p
+do_pags_recurs	temp/mylogin19lib.tcl	/^proc do_pags_recurs {pags host pattern_timeout pa_intv} {$/;"	p
+do_pags_recurs	temp/mylogin20.tcl	/^proc do_pags_recurs {pags host pattern_timeout pa_intv} {$/;"	p
+do_patterns_actions	mylogin-server.tcl	/^proc do_patterns_actions {host pattern_timeout dataarray pa_intv} {$/;"	p
+do_patterns_actions	mylogin-sourceforge.tcl	/^proc do_patterns_actions {host pattern_timeout dataarray pa_intv} {$/;"	p
+do_patterns_actions	mylogin.tcl	/^proc do_patterns_actions {host pattern_timeout dataarray pa_intv} {$/;"	p
+do_patterns_actions	temp/mylogin12lib.tcl	/^proc do_patterns_actions {hostname timeout dataarray} {$/;"	p
+do_patterns_actions	temp/mylogin13lib.tcl	/^proc do_patterns_actions {hostname expect_timeout dataarray pa_intv} {$/;"	p
+do_patterns_actions	temp/mylogin14lib.tcl	/^proc do_patterns_actions {hostname expect_timeout dataarray pa_intv} {$/;"	p
+do_patterns_actions	temp/mylogin15lib.tcl	/^proc do_patterns_actions {host expect_timeout dataarray pa_intv} {$/;"	p
+do_patterns_actions	temp/mylogin16lib.tcl	/^proc do_patterns_actions {host pattern_timeout dataarray pa_intv} {$/;"	p
+do_patterns_actions	temp/mylogin17lib.tcl	/^proc do_patterns_actions {host pattern_timeout dataarray pa_intv} {$/;"	p
+do_patterns_actions	temp/mylogin18lib.tcl	/^proc do_patterns_actions {host pattern_timeout dataarray pa_intv} {$/;"	p
+do_patterns_actions	temp/mylogin19lib.tcl	/^proc do_patterns_actions {host pattern_timeout dataarray pa_intv} {$/;"	p
+do_patterns_actions	temp/mylogin20.tcl	/^proc do_patterns_actions {host pattern_timeout dataarray pa_intv} {$/;"	p
+do_patterns_actions	temp/myloginlib.tcl	/^proc do_patterns_actions {host pattern_timeout dataarray pa_intv} {$/;"	p
+do_precheck	temp/mylogin1.tcl	/^proc do_precheck {} {$/;"	p
+do_precheck	temp/mylogin2lib.tcl	/^proc do_precheck {} {$/;"	p
+do_precheck	temp/mylogin3lib.tcl	/^proc do_precheck {} {$/;"	p
+do_precheck	temp/mylogin4lib.tcl	/^proc do_precheck {} {$/;"	p
+do_sel	mylogin-server.tcl	/^proc do_sel {} {$/;"	p
+do_sel	mylogin-sourceforge.tcl	/^proc do_sel {} {$/;"	p
+do_sel	mylogin.tcl	/^proc do_sel {} {$/;"	p
+do_sel	temp/mylogin1.tcl	/^proc do_sel {} {$/;"	p
+do_sel	temp/mylogin10lib.tcl	/^proc do_sel {} {$/;"	p
+do_sel	temp/mylogin11lib.tcl	/^proc do_sel {} {$/;"	p
+do_sel	temp/mylogin12lib.tcl	/^proc do_sel {} {$/;"	p
+do_sel	temp/mylogin13lib.tcl	/^proc do_sel {} {$/;"	p
+do_sel	temp/mylogin14lib.tcl	/^proc do_sel {} {$/;"	p
+do_sel	temp/mylogin15lib.tcl	/^proc do_sel {} {$/;"	p
+do_sel	temp/mylogin16lib.tcl	/^proc do_sel {} {$/;"	p
+do_sel	temp/mylogin17lib.tcl	/^proc do_sel {} {$/;"	p
+do_sel	temp/mylogin18lib.tcl	/^proc do_sel {} {$/;"	p
+do_sel	temp/mylogin19lib.tcl	/^proc do_sel {} {$/;"	p
+do_sel	temp/mylogin20.tcl	/^proc do_sel {} {$/;"	p
+do_sel	temp/mylogin2lib.tcl	/^proc do_sel {} {$/;"	p
+do_sel	temp/mylogin3lib.tcl	/^proc do_sel {} {$/;"	p
+do_sel	temp/mylogin4lib.tcl	/^proc do_sel {} {$/;"	p
+do_sel	temp/mylogin5lib.tcl	/^proc do_sel {} {$/;"	p
+do_sel	temp/mylogin6lib.tcl	/^proc do_sel {} {$/;"	p
+do_sel	temp/mylogin7lib.tcl	/^proc do_sel {} {$/;"	p
+do_sel	temp/mylogin8lib.tcl	/^proc do_sel {} {$/;"	p
+do_sel	temp/mylogin9lib.tcl	/^proc do_sel {} {$/;"	p
+do_sel	temp/myloginlib.tcl	/^proc do_sel {} {$/;"	p
+do_showtech	mylogin-server.tcl	/^proc do_showtech {} {$/;"	p
+do_showtech	mylogin-sourceforge.tcl	/^proc do_showtech {} {$/;"	p
+do_showtech	mylogin.tcl	/^proc do_showtech {} {$/;"	p
+do_showtech	temp/mylogin1.tcl	/^proc do_showtech {} {$/;"	p
+do_showtech	temp/mylogin10lib.tcl	/^proc do_showtech {} {$/;"	p
+do_showtech	temp/mylogin11lib.tcl	/^proc do_showtech {} {$/;"	p
+do_showtech	temp/mylogin12lib.tcl	/^proc do_showtech {} {$/;"	p
+do_showtech	temp/mylogin13lib.tcl	/^proc do_showtech {} {$/;"	p
+do_showtech	temp/mylogin14lib.tcl	/^proc do_showtech {} {$/;"	p
+do_showtech	temp/mylogin15lib.tcl	/^proc do_showtech {} {$/;"	p
+do_showtech	temp/mylogin16lib.tcl	/^proc do_showtech {} {$/;"	p
+do_showtech	temp/mylogin17lib.tcl	/^proc do_showtech {} {$/;"	p
+do_showtech	temp/mylogin18lib.tcl	/^proc do_showtech {} {$/;"	p
+do_showtech	temp/mylogin19lib.tcl	/^proc do_showtech {} {$/;"	p
+do_showtech	temp/mylogin20.tcl	/^proc do_showtech {} {$/;"	p
+do_showtech	temp/mylogin2lib.tcl	/^proc do_showtech {} {$/;"	p
+do_showtech	temp/mylogin3lib.tcl	/^proc do_showtech {} {$/;"	p
+do_showtech	temp/mylogin4lib.tcl	/^proc do_showtech {} {$/;"	p
+do_showtech	temp/mylogin6lib.tcl	/^proc do_showtech {} {$/;"	p
+do_showtech	temp/mylogin7lib.tcl	/^proc do_showtech {} {$/;"	p
+do_showtech	temp/mylogin8lib.tcl	/^proc do_showtech {} {$/;"	p
+do_showtech	temp/mylogin9lib.tcl	/^proc do_showtech {} {$/;"	p
+do_showtech	temp/myloginlib.tcl	/^proc do_showtech {} {$/;"	p
+ethernetInterfaces_cfg	check-cnf-dup.pl	/^sub ethernetInterfaces_cfg {$/;"	s
+ethernetInterfaces_cfg	checkids.pl	/^sub ethernetInterfaces_cfg {$/;"	s
+findamerge	filemerge.sh	/^findamerge () {$/;"	f
+findprog	launch-vpn	/^findprog () {$/;"	f
+format	filemerge.sh	/^format () {$/;"	f
+get_cmds	mylogin-server.tcl	/^proc get_cmds {cmdsfile cmds} {$/;"	p
+get_cmds	mylogin-sourceforge.tcl	/^proc get_cmds {cmdsfile cmds} {$/;"	p
+get_cmds	mylogin.tcl	/^proc get_cmds {cmdsfile cmds} {$/;"	p
+get_cmds	temp/mylogin10lib.tcl	/^proc get_cmds {cmdsfile} {$/;"	p
+get_cmds	temp/mylogin11lib.tcl	/^proc get_cmds {cmdsfile} {$/;"	p
+get_cmds	temp/mylogin12lib.tcl	/^proc get_cmds {cmdsfile} {$/;"	p
+get_cmds	temp/mylogin13lib.tcl	/^proc get_cmds {cmdsfile cmds} {$/;"	p
+get_cmds	temp/mylogin14lib.tcl	/^proc get_cmds {cmdsfile cmds} {$/;"	p
+get_cmds	temp/mylogin15lib.tcl	/^proc get_cmds {cmdsfile cmds} {$/;"	p
+get_cmds	temp/mylogin16lib.tcl	/^proc get_cmds {cmdsfile cmds} {$/;"	p
+get_cmds	temp/mylogin17lib.tcl	/^proc get_cmds {cmdsfile cmds} {$/;"	p
+get_cmds	temp/mylogin18lib.tcl	/^proc get_cmds {cmdsfile cmds} {$/;"	p
+get_cmds	temp/mylogin19lib.tcl	/^proc get_cmds {cmdsfile cmds} {$/;"	p
+get_cmds	temp/mylogin20.tcl	/^proc get_cmds {cmdsfile cmds} {$/;"	p
+get_cmds	temp/mylogin2lib.tcl	/^proc get_cmds {cmdsfile} {$/;"	p
+get_cmds	temp/mylogin3lib.tcl	/^proc get_cmds {cmdsfile} {$/;"	p
+get_cmds	temp/mylogin4lib.tcl	/^proc get_cmds {cmdsfile} {$/;"	p
+get_cmds	temp/mylogin5lib.tcl	/^proc get_cmds {cmdsfile} {$/;"	p
+get_cmds	temp/mylogin6lib.tcl	/^proc get_cmds {cmdsfile} {$/;"	p
+get_cmds	temp/mylogin7lib.tcl	/^proc get_cmds {cmdsfile} {$/;"	p
+get_cmds	temp/mylogin8lib.tcl	/^proc get_cmds {cmdsfile} {$/;"	p
+get_cmds	temp/mylogin9lib.tcl	/^proc get_cmds {cmdsfile} {$/;"	p
+get_cmds	temp/myloginlib.tcl	/^proc get_cmds {cmdsfile cmds} {$/;"	p
+get_elements	dict.py	/^def get_elements(xml, elem):$/;"	f
+get_elements_by_path	dict.py	/^def get_elements_by_path(xml, elem):$/;"	f
+get_login_info	mylogin-server.tcl	/^proc get_login_info {loginfile login_info} {$/;"	p
+get_login_info	mylogin-sourceforge.tcl	/^proc get_login_info {loginfile login_info} {$/;"	p
+get_login_info	mylogin.tcl	/^proc get_login_info {loginfile login_info} {$/;"	p
+get_login_info	temp/mylogin10lib.tcl	/^proc get_login_info {loginfile login_info} {$/;"	p
+get_login_info	temp/mylogin11lib.tcl	/^proc get_login_info {loginfile login_info} {$/;"	p
+get_login_info	temp/mylogin12lib.tcl	/^proc get_login_info {loginfile login_info} {$/;"	p
+get_login_info	temp/mylogin13lib.tcl	/^proc get_login_info {loginfile login_info} {$/;"	p
+get_login_info	temp/mylogin14lib.tcl	/^proc get_login_info {loginfile login_info} {$/;"	p
+get_login_info	temp/mylogin15lib.tcl	/^proc get_login_info {loginfile login_info} {$/;"	p
+get_login_info	temp/mylogin16lib.tcl	/^proc get_login_info {loginfile login_info} {$/;"	p
+get_login_info	temp/mylogin17lib.tcl	/^proc get_login_info {loginfile login_info} {$/;"	p
+get_login_info	temp/mylogin18lib.tcl	/^proc get_login_info {loginfile login_info} {$/;"	p
+get_login_info	temp/mylogin19lib.tcl	/^proc get_login_info {loginfile login_info} {$/;"	p
+get_login_info	temp/mylogin20.tcl	/^proc get_login_info {loginfile login_info} {$/;"	p
+get_login_info	temp/mylogin4lib.tcl	/^proc get_login_info {loginfile login_info} {$/;"	p
+get_login_info	temp/mylogin5lib.tcl	/^proc get_login_info {loginfile login_info} {$/;"	p
+get_login_info	temp/mylogin6lib.tcl	/^proc get_login_info {loginfile login_info} {$/;"	p
+get_login_info	temp/mylogin7lib.tcl	/^proc get_login_info {loginfile login_info} {$/;"	p
+get_login_info	temp/mylogin8lib.tcl	/^proc get_login_info {loginfile login_info} {$/;"	p
+get_login_info	temp/mylogin9lib.tcl	/^proc get_login_info {loginfile login_info} {$/;"	p
+get_login_info	temp/myloginlib.tcl	/^proc get_login_info {loginfile login_info} {$/;"	p
+get_text	dict.py	/^def get_text(xml):$/;"	f
+getcert	launch-vpn	/^getcert () {$/;"	f
+getdir	launch-vpn	/^getdir () {$/;"	f
+getpasswd	temp/mylogin1.tcl	/^proc getpasswd {username loginpasswdfile} {$/;"	p
+getpasswd	temp/mylogin2lib.tcl	/^proc getpasswd {username loginpasswdfile} {$/;"	p
+getpasswd	temp/mylogin3lib.tcl	/^proc getpasswd {username loginpasswdfile} {$/;"	p
+getpasswd	temp/mylogin4lib.tcl	/^proc getpasswd {username loginpasswdfile} {$/;"	p
+go_interact	temp/mylogin1.tcl	/^proc go_interact {} {$/;"	p
+help	launch-vpn	/^help () {$/;"	f
+help	todo.sh	/^help()$/;"	f
+hostmap_cfg	check-cnf-dup.pl	/^sub hostmap_cfg {$/;"	s
+hostmap_cfg	checkids.pl	/^sub hostmap_cfg {$/;"	s
+input	launch-vpn	/^input () {$/;"	f
+ipAccListFilter_cfg	check-cnf-dup.pl	/^sub ipAccListFilter_cfg {$/;"	s
+ipAccListFilter_cfg	checkids.pl	/^sub ipAccListFilter_cfg {$/;"	s
+ipAccLst_cfg	check-cnf-dup.pl	/^sub ipAccLst_cfg {$/;"	s
+ipAccLst_cfg	checkids.pl	/^sub ipAccLst_cfg {$/;"	s
+ipAddGrp_cfg	check-cnf-dup.pl	/^sub ipAddGrp_cfg {$/;"	s
+ipAddGrp_cfg	checkids.pl	/^sub ipAddGrp_cfg {$/;"	s
+ipGroup_cfg	check-cnf-dup.pl	/^sub ipGroup_cfg {$/;"	s
+ipGroup_cfg	checkids.pl	/^sub ipGroup_cfg {$/;"	s
+ipIntf_cfg	check-cnf-dup.pl	/^sub ipIntf_cfg {$/;"	s
+ipIntf_cfg	checkids.pl	/^sub ipIntf_cfg {$/;"	s
+ipPreLstEnt_cfg	check-cnf-dup.pl	/^sub ipPreLstEnt_cfg {$/;"	s
+ipPreLstEnt_cfg	checkids.pl	/^sub ipPreLstEnt_cfg {$/;"	s
+ipPreLst_cfg	check-cnf-dup.pl	/^sub ipPreLst_cfg {$/;"	s
+ipPreLst_cfg	checkids.pl	/^sub ipPreLst_cfg {$/;"	s
+ipRtMapEnt_cfg	check-cnf-dup.pl	/^sub ipRtMapEnt_cfg {$/;"	s
+ipRtMapEnt_cfg	checkids.pl	/^sub ipRtMapEnt_cfg {$/;"	s
+ipRtMap_cfg	check-cnf-dup.pl	/^sub ipRtMap_cfg {$/;"	s
+ipRtMap_cfg	checkids.pl	/^sub ipRtMap_cfg {$/;"	s
+ipStatRt_cfg	check-cnf-dup.pl	/^sub ipStatRt_cfg {$/;"	s
+ipStatRt_cfg	checkids.pl	/^sub ipStatRt_cfg {$/;"	s
+ipVrfRouteTarget_cfg	check-cnf-dup.pl	/^sub ipVrfRouteTarget_cfg {$/;"	s
+ipVrfRouteTarget_cfg	checkids.pl	/^sub ipVrfRouteTarget_cfg {$/;"	s
+loaddata	mylogin-server.tcl	/^proc loaddata {datafile data_type data} {$/;"	p
+loaddata	mylogin-sourceforge.tcl	/^proc loaddata {datafile data_type data} {$/;"	p
+loaddata	mylogin.tcl	/^proc loaddata {datafile data_type data} {$/;"	p
+loaddata	temp/mylogin13lib.tcl	/^proc loaddata {datafile data_type data} {$/;"	p
+loaddata	temp/mylogin14lib.tcl	/^proc loaddata {datafile data_type data} {$/;"	p
+loaddata	temp/mylogin15lib.tcl	/^proc loaddata {datafile data_type data} {$/;"	p
+loaddata	temp/mylogin16lib.tcl	/^proc loaddata {datafile data_type data} {$/;"	p
+loaddata	temp/mylogin17lib.tcl	/^proc loaddata {datafile data_type data} {$/;"	p
+loaddata	temp/mylogin18lib.tcl	/^proc loaddata {datafile data_type data} {$/;"	p
+loaddata	temp/mylogin19lib.tcl	/^proc loaddata {datafile data_type data} {$/;"	p
+loaddata	temp/mylogin20.tcl	/^proc loaddata {datafile data_type data} {$/;"	p
+loaddata	temp/myloginlib.tcl	/^proc loaddata {datafile data_type data} {$/;"	p
+log	launch-vpn	/^log () {$/;"	f
+log_cfg	check-cnf-dup.pl	/^sub log_cfg {$/;"	s
+log_cfg	checkids.pl	/^sub log_cfg {$/;"	s
+main	camclassfind.c	/^int main(int argc, char **argv) { $/;"	f
+main	check-cnf-dup.pl	/^package main;$/;"	p
+main	checkids.pl	/^package main;$/;"	p
+main	ded.c	/^int main(int argc, char **argv) {$/;"	f
+main	dict.py	/^def main(argv):$/;"	f
+main	drc.c	/^int main(int argc, char **argv) {$/;"	f
+main	realTimeGetterAllFromShowVersion-v4.c	/^int main(int argc, char **argv) {$/;"	f
+main	selcrchecker.c	/^int main(int argc, char **argv) {$/;"	f
+main	testfb.c	/^int main()$/;"	f
+msg	launch-vpn	/^msg () {$/;"	f
+myexec	mylogin-server.tcl	/^proc myexec {cmd} { $/;"	p
+myexec	mylogin-sourceforge.tcl	/^proc myexec {cmd} { $/;"	p
+myexec	mylogin.tcl	/^proc myexec {cmd} { $/;"	p
+myexec	temp/mylogin14lib.tcl	/^proc myexec {cmd} {$/;"	p
+myexec	temp/mylogin15lib.tcl	/^proc myexec {cmd} {$/;"	p
+myexec	temp/mylogin16lib.tcl	/^proc myexec {cmd} {$/;"	p
+myexec	temp/mylogin17lib.tcl	/^proc myexec {cmd} {$/;"	p
+myexec	temp/mylogin18lib.tcl	/^proc myexec {cmd} {$/;"	p
+myexec	temp/mylogin19lib.tcl	/^proc myexec {cmd} {$/;"	p
+myexec	temp/mylogin20.tcl	/^proc myexec {cmd} {$/;"	p
+myexec	temp/myloginlib.tcl	/^proc myexec {cmd} {$/;"	p
+myexpect	mylogin-server.tcl	/^proc myexpect {usermsg pattern datasent timeout} {$/;"	p
+myexpect	mylogin-sourceforge.tcl	/^proc myexpect {usermsg pattern datasent timeout} {$/;"	p
+myexpect	mylogin.tcl	/^proc myexpect {usermsg pattern datasent timeout} {$/;"	p
+myexpect	temp/mylogin1.tcl	/^proc myexpect {pattern datasent usermsg} {$/;"	p
+myexpect	temp/mylogin10lib.tcl	/^proc myexpect {usermsg pattern datasent timeout} {$/;"	p
+myexpect	temp/mylogin11lib.tcl	/^proc myexpect {usermsg pattern datasent timeout} {$/;"	p
+myexpect	temp/mylogin12lib.tcl	/^proc myexpect {usermsg pattern datasent timeout} {$/;"	p
+myexpect	temp/mylogin13lib.tcl	/^proc myexpect {usermsg pattern datasent timeout} {$/;"	p
+myexpect	temp/mylogin14lib.tcl	/^proc myexpect {usermsg pattern datasent timeout} {$/;"	p
+myexpect	temp/mylogin15lib.tcl	/^proc myexpect {usermsg pattern datasent timeout} {$/;"	p
+myexpect	temp/mylogin16lib.tcl	/^proc myexpect {usermsg pattern datasent timeout} {$/;"	p
+myexpect	temp/mylogin17lib.tcl	/^proc myexpect {usermsg pattern datasent timeout} {$/;"	p
+myexpect	temp/mylogin18lib.tcl	/^proc myexpect {usermsg pattern datasent timeout} {$/;"	p
+myexpect	temp/mylogin19lib.tcl	/^proc myexpect {usermsg pattern datasent timeout} {$/;"	p
+myexpect	temp/mylogin20.tcl	/^proc myexpect {usermsg pattern datasent timeout} {$/;"	p
+myexpect	temp/mylogin2lib.tcl	/^proc myexpect {usermsg pattern datasent} {$/;"	p
+myexpect	temp/mylogin3lib.tcl	/^proc myexpect {usermsg pattern datasent} {$/;"	p
+myexpect	temp/mylogin4lib.tcl	/^proc myexpect {usermsg pattern datasent} {$/;"	p
+myexpect	temp/mylogin5lib.tcl	/^proc myexpect {usermsg pattern datasent} {$/;"	p
+myexpect	temp/mylogin6lib.tcl	/^proc myexpect {usermsg pattern datasent timeout} {$/;"	p
+myexpect	temp/mylogin7lib.tcl	/^proc myexpect {usermsg pattern datasent timeout} {$/;"	p
+myexpect	temp/mylogin8lib.tcl	/^proc myexpect {usermsg pattern datasent timeout} {$/;"	p
+myexpect	temp/mylogin9lib.tcl	/^proc myexpect {usermsg pattern datasent timeout} {$/;"	p
+myexpect	temp/myloginlib.tcl	/^proc myexpect {usermsg pattern datasent timeout} {$/;"	p
+mylog_file	mylogin-server.tcl	/^proc mylog_file {cmd} {$/;"	p
+mylog_file	mylogin-sourceforge.tcl	/^proc mylog_file {cmd} {$/;"	p
+mylog_file	mylogin.tcl	/^proc mylog_file {cmd} {$/;"	p
+mylog_file	temp/mylogin19lib.tcl	/^proc mylog_file {cmd} {$/;"	p
+mylog_file	temp/mylogin20.tcl	/^proc mylog_file {cmd} {$/;"	p
+myputs	mylogin-server.tcl	/^proc myputs {msg} {$/;"	p
+myputs	mylogin-sourceforge.tcl	/^proc myputs {msg} {$/;"	p
+myputs	mylogin.tcl	/^proc myputs {msg} {$/;"	p
+myputs	temp/mylogin10lib.tcl	/^proc myputs {msg} {$/;"	p
+myputs	temp/mylogin11lib.tcl	/^proc myputs {msg} {$/;"	p
+myputs	temp/mylogin12lib.tcl	/^proc myputs {msg} {$/;"	p
+myputs	temp/mylogin13lib.tcl	/^proc myputs {msg} {$/;"	p
+myputs	temp/mylogin14lib.tcl	/^proc myputs {msg} {$/;"	p
+myputs	temp/mylogin15lib.tcl	/^proc myputs {msg} {$/;"	p
+myputs	temp/mylogin16lib.tcl	/^proc myputs {msg} {$/;"	p
+myputs	temp/mylogin17lib.tcl	/^proc myputs {msg} {$/;"	p
+myputs	temp/mylogin18lib.tcl	/^proc myputs {msg} {$/;"	p
+myputs	temp/mylogin19lib.tcl	/^proc myputs {msg} {$/;"	p
+myputs	temp/mylogin20.tcl	/^proc myputs {msg} {$/;"	p
+myputs	temp/mylogin6lib.tcl	/^proc myputs {msg} {$/;"	p
+myputs	temp/mylogin7lib.tcl	/^proc myputs {msg} {$/;"	p
+myputs	temp/mylogin8lib.tcl	/^proc myputs {msg} {$/;"	p
+myputs	temp/mylogin9lib.tcl	/^proc myputs {msg} {$/;"	p
+myputs	temp/myloginlib.tcl	/^proc myputs {msg} {$/;"	p
+new	check-cnf-dup.pl	/^sub new {$/;"	s
+new	checkids.pl	/^sub new {$/;"	s
+ospfNetRange_cfg	check-cnf-dup.pl	/^sub ospfNetRange_cfg {$/;"	s
+ospfNetRange_cfg	checkids.pl	/^sub ospfNetRange_cfg {$/;"	s
+password	launch-vpn	/^password () {$/;"	f
+pppProfiles_cfg	check-cnf-dup.pl	/^sub pppProfiles_cfg {$/;"	s
+pppProfiles_cfg	checkids.pl	/^sub pppProfiles_cfg {$/;"	s
+printDel	check-cnf-dup.pl	/^sub printDel {$/;"	s
+printDel	checkids.pl	/^sub printDel {$/;"	s
+printDupIds	check-cnf-dup.pl	/^sub printDupIds {$/;"	s
+printIndex	check-cnf-dup.pl	/^sub printIndex {$/;"	s
+printIndex	checkids.pl	/^sub printIndex {$/;"	s
+print_translations	dict.py	/^def print_translations(xml, with_color, detailed):$/;"	f
+qos_profile_cfg	check-cnf-dup.pl	/^sub qos_profile_cfg {$/;"	s
+qos_profile_cfg	checkids.pl	/^sub qos_profile_cfg {$/;"	s
+qos_qosProfile_cfg	check-cnf-dup.pl	/^sub qos_qosProfile_cfg {$/;"	s
+qos_qosProfile_cfg	checkids.pl	/^sub qos_qosProfile_cfg {$/;"	s
+query	launch-vpn	/^query () {$/;"	f
+re	dict.py	/^import re;$/;"	i
+readData	check-cnf-dup.pl	/^sub readData {$/;"	s
+readData	checkids.pl	/^sub readData {$/;"	s
+readHd	check-cnf-dup.pl	/^sub readHd {$/;"	s
+readHd	checkids.pl	/^sub readHd {$/;"	s
+repeat_cmds	mylogin-server.tcl	/^proc repeat_cmds {maxrounds pattern4cmd cmds cmds_intv cmd_timeout} {$/;"	p
+repeat_cmds	mylogin-sourceforge.tcl	/^proc repeat_cmds {maxrounds pattern4cmd cmds cmds_intv cmd_timeout} {$/;"	p
+repeat_cmds	mylogin.tcl	/^proc repeat_cmds {maxrounds pattern4cmd cmds cmds_intv cmd_timeout} {$/;"	p
+repeat_cmds	temp/mylogin10lib.tcl	/^proc repeat_cmds {maxrounds pattern4cmd cmds cmds_intv cmd_timeout} {$/;"	p
+repeat_cmds	temp/mylogin11lib.tcl	/^proc repeat_cmds {maxrounds pattern4cmd cmds cmds_intv cmd_timeout} {$/;"	p
+repeat_cmds	temp/mylogin12lib.tcl	/^proc repeat_cmds {maxrounds pattern4cmd cmds cmds_intv cmd_timeout} {$/;"	p
+repeat_cmds	temp/mylogin13lib.tcl	/^proc repeat_cmds {maxrounds pattern4cmd cmds cmds_intv cmd_timeout} {$/;"	p
+repeat_cmds	temp/mylogin14lib.tcl	/^proc repeat_cmds {maxrounds pattern4cmd cmds cmds_intv cmd_timeout} {$/;"	p
+repeat_cmds	temp/mylogin15lib.tcl	/^proc repeat_cmds {maxrounds pattern4cmd cmds cmds_intv cmd_timeout} {$/;"	p
+repeat_cmds	temp/mylogin16lib.tcl	/^proc repeat_cmds {maxrounds pattern4cmd cmds cmds_intv cmd_timeout} {$/;"	p
+repeat_cmds	temp/mylogin17lib.tcl	/^proc repeat_cmds {maxrounds pattern4cmd cmds cmds_intv cmd_timeout} {$/;"	p
+repeat_cmds	temp/mylogin18lib.tcl	/^proc repeat_cmds {maxrounds pattern4cmd cmds cmds_intv cmd_timeout} {$/;"	p
+repeat_cmds	temp/mylogin19lib.tcl	/^proc repeat_cmds {maxrounds pattern4cmd cmds cmds_intv cmd_timeout} {$/;"	p
+repeat_cmds	temp/mylogin20.tcl	/^proc repeat_cmds {maxrounds pattern4cmd cmds cmds_intv cmd_timeout} {$/;"	p
+repeat_cmds	temp/mylogin8lib.tcl	/^proc repeat_cmds {maxrounds pattern4cmd cmds cmds_intv cmd_timeout} {$/;"	p
+repeat_cmds	temp/mylogin9lib.tcl	/^proc repeat_cmds {maxrounds pattern4cmd cmds cmds_intv cmd_timeout} {$/;"	p
+repeat_cmds	temp/myloginlib.tcl	/^proc repeat_cmds {maxrounds pattern4cmd cmds cmds_intv cmd_timeout} {$/;"	p
+repeat_cmds_groups	mylogin-server.tcl	/^proc repeat_cmds_groups {maxrounds pattern4cmd 				\\$/;"	p
+repeat_cmds_groups	mylogin-sourceforge.tcl	/^proc repeat_cmds_groups {maxrounds pattern4cmd 				\\$/;"	p
+repeat_cmds_groups	mylogin.tcl	/^proc repeat_cmds_groups {maxrounds pattern4cmd 				\\$/;"	p
+repeat_cmds_groups	temp/mylogin10lib.tcl	/^proc repeat_cmds_groups {maxrounds pattern4cmd 				\\$/;"	p
+repeat_cmds_groups	temp/mylogin11lib.tcl	/^proc repeat_cmds_groups {maxrounds pattern4cmd 				\\$/;"	p
+repeat_cmds_groups	temp/mylogin12lib.tcl	/^proc repeat_cmds_groups {maxrounds pattern4cmd 				\\$/;"	p
+repeat_cmds_groups	temp/mylogin13lib.tcl	/^proc repeat_cmds_groups {maxrounds pattern4cmd 				\\$/;"	p
+repeat_cmds_groups	temp/mylogin14lib.tcl	/^proc repeat_cmds_groups {maxrounds pattern4cmd 				\\$/;"	p
+repeat_cmds_groups	temp/mylogin15lib.tcl	/^proc repeat_cmds_groups {maxrounds pattern4cmd 				\\$/;"	p
+repeat_cmds_groups	temp/mylogin16lib.tcl	/^proc repeat_cmds_groups {maxrounds pattern4cmd 				\\$/;"	p
+repeat_cmds_groups	temp/mylogin17lib.tcl	/^proc repeat_cmds_groups {maxrounds pattern4cmd 				\\$/;"	p
+repeat_cmds_groups	temp/mylogin18lib.tcl	/^proc repeat_cmds_groups {maxrounds pattern4cmd 				\\$/;"	p
+repeat_cmds_groups	temp/mylogin19lib.tcl	/^proc repeat_cmds_groups {maxrounds pattern4cmd 				\\$/;"	p
+repeat_cmds_groups	temp/mylogin20.tcl	/^proc repeat_cmds_groups {maxrounds pattern4cmd 				\\$/;"	p
+repeat_cmds_groups	temp/myloginlib.tcl	/^proc repeat_cmds_groups {maxrounds pattern4cmd 				\\$/;"	p
+repeat_pags	mylogin-server.tcl	/^proc repeat_pags {maxrounds pags host pattern_timeout pa_intv} {$/;"	p
+repeat_pags	mylogin-sourceforge.tcl	/^proc repeat_pags {maxrounds pags host pattern_timeout pa_intv pags_intv} {$/;"	p
+repeat_pags	mylogin.tcl	/^proc repeat_pags {maxrounds pags host pattern_timeout pa_intv pags_intv} {$/;"	p
+repeat_pags	temp/mylogin17lib.tcl	/^proc repeat_pags {maxrounds pags host pattern_timeout pa_intv} {$/;"	p
+repeat_pags	temp/mylogin18lib.tcl	/^proc repeat_pags {maxrounds pags host pattern_timeout pa_intv} {$/;"	p
+repeat_pags	temp/mylogin19lib.tcl	/^proc repeat_pags {maxrounds pags host pattern_timeout pa_intv} {$/;"	p
+repeat_pags	temp/mylogin20.tcl	/^proc repeat_pags {maxrounds pags host pattern_timeout pa_intv} {$/;"	p
+repeat_patterns_actions	mylogin-server.tcl	/^proc repeat_patterns_actions {maxrounds host pattern_timeout dataarray pa_intv} {$/;"	p
+repeat_patterns_actions	mylogin-sourceforge.tcl	/^proc repeat_patterns_actions {maxrounds host pattern_timeout dataarray pa_intv} {$/;"	p
+repeat_patterns_actions	mylogin.tcl	/^proc repeat_patterns_actions {maxrounds host pattern_timeout dataarray pa_intv} {$/;"	p
+repeat_patterns_actions	temp/mylogin17lib.tcl	/^proc repeat_patterns_actions {maxrounds host pattern_timeout dataarray pa_intv} {$/;"	p
+repeat_patterns_actions	temp/mylogin18lib.tcl	/^proc repeat_patterns_actions {maxrounds host pattern_timeout dataarray pa_intv} {$/;"	p
+repeat_patterns_actions	temp/mylogin19lib.tcl	/^proc repeat_patterns_actions {maxrounds host pattern_timeout dataarray pa_intv} {$/;"	p
+repeat_patterns_actions	temp/mylogin20.tcl	/^proc repeat_patterns_actions {maxrounds host pattern_timeout dataarray pa_intv} {$/;"	p
+replaceOrPrepend	todo.sh	/^replaceOrPrepend()$/;"	f
+ripNetworkGrp_cfg	check-cnf-dup.pl	/^sub ripNetworkGrp_cfg {$/;"	s
+ripNetworkGrp_cfg	checkids.pl	/^sub ripNetworkGrp_cfg {$/;"	s
+ripSummAddrGrp_cfg	check-cnf-dup.pl	/^sub ripSummAddrGrp_cfg {$/;"	s
+ripSummAddrGrp_cfg	checkids.pl	/^sub ripSummAddrGrp_cfg {$/;"	s
+sendanemail	mylogin-server.tcl	/^proc sendanemail {caseid file emailto args} {$/;"	p
+sendanemail	mylogin-sourceforge.tcl	/^proc sendanemail {caseid file emailto {emailcc "pings@cisco.net"}} {$/;"	p
+sendanemail	mylogin.tcl	/^proc sendanemail {caseid file emailto {emailcc "pings@juniper.net"}} {$/;"	p
+sendanemail	temp/mylogin16lib.tcl	/^proc sendanemail {caseid file emailto {emailcc "songpingemail@gmail.com"}} {$/;"	p
+sendanemail	temp/mylogin17lib.tcl	/^proc sendanemail {caseid file emailto {emailcc "pings@juniper.net"}} {$/;"	p
+sendanemail	temp/mylogin18lib.tcl	/^proc sendanemail {caseid file emailto {emailcc "pings@juniper.net"}} {$/;"	p
+sendanemail	temp/mylogin19lib.tcl	/^proc sendanemail {caseid file emailto {emailcc "pings@juniper.net"}} {$/;"	p
+sendanemail	temp/mylogin20.tcl	/^proc sendanemail {caseid file emailto {emailcc "pings@juniper.net"}} {$/;"	p
+sendanemail	temp/myloginlib.tcl	/^proc sendanemail {caseid file emailto {emailcc "songpingemail@gmail.com"}} {$/;"	p
+setup	launch-vpn	/^setup () {$/;"	f
+setup_host	launch-vpn	/^setup_host () {$/;"	f
+setup_java	launch-vpn	/^setup_java () {$/;"	f
+shorthelp	todo.sh	/^shorthelp()$/;"	f
+slotDb_cfg	check-cnf-dup.pl	/^sub slotDb_cfg {$/;"	s
+slotDb_cfg	checkids.pl	/^sub slotDb_cfg {$/;"	s
+sonetInterfaces_cfg	check-cnf-dup.pl	/^sub sonetInterfaces_cfg {$/;"	s
+sonetInterfaces_cfg	checkids.pl	/^sub sonetInterfaces_cfg {$/;"	s
+sonetPathInterfaces_cfg	check-cnf-dup.pl	/^sub sonetPathInterfaces_cfg {$/;"	s
+sonetPathInterfaces_cfg	checkids.pl	/^sub sonetPathInterfaces_cfg {$/;"	s
+sshServer_cfg	check-cnf-dup.pl	/^sub sshServer_cfg {$/;"	s
+sshServer_cfg	checkids.pl	/^sub sshServer_cfg {$/;"	s
+strIP	check-cnf-dup.pl	/^sub strIP {$/;"	s
+strIP	checkids.pl	/^sub strIP {$/;"	s
+sys	dict.py	/^import sys;$/;"	i
+telnetport_cfg	check-cnf-dup.pl	/^sub telnetport_cfg {$/;"	s
+telnetport_cfg	checkids.pl	/^sub telnetport_cfg {$/;"	s
+test_java	launch-vpn	/^test_java () {$/;"	f
+textre	dict.py	/^textre = re.compile("\\!\\[CDATA\\[(.*?)\\]\\]", re.DOTALL);$/;"	v
+uidToNameTable_cfg	check-cnf-dup.pl	/^sub uidToNameTable_cfg {$/;"	s
+uidToNameTable_cfg	checkids.pl	/^sub uidToNameTable_cfg {$/;"	s
+uninstall_nc	launch-vpn	/^uninstall_nc () {$/;"	f
+urllib	dict.py	/^import urllib;$/;"	i
+urllib2	dict.py	/^import urllib2;$/;"	i
+usage	dict.py	/^def usage():$/;"	f
+usage	filemerge.sh	/^usage () {$/;"	f
+usage	mylogin-server.tcl	/^proc usage {} {$/;"	p
+usage	mylogin-sourceforge.tcl	/^proc usage {} {$/;"	p
+usage	mylogin.tcl	/^proc usage {} {$/;"	p
+usage	temp/mylogin1.tcl	/^proc usage {} {$/;"	p
+usage	temp/mylogin10lib.tcl	/^proc usage {} {$/;"	p
+usage	temp/mylogin11lib.tcl	/^proc usage {} {$/;"	p
+usage	temp/mylogin12lib.tcl	/^proc usage {} {$/;"	p
+usage	temp/mylogin13lib.tcl	/^proc usage {} {$/;"	p
+usage	temp/mylogin14lib.tcl	/^proc usage {} {$/;"	p
+usage	temp/mylogin15lib.tcl	/^proc usage {} {$/;"	p
+usage	temp/mylogin16lib.tcl	/^proc usage {} {$/;"	p
+usage	temp/mylogin17lib.tcl	/^proc usage {} {$/;"	p
+usage	temp/mylogin18lib.tcl	/^proc usage {} {$/;"	p
+usage	temp/mylogin19lib.tcl	/^proc usage {} {$/;"	p
+usage	temp/mylogin20.tcl	/^proc usage {} {$/;"	p
+usage	temp/mylogin2lib.tcl	/^proc usage {} {$/;"	p
+usage	temp/mylogin3lib.tcl	/^proc usage {} {$/;"	p
+usage	temp/mylogin4lib.tcl	/^proc usage {} {$/;"	p
+usage	temp/mylogin5lib.tcl	/^proc usage {} {$/;"	p
+usage	temp/mylogin6lib.tcl	/^proc usage {} {$/;"	p
+usage	temp/mylogin7lib.tcl	/^proc usage {} {$/;"	p
+usage	temp/mylogin8lib.tcl	/^proc usage {} {$/;"	p
+usage	temp/mylogin9lib.tcl	/^proc usage {} {$/;"	p
+usage	temp/myloginlib.tcl	/^proc usage {} {$/;"	p
+usage	todo.sh	/^usage()$/;"	f
+vRouterGlobal_cfg	check-cnf-dup.pl	/^sub vRouterGlobal_cfg {$/;"	s
+vRouterGlobal_cfg	checkids.pl	/^sub vRouterGlobal_cfg {$/;"	s
+version	todo.sh	/^version() {$/;"	f
+vlanMajorInterfaces_cfg	check-cnf-dup.pl	/^sub vlanMajorInterfaces_cfg {$/;"	s
+vlanMajorInterfaces_cfg	checkids.pl	/^sub vlanMajorInterfaces_cfg {$/;"	s
+vlanSubInterfaces_cfg	check-cnf-dup.pl	/^sub vlanSubInterfaces_cfg {$/;"	s
+vlanSubInterfaces_cfg	checkids.pl	/^sub vlanSubInterfaces_cfg {$/;"	s

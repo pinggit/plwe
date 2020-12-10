@@ -1,0 +1,26 @@
+#some type of files:
+*.exe
+*.log
+*.txt
+
+#specific files
+#sendthisfile.sh
+#sendthisfileinzip.sh
+#att*
+
+#hidden files
+^.
+
+#vim swap files
+*.sw[a-z]
+*.*~
+
+#ignore all subfolders
+/asciidoc-8.6.8
+/bbsbot
+/jperf-2.0.2
+/lib
+/Soug
+/temp
+/test
+

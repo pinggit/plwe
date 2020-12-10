@@ -1,0 +1,2 @@
+cp ~/work/launches/launch-office.ica ~/work/launches/launch-office1.ica
+gksu ~/ICAClient/linuxx86/wfica.sh ~/work/launches/launch-office1.ica

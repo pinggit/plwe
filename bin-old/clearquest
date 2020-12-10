@@ -1,0 +1,3 @@
+cp ~/work/launches/launch-clearquest.ica ~/work/launches/launch-clearquest1.ica
+gksu /opt/Citrix/ICAClient/wfica.sh ~/work/launches/launch-clearquest1.ica
+

@@ -1,0 +1,87 @@
+#!/usr/bin/expect
+#example1
+#expect "hi\n"
+#send "you typed <$expect_out(buffer)>"
+#send "but I only expected <$expect_out(0,string)>"
+
+spawn $env(SHELL)
+puts "send date"
+send "date\n"
+puts "sleep 10s"
+sleep 5
+#puts "expect \\\$ and send date again"
+#expect {$ } {send "date\n"}
+puts "expect \*"
+expect {
+    {$ } {puts "[exec date]get a match on 1"}
+#    *    {puts "[exec date]get a match on 2"}
+    default {puts "[exec date]get a match on 3"}
+}
+puts "scripts end"
+
+
+#example2
+#expect "hi"
+#send "$expect_out(0,string) $expect_out(buffer)\n"
+
+#expect "hi"
+#send "$expect_out(0,string) $expect_out(buffer)\n"
+
+#expect "hi"
+#send "$expect_out(0,string) $expect_out(buffer)\n"
+
+#example3
+#set timeout $argv
+#expect "\n" {
+#    send [string trimright "$expect_out(buffer)" "\n"]
+#}
+
+#expect "hi" 	{ send "You said hi\n" } \
+#"hello"         { send "Hello yourself\n" } \
+#"bye"           { send "That was unexpected\n" }
+
+
+#example4
+#test with: ./test.exp 10 top
+#set timeout [lindex $argv 0]
+#eval spawn [lrange $argv 1 end]
+#expect
+
+#send "my pid is [pid]"
+
+#the following command assigns to x a string composed of a ^A
+#immediately followed by "foo==1700.000000" (the number of zeros after the decimal
+#point may differ on your system). The string is left-justified in an eight-character field
+#set x [format "%1c%-8s==%f" 1 foo 17.0e2]
+#send $x
+#foo     ==1700.000000% 
+#proc abc {} {
+#    send "scriptname is $argv0\n"
+#}
+#abc
+
+
+
+#implement functions like "script" command
+#press ~s to stop logging, -r to resume
+#spawn $env(SHELL)
+#catch {exec rm typescript}
+
+#interact {
+#    "~s" {log_file}
+#    "~r" {log_file typescript}
+#}
+
+#implement functions like "script" command
+#press ~s to stop logging, -r to resume
+#interact {
+#    -echo "~s" {
+#	send_user "\n stopped recording\n"
+#	log_file
+#    }
+#    -echo "~r" {
+#	send_user "\n recording\n"
+#	log_file typescript
+#    }
+#}
+

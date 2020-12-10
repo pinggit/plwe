@@ -1,0 +1,3 @@
+cp ~/work/launches/launch-outlook-setup.ica ~/work/launches/launch-outlook-setup1.ica
+gksu ~/ICAClient/linuxx86/wfica.sh ~/work/launches/launch-outlook-setup1.ica
+

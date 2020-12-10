@@ -1,0 +1,5 @@
+
+#upload file
+scp $1 svl-jtac-tool02:dummy
+#jdebug from remote shell
+ssh -t -t -x svl-jtac-tool02 "jdebug dummy"

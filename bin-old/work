@@ -1,0 +1,31 @@
+#
+#screen -fn -t sw 0 pwd 
+
+###########################################################
+###########################################################
+#this script use screen and script tool to achieve the following:
+#   1)start telnet sessions and 
+#   2)record all logs of these sessions
+#this is to achieve similar functions as with secureCRT/windows
+#
+#screen:
+#   -t: title
+#   -fn: flow control on
+#   script -afc "telnet localhost 3001" R1.log:	cmd to execute by screen in its new session
+#script:
+#   -a: append (not replace) logs
+#   -f: flush output of logs
+#   -c CMD: cmds to execute by script, script then records any output of them
+#
+#					ping
+###########################################################
+#screen -fn -t R1 script -ac "telnet localhost 3001" ./logs/R1.log
+#sleep 1
+
+screen -dmS work           # 创建一个detached session  
+screen -S work -p 0 -t fuf -X exec vim 
+screen -S work -p 1 -t mylogin -X exec vim
+
+#screen -t email mutt
+#screen -t chat irssi
+#screen -t smth /bin/telnet newsmth.org

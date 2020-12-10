@@ -1,0 +1,4 @@
+#!/bin/bash
+find $HOME/.purple/logs/ -type f -name "*.html" -exec cat {} \; | w3m -T text/html -dump > $HOME/.purple/all_w3m.txt
+less all_w3m.txt
+

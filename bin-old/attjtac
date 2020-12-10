@@ -1,0 +1,599 @@
+#!/usr/bin/env expect
+#(2014-10-15) add vmx access, sum of current features:
+#    anti-idle
+#    login to all jtac lab junos routers (including vmx+vmx-vre): 
+#       jtaclab tintin
+#       jtaclab vmx
+#    console to both REs (jtaclab routername-re0-con)
+#       jtaclab tintin-re1-con
+#    login-less one-off command execution
+#       jtaclab tintin "show version"
+#       jtaclab tintin "show log messages" > tintin-logmessage.txt
+#    login to att lab routers
+#       attjtac cypjar1
+#    logging, log files :~/att-jtac-lab-logs/routername.log
+#    
+#
+#todo:
+# 1. record all cmds from user in a list and write into a file (with timestamp) on exit
+#   interact -re "(.*)\n" {lappend cmdlist $expect(1,buffer)}
+# 2. read cmd lists from a file after startup
+#   need to return a list, write into file
+#
+#auto prompt detection: (not a good idea)
+#  set prompts [split $expect_out(buffer) "\n"]
+#  set prompt [lindex $prompts [expr [llength $prompts]-1]]
+#  puts $prompt
+
+source ~/bin/mylib.tcl
+array set HostMap {\
+     pe5                192.168.43.14\
+     pe6                192.168.43.17\
+     pe3                192.168.43.8\
+     pe1                192.168.112.101\
+     pe8                192.168.112.8\
+     pe9                192.168.112.9\
+     pe10               192.168.112.10\
+     pe11               192.168.112.11\
+     pe12               192.168.112.12\
+     pe13               192.168.112.13\
+     pe14               192.168.112.14\
+     pe15               192.168.112.15\
+     pe16               192.168.112.16\
+     pe17               192.168.112.17\
+     pe26               192.168.112.26\
+     PE26               192.168.112.26\
+     pe28               192.168.112.28\
+     pe32               192.168.119.32\
+     pe24               192.168.119.24\
+     pe40               192.168.119.40\
+     pe41               192.168.112.41\
+     pe42               192.168.112.42\
+     pe43               192.168.112.43\
+     hub1               10.144.0.126\
+     hub2               10.144.0.127\
+     scooby             192.168.46.146 \
+     mttnj      135.182.137.225\
+    prefix-re0-con			b6tsa05:7029	\
+    ravens-re0-con			b6tsa05:7030	\
+    nemesis-re0-con			b6tsa05:7031	\
+    nemesis-re1-con			b6tsa05:7033	\
+    bajie-re0-con 			b6tsa05:7034	\
+    bajie-re1-con 			b6tsa05:7035	\
+    pontos-re0-con			b6tsa05:7036	\
+    pontos-re1-con			b6tsa05:7037	\
+    ares-re0-con			b6tsa05:7038	\
+    lakers-re0-con			b6tsa05:7039	\
+    lakers-re1-con			b6tsa05:7040	\
+    dolphins-re0-con		b6tsa05:7041	\
+    dolphins-re1-con		b6tsa05:7042	\
+    donald-re0-con 			b6tsa05:7043	\
+    donald-re1-con 			b6tsa05:7044	\
+    mix-re0-con			b6tsa05:7046	\
+    thunder-re1-con			b6tsa15:7024	\
+    thunder-re0-con			b6tsa15:7023	\
+    redskins-re1-con		b6tsa15:7022	\
+    redskins-re0-con		b6tsa15:7021	\
+    tianjin-re1-con			b6tsa15:7020	\
+    tianjin-re0-con			b6tsa15:7019	\
+    jaguars-re0-con			b6tsa05:7045	\
+    panthers-re0-con		b6tsa17:7024	\
+    mickey-re0-con   		b6tsa17:7010	\
+    mickey-re1-con   		b6tsa17:7011	\
+    rams-re0-con			b6tsa26:7023	\
+    bills-re0-con			b6tsa26:7024	\
+    bears-re0-con			b6tsb09:7013	\
+    chargers-re0-con		b6tsb09:7014	\
+    sphinx-re0-con			b6tsb09:7015	\
+    patriots-re0-con		b6tsb09:7016	\
+    bulls-re0-con			b6tsb09:7017	\
+    nyx-re0-con  			b6tsb09:7018	\
+    nyx-re1-con  			b6tsb09:7019	\
+    atlantix-re0-con 		b6tsb09:7020	\
+    atlantix-re1-con 		b6tsb09:7021	\
+    8111-con 			b6tsb17:7002	\
+    8112-con			b6tsb17:7003	\
+    a1500-re0-con                   b6tsb17:7004\
+    suns-re0-con			b6tsb17:7001	\
+    rio-re0-con 			b6tsb17:7005	\
+    rio-re1-con 			b6tsb17:7006	\
+    maya-re0-con   			b6tsb17:7007	\
+    maya-re1-con   			b6tsb17:7008	\
+    steelers-re0-con		b6tsb17:7009	\
+    willi-re0-con 			b6tsb25:7002	\
+    willi-re1-con  			b6tsb25:7003	\
+    flip-re0-con  			b6tsb17:7012	\
+    flip-re1-con  			b6tsb17:7013	\
+    chiefs-re0-con			b6tsb17:7014	\
+    eros-re0-con			b6tsb17:7015	\
+    eros-re1-con			b6tsb17:7016	\
+    alecto-re0-con			b6tsb17:7021	\
+    alecto-re1-con			b6tsb17:7022	\
+    havlar-re0-con			b6tsb17:7034	\
+    pacifix-re0-con 		b6tsb17:7035	\
+    pacifix-re1-con 		b6tsb17:7036	\
+    antalya-re0-con  		b6tsb17:7046	\
+    antalya-re1-con  		b6tsb17:7047	\
+    pheonix-re0-con			b6tsb09:7015	\
+    saints-re0-con			b6tsb17:7045	\
+    raiders-re0-con			b6tsb17:7044	\
+    kratos-re1-con 			b6tsb17:7043	\
+    kratos-re0-con 			b6tsb17:7042	\
+    obelix-re0-con			b6tsb17:7041	\
+    obelix-re0-con			b6tsb17:7040	\
+    archer-re1-con			b6tsb17:7039	\
+    archer-re0-con			b6tsb17:7038	\
+    rome-re0-con 		        b6tsb23:7031	\
+    x2020-re0-con 			b6tsb23:7032	\
+    clippers-re0-con		b6tsb17:7017	\
+    clippers-re1-con		b6tsb17:7018	\
+    sonics-re0-con			b6tsb25:7024	\
+    sonics-re1-con			b6tsb25:7025	\
+    asterix-re0-con 		b6tsb23:7023	\
+    asterix-re1-con 		b6tsb23:7024	\
+    timex-re0-con   		b6tsb23:7025	\
+    timex-re1-con		        b6tsb23:7026	\
+    hornets-re0-con			b6tsb23:7007	\
+    hornets-re1-con			b6tsb23:7008	\
+    nereus-re0-con 			b6tsb23:7005	\
+    nereus-re1-con 			b6tsb23:7006	\
+    styx-re0-con 			b6tsb23:7009	\
+    styx-re1-con 			b6tsb23:7010	\
+    rhodes-re0-con			b6tsb23:7012	\
+    texans-re0-con			b6tsb23:7013	\
+    pluto-re0-con 			b6tsb23:7001	\
+    pluto-re1-con 			b6tsb23:7002	\
+    hermes-re0-con 			b6tsb23:7018	\
+    hermes-re1-con 			b6tsb23:7019	\
+    idefix-re0-con 			b6tsb25:7004	\
+    idefix-re1-con 			b6tsb25:7005	\
+    alcoholix-re0-con		b6tsb25:7006	\
+    alcoholix-re1-con		b6tsb25:7007	\
+    photogenix-re0-con 		b6tsb25:7008	\
+    photogenix-re1-con 		b6tsb25:7009	\
+    dogmatix-re0-con  		b6tsb25:7010	\
+    dogmatix-re1-con  		b6tsb25:7011	\
+    automatix-re0-con  		b6tsb25:7016	\
+    automatix-re1-con  		b6tsb25:7017	\
+    dynamix-re0-con			b6tsb23:7020	\
+    gilby-re0-con			b6tsb17:7024	\
+    mustang-re0-con			b6tsb17:7019	\
+    camaro-re0-con			b6tsb17:7020	\
+    getafix-re0-con 		b6tsb25:7012	\
+    getafix-re1-con 		b6tsb25:7013	\
+    botanix-re0-con 		b6tsb25:7014	\
+    botanix-re1-con 		b6tsb25:7015	\
+    paris-re0-con			b6tsb17:7010	\
+    paris-re1-con			b6tsb17:7011	\
+    knicks-re0-con			b6tsb25:7034	\
+    knicks-re1-con			b6tsb25:7035	\
+    seahawks-re0-con		b6tsb25:7036	\
+    seahawks-re1-con		b6tsb25:7037	\
+    matrix-re0-con			b6tsb25:7038	\
+    matrix-re1-con			b6tsb25:7039	\
+    cacophonix-re0-con		b6tsb25:7040	\
+    cacophonix-re1-con		b6tsb25:7041	\
+    tjure-re0-con			b6tsb25:7033	\
+    mavericks-re0-con		b6tsb25:7032	\
+    colts-re0-con			b6tsb25:7031	\
+    snorre-re0-con			b6tsb25:7030	\
+    mini-re0-con			b6tsb23:7021	\
+    mini-re1-con			b6tsb23:7022	\
+    wickie-re0-con			b6tsd25:7028	\
+    tintin-re0-con 			b6tse25:7042	\
+    tintin-re1-con 			b6tse25:7043	\
+    wukong-re0-con 			b6tse25:7044	\
+    wukong-re1-con 			b6tse25:7045	\
+    kurt-re0-con 			b6tse23:7035	\
+    kurt-re1-con 			b6tse23:7036	\
+    rockets-re0-con			b6tse23:7023	\
+    rockets-re1-con			b6tse23:7024	\
+    earth-re0-con			b6tse25:7011	\
+    earth-re1-con			b6tse25:7012	\
+    deadalus-re0-con		b6tse25:7009	\
+    deadalus-re1-con		b6tse25:7010	\
+    holland-re0-con			b6tsb25:7026	\
+    holland-re1-con			b6tsb25:7027	\
+    greece-re0-con			b6tsb25:7018	\
+    greece-re1-con			b6tsb25:7019	\
+    turkey-re0-con			b6tsb25:7028	\
+    egypt-re0-con			b6tsb25:7029	\
+    vmx                                 10.85.4.17      \
+    vmx-vre                             10.85.4.102     \
+}
+
+set domain_suffix_con jtac-west.jnpr.net
+set domain_suffix jtac-east.jnpr.net
+
+#old info, before lab move
+#    lby-con            172.19.160.6:7005 \
+#    alecto-re1-con     172.19.160.6:7003 \
+#    alecto-re0-con     172.19.160.6:7004 \
+#    mickey-re1-con     172.19.160.6:7001 \
+#    mickey-re0-con     172.19.160.6:7002 \
+#    mix-con            172.19.160.6:7022 \
+#    static-a1-con      172.19.160.6:7021 \
+#    static-a2-con      172.19.160.6:7020 \
+#    static-a3-con      172.19.160.6:7019 \
+#    static-a4-con      172.19.160.6:7018 \
+#    static-a5-con      172.19.160.6:7017 \
+#    static-a6-con      172.19.160.6:7016 \
+#    static-a7-con      172.19.160.6:7015 \
+#    static-a8-con      172.19.160.6:7014 \
+#    rams-con           172.19.160.6:7013 \
+#    bills-con          172.19.160.6:7012 \
+#    tjure-con          172.19.160.6:7011 \
+#    mavericks-con      172.19.160.6:7010 \
+#    nyx-re1-con        172.19.160.6:7009 \
+#    nyx-re0-con        172.19.160.6:7008 \
+#    kratos-re1-con     172.19.160.6:7007 \
+#    kratos-re0-con     172.19.160.6:7006 \
+#    halvar-con         172.19.160.7:7011 \
+#    tianjin-re0-con    172.19.160.7:7010 \
+#    tianjin-re1-con    172.19.160.7:7009 \
+#    botanix-re1-con    172.19.160.7:7008 \
+#    botanix-re0-con    172.19.160.7:7007 \
+#    getafix-re1-con    172.19.160.7:7006 \
+#    getafix-re0-con    172.19.160.7:7005 \
+#    idefix-re1-con     172.19.160.7:7004 \
+#    idefix-re0-con     172.19.160.7:7003 \
+#    alcoholix-re1-con  172.19.160.7:7002 \
+#    alcoholix-re0-con  172.19.160.7:7001 \
+#    c2811-a4-con       172.19.160.7:7027 \
+#    sphinx-con         172.19.160.7:7026 \
+#    pheonix-con        172.19.160.7:7025 \
+#    bears-con          172.19.160.7:7024 \
+#    chargers-con       172.19.160.7:7023 \
+#    photogenix-re0-con 172.19.160.7:7021 \
+#    photogenix-re1-con 172.19.160.7:7022 \
+#    dogmatix-re0-con   172.19.160.7:7019 \
+#    dogmatix-re1-con   172.19.160.7:7020 \
+#    automatix-re0-con  172.19.160.7:7017 \
+#    automatix-re1-con  172.19.160.7:7018 \
+#    pacifix-re0-con    172.19.160.7:7015 \
+#    pacifix-re1-con    172.19.160.7:7016 \
+#    atlantix-re0-con   172.19.160.7:7028 \
+#    atlantix-re1-con   172.19.160.7:7029 \
+#    asterix-re0-con    172.19.160.7:7031 \
+#    asterix-re1-con    172.19.160.7:7030 \
+#    rockets-con        172.19.160.8:7003 \
+#    rockets-con        172.19.160.8:7004 \
+#    suffix-con         172.19.160.8:7038 \
+#    suns-con           172.19.160.8:7023 \
+#    earth-re0-con      172.19.160.8:7001 \
+#    earth-re1-con      172.19.160.8:7002 \
+#    maya-re0-con       172.19.160.8:7022 \
+#    maya-re1-con       172.19.160.8:7021 \
+#    wukong-re0-con     172.19.160.8:7025 \
+#    wukong-re1-con     172.19.160.8:7024 \
+#    kurt-re0-con       172.19.160.8:7005 \
+#    kurt-re1-con       172.19.160.8:7006 \
+#    daedalus-re1-con   172.19.160.8:7007 \
+#    daedalus-re0-con   172.19.160.8:7008 \
+#    tintin-re0-con     172.19.160.8:7027 \
+#    tintin-re1-con     172.19.160.8:7026 \
+#    cisco-2811-1-con   172.19.160.8:7009 \
+#    cisco-2811-2-con   172.19.160.8:7010 \
+#    ja1500-con         172.19.160.8:7034 \
+#    eros-re0-con       172.19.160.8:7033 \
+#    eros-re1-con       172.19.160.8:7032 \
+#    saints-con         172.19.160.8:7031 \
+#    steelers-con       172.19.160.8:7030 \
+#    flip-re0-con       172.19.160.8:7029 \
+#    flip-re1-con       172.19.160.8:7028 \
+#    dynamix-con        172.19.160.8:7035 \
+#    wicki-con          172.19.160.8:7017 \
+#    raiders-con        172.19.160.8:7016 \
+#    chiefs-con         172.19.160.8:7015 \
+#    redskins-re0-con   172.19.160.8:7014 \
+#    redskins-re1-con   172.19.160.8:7013 \
+#    willi-re0-con      172.19.160.8:7012 \
+#    willi-re1-con      172.19.160.8:7011 \
+#    ravens-con         172.19.160.9:7006 \
+#    rhodes-con         172.19.160.9:7005 \
+#    helios-con         172.19.160.9:7004 \
+#    bulls-con          172.19.160.9:7003 \
+#    obelix-re1-con     172.19.160.9:7002 \
+#    obelix-re0-con     172.19.160.9:7001 \
+#    hornets-re1-con    172.19.160.9:7007 \
+#    hornets-re0-con    172.19.160.9:7008 \
+#    mini-re0-con       172.19.160.9:7029 \
+#    mini-re1-con       172.19.160.9:7030 \
+#    colts-con          172.19.160.9:7028 \
+#    snorre-con         172.19.160.9:7027 \
+#    nereus-re0-con     172.19.160.9:7026 \
+#    nereus-re1-con     172.19.160.9:7025 \
+#    pluto-re0-con      172.19.160.9:7032 \
+#    pluto-re1-con      172.19.160.9:7031 \
+#    hermes-re1-con     172.19.160.9:7009 \
+#    hermes-re0-con     172.19.160.9:7010 \
+#    bengals-con        172.19.160.9:7011 \
+#    patriots-con       172.19.160.9:7041 \
+#    lions-con          172.19.160.9:7040 \
+#    pontos-re0-con     172.19.160.9:7039 \
+#    pontos-re1-con     172.19.160.9:7038 \
+#    thunder-re0-con    172.19.160.9:7037 \
+#    thunder-re1-con    172.19.160.9:7036 \
+#    jaguars-con        172.19.160.9:7035 \
+#    styx-re0-con       172.19.160.9:7034 \
+#    styx-re1-con       172.19.160.9:7033 \
+#    prefix-con         172.19.160.9:7024 \
+#    broncos-con        172.19.160.9:7015 \
+#    falcons-con        172.19.160.9:7014 \
+#    lakers-re1-con     172.19.160.9:7012 \
+#    lakers-re0-con     172.19.160.9:7013 \
+#    texans-con         172.19.160.9:7046 \
+#    ares-re0-con       172.19.160.9:7045 \
+#    panthers-con       172.19.160.9:7044 \
+#    donald-re0-con     172.19.160.9:7043 \
+#    donald-re1-con     172.19.160.9:7042 \
+#    nemesis-re1-con    172.19.160.9:7018 \
+#    nemesis-re0-con    172.19.160.9:7019 \
+#    bajie-re1-con      172.19.160.9:7016 \
+#    bajie-re0-con      172.19.160.9:7017 \
+#    archer-re0-con     172.19.160.6:7029 \
+#    archer-re1-con     172.19.160.6:7030 \
+#    rio-re0-con        172.19.160.7:7046 \
+#    rio-re1-con        172.19.160.7:7047 \
+#    paris-re0-con      172.19.160.7:7045 \
+#    paris-re1-con      172.19.160.7:7044 \
+#    rome-re0-con       172.19.160.7:7033 \
+#    rome-re1-con       172.19.160.7:7034 \
+#    antalya-re0-con    172.19.160.6:7027 \
+#    antalya-re1-con    172.19.160.6:7028 \
+#    timex-re0-con      172.19.160.6:7033 \
+#    timex-re1-con      172.19.160.6:7034 \
+#    cacofonix-re0-con  172.19.160.6:7031 \
+#    cacofonix-re1-con  172.19.160.6:7032 \
+#    knicks-re0-con     172.19.160.8:7039 \
+#    knicks-re1-con     172.19.160.8:7040 \
+#    clippers-re0-con   172.19.160.8:7037 \
+#    clippers-re1-con   172.19.160.8:7038 \
+#    matrix-re0-con     172.19.160.6:7035 \
+#    seahawks-re0-con   172.19.160.6:7036 \
+#    dolphins-re0-con   172.19.160.6:7037 \
+#    sonics-re0-con     172.19.160.6:7038 \
+#    camaro-re0-con     172.19.160.6:7039 \
+#    mustang-re0-con    172.19.160.6:7040 \
+
+set debug 0
+proc getcmd {cmdfile} {
+   set ulist {}
+    set file [open $cmdfile r]
+    while {[gets $cmdfile buf] != -1} {
+        if {[scan $buf "%s" cmd] == 1} {
+           lappend ulist $cmd
+        }
+    }
+    close $file
+    error "no cmd found in file $cmdfile"
+}
+
+#main {{{1}}}
+if $argc<1 {
+   send_tty "Usage: $argv0 hostname/IP\[:port\] \[account\] \[password\]\r\n"
+   exit -1
+}
+
+set scriptbasename [exec basename $argv0]
+set log_dir "~/att-lab-logs"
+set jnprse_pass "Stop@jnpr#"
+set jnprse_pass "Pass@jnpr1"
+
+set rtr_name [lindex $argv 0] 
+set rtr_name_ori $rtr_name
+if { [info exists HostMap([lindex $argv 0])] } {
+   set rtr_name $HostMap([lindex $argv 0])
+   if $debug {myputs "the router name is $rtr_name"}
+}
+
+
+#use scriptname as another reference (to different account)
+if {$scriptbasename == "attn"} {
+    set rtr_user j-tac-nz1
+    set rtr_pwd Zhao\$jnpr\$
+} elseif {$scriptbasename == "attp"} {
+    set rtr_user j-tac-ps1
+    #set rtr_pwd Ping@jnpr#
+    set rtr_pwd Song_jtac#
+    set rtr_user jtac
+    set rtr_pwd 321jtac
+
+    set att_account "jtac"
+    set att_pass "jnpr123"
+    set rtr_user "j-tac-ps1"
+    set rtr_pwd "ps1#jnpr#"
+
+    } elseif {$scriptbasename == "attse"} {
+    set rtr_user jnpr-se
+    set rtr_pwd EGS!@jnpr
+    set rtr_pwd Juniper@jnpr@
+} elseif {$scriptbasename == "attjtac"} {
+    set rtr_user jtac
+    set rtr_pwd jnpr123
+} elseif {$scriptbasename == "attde"} {
+    set rtr_user j-dev-5
+    set rtr_pwd 5O_P5BwUT
+} elseif {$scriptbasename == "jtaclab" || $scriptbasename == "telnet1"} {
+    set rtr_user lab
+    set rtr_pwd herndon1
+    #for vmx use special user/pass
+    if {$rtr_name == "10.85.4.17"} {
+        set rtr_user labroot
+        set rtr_pwd lab123
+    }
+    set log_dir "~/att-jtac-lab-logs"
+} else {
+
+}
+
+if {[file exists $log_dir]} {
+} else {
+    send_tty "dir $log_dir doesn't exist, creating one...\n"
+    if [catch {file mkdir $log_dir} failed_reason] {
+	send_tty "failed to creating dir $log_dir: $failed_reason\n"
+	exit 1
+    } else {
+	send_tty "...done!\n"
+    }
+}
+
+set port 0
+if {$scriptbasename == "jtaclab" || $scriptbasename == "telnet1"} {
+   #set rtr_name [lindex $argv 0]
+   set rtr_name_short $rtr_name
+   if [regexp {(.*):(.*)} $rtr_name -> rtr_name port] {
+       if $debug {myputs "router name contains port info: $port"}
+       if [regexp {^\d+\.\d+.\d+\.\d+$} $rtr_name] {
+           if $debug {myputs "router name is IP address, won't attach domain name"}
+       } else {
+           if $debug {myputs "router name is not IP address, will attach domain name"}
+           append rtr_name ".$domain_suffix_con"
+       }
+   } else {
+       if $debug {myputs "router name does not contain port info"}
+       if [regexp {^\d+\.\d+.\d+\.\d+$} $rtr_name] {
+           if $debug {myputs "router name is IP address, won't attach domain name"}
+       } else {
+           if $debug {myputs "router name is not IP address, will attach domain name"}
+           append rtr_name ".$domain_suffix"
+       }
+   }
+}
+
+
+if $argc>1 {
+   set rtr_user [lindex $argv 1]
+}
+
+if $argc>2 {
+   set rtr_pwd [lindex $argv 2]
+}
+
+
+set timeout -1
+if {                                            \
+    $scriptbasename == "attn"           ||      \
+    $scriptbasename == "attp"           ||      \
+    $scriptbasename == "attse"          ||      \
+    $scriptbasename == "attjtac"        ||      \
+    $scriptbasename == "attde" } {              \
+
+    set login_info($rtr_name)       [list           \
+        "assword"  "$jnprse_pass"                   \
+        ">$"           "$rtr_name"                  \
+        "login: "      "$rtr_user"                  \
+        "Password:"    "$rtr_pwd"                   \
+        ">"            "set cli screen-width 300"   \
+        ">"            "set cli timestamp"   \
+    ]
+
+    spawn -noecho ssh -o "StrictHostKeyChecking no" jnpr-se@12.3.167.8
+    do_patterns_actions5 $rtr_name login_info
+
+} elseif { $scriptbasename == "jtaclab" || $scriptbasename == "telnet1" } {
+
+    set login_info($rtr_name)       [list               \
+        "login: "      "$rtr_user"                  \
+        "assword:"    "$rtr_pwd"                   \
+        ">"             "set cli screen-width 300"      \
+        ">"            "set cli timestamp"   \
+    ]
+
+    #spawn ssh -o "StrictHostKeyChecking no" $rtr_user@$rtr_name
+    #for att lab it looks telnet is more reliable and quicker
+    #spawn telnet $rtr_name
+    if $port {                           ;#if login_info provided
+        set spawn_id [persist_login1 telnet $rtr_name $port]
+        if $debug {myputs "persist_login telnet $rtr_name $port"}
+    } else {
+        if $debug {myputs "persist_login telnet $rtr_name"}
+        set spawn_id [persist_login1 telnet $rtr_name]
+    }
+
+    expect  {
+        "Type the hot key to suspend the connection: <CTRL>Z" {
+            send "\r"; exp_continue
+        }
+        "ogin: $" {
+	    exp_send "$rtr_user\r";exp_continue
+        }
+        -re "assword:" {
+	    exp_send "$rtr_pwd\r";exp_continue
+        }
+        -re ">" {
+	    exp_send "set cli screen-width 300\r"
+            expect ">" { exp_send "set cli timestamp\r" }
+        }
+        -re "(\\\$|#) $" {      #for unix CLIes
+            exp_send "date\r"
+        }
+    }
+
+
+    if {$scriptbasename == "telnet1"} {
+        if $argc>1 {
+           set command [lindex $argv 1]
+        }
+        myexpect5 ">" $command 180
+        expect {
+            -re "@\[A-Za-z0-9.-\]+>"
+        }
+        puts "\n"
+        exit
+    }
+
+} else {
+
+}
+
+
+#puts "spawn_id of ssh is $spawn_id"
+#for jtac lab router,
+#still use the short name (without domain) as log filename 
+if {$scriptbasename == "jtaclab" || $scriptbasename == "telnet1"} {
+   set rtr_name $rtr_name_short
+}
+
+set time                        [exec date +%Y-%m%d-%H%M-%S]
+set time                        [exec date ]
+#set mylog_file 		"$log_dir/$rtr_name-$time.exp.txt"
+set mylog_file                  "$log_dir/$rtr_name_ori.log"
+send_tty "current log file $mylog_file\n"
+
+#write a mark in the log file
+set f [open $mylog_file a]
+puts $f "
+<<<<<<<<<<<<<<<<<<< new logs since: <<<<<<<<<<<<<<<<<<<<<<<
+< $time $env(USER) {{{1 <
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+"
+close $f
+#or above can be shortened via "send_log"
+
+log_file $mylog_file
+
+set anti_idle_timeout 		60
+set anti_idle_string 		" \177"	
+
+set cmdlist {}
+# it is your turn now.
+interact {
+
+    timeout $anti_idle_timeout {
+        send $anti_idle_string
+    }
+
+    -echo -re "!i" {
+        puts "\n"
+        parray HostMap
+        puts "\n"
+    }
+#   -nobuffer -re "(.*)\r" {
+#       set a $interact_out(1,string)
+#       lappend cmdlist $a
+#       puts "\nyou input cmds:$a"
+#       puts "\nfollowing cmds have been input:$cmdlist"
+#   }
+}
+

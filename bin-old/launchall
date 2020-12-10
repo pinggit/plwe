@@ -1,0 +1,5 @@
+sudo pwd
+launch-case &
+launch-clearquest &
+launch-outlook &
+launch-desktop &

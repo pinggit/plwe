@@ -1,0 +1,255 @@
+#!/usr/bin/env expect
+    array set HostMap { pe5                192.168.43.14 pe6                192.168.43.17 pe3                192.168.43.8 pe1                192.168.112.101 pe8                192.168.112.8 pe9                192.168.112.9 pe10               192.168.112.10 pe11               192.168.112.11 pe12               192.168.112.12 pe13               192.168.112.13 pe14               192.168.112.14 pe15               192.168.112.15 pe16               192.168.112.16 pe17               192.168.112.17 pe26               192.168.112.26 PE26               192.168.112.26 pe28               192.168.112.28 pe32               192.168.119.32 pe24               192.168.119.24 pe40               192.168.119.40 pe41               192.168.112.41 pe42               192.168.112.42 pe43               192.168.112.43 hub1               10.144.0.126 hub2               10.144.0.127 scooby             192.168.46.146  prefix-re0-con			b6tsa05:7029	 ravens-re0-con			b6tsa05:7030	 nemesis-re0-con			b6tsa05:7031	 nemesis-re1-con			b6tsa05:7033	 bajie-re0-con 			b6tsa05:7034	 bajie-re1-con 			b6tsa05:7035	 pontos-re0-con			b6tsa05:7036	 pontos-re1-con			b6tsa05:7037	 ares-re0-con			b6tsa05:7038	 lakers-re0-con			b6tsa05:7039	 lakers-re1-con			b6tsa05:7040	 dolphins-re0-con		b6tsa05:7041	 dolphins-re1-con		b6tsa05:7042	 donald-re0-con 			b6tsa05:7043	 donald-re1-con 			b6tsa05:7044	 mix-re0-con			b6tsa05:7046	 thunder-re1-con			b6tsa15:7024	 thunder-re0-con			b6tsa15:7023	 redskins-re1-con		b6tsa15:7022	 redskins-re0-con		b6tsa15:7021	 tianjin-re1-con			b6tsa15:7020	 tianjin-re0-con			b6tsa15:7019	 jaguars-re0-con			b6tsa05:7045	 panthers-re0-con		b6tsa17:7024	 mickey-re0-con   		b6tsa17:7010	 mickey-re1-con   		b6tsa17:7011	 rams-re0-con			b6tsa26:7023	 bills-re0-con			b6tsa26:7024	 bears-re0-con			b6tsb09:7013	 chargers-re0-con		b6tsb09:7014	 sphinx-re0-con			b6tsb09:7015	 patriots-re0-con		b6tsb09:7016	 bulls-re0-con			b6tsb09:7017	 nyx-re0-con  			b6tsb09:7018	 nyx-re1-con  			b6tsb09:7019	 atlantix-re0-con 		b6tsb09:7020	 atlantix-re1-con 		b6tsb09:7021	 8111-con 			b6tsb17:7002	 8112-con			b6tsb17:7003	 a1500-re0-con                   b6tsb17:7004 suns-re0-con			b6tsb17:7001	 rio-re0-con 			b6tsb17:7005	 rio-re1-con 			b6tsb17:7006	 maya-re0-con   			b6tsb17:7007	 maya-re1-con   			b6tsb17:7008	 steelers-re0-con		b6tsb17:7009	 willi-re0-con 			b6tsb25:7002	 willi-re1-con  			b6tsb25:7003	 flip-re0-con  			b6tsb17:7012	 flip-re1-con  			b6tsb17:7013	 chiefs-re0-con			b6tsb17:7014	 eros-re0-con			b6tsb17:7015	 eros-re1-con			b6tsb17:7016	 alecto-re0-con			b6tsb17:7021	 alecto-re1-con			b6tsb17:7022	 havlar-re0-con			b6tsb17:7034	 pacifix-re0-con 		b6tsb17:7035	 pacifix-re1-con 		b6tsb17:7036	 antalya-re0-con  		b6tsb17:7046	 antalya-re1-con  		b6tsb17:7047	 pheonix-re0-con			b6tsb09:7015	 saints-re0-con			b6tsb17:7045	 raiders-re0-con			b6tsb17:7044	 kratos-re1-con 			b6tsb17:7043	 kratos-re0-con 			b6tsb17:7042	 obelix-re0-con			b6tsb17:7041	 obelix-re0-con			b6tsb17:7040	 archer-re1-con			b6tsb17:7039	 archer-re0-con			b6tsb17:7038	 rome-re0-con 		        b6tsb23:7031	 x2020-re0-con 			b6tsb23:7032	 clippers-re0-con		b6tsb17:7017	 clippers-re1-con		b6tsb17:7018	 sonics-re0-con			b6tsb25:7024	 sonics-re1-con			b6tsb25:7025	 asterix-re0-con 		b6tsb23:7023	 asterix-re1-con 		b6tsb23:7024	 timex-re0-con   		b6tsb23:7025	 timex-re1-con		        b6tsb23:7026	 hornets-re0-con			b6tsb23:7007	 hornets-re1-con			b6tsb23:7008	 nereus-re0-con 			b6tsb23:7005	 nereus-re1-con 			b6tsb23:7006	 styx-re0-con 			b6tsb23:7009	 styx-re1-con 			b6tsb23:7010	 rhodes-re0-con			b6tsb23:7012	 texans-re0-con			b6tsb23:7013	 pluto-re0-con 			b6tsb23:7001	 pluto-re1-con 			b6tsb23:7002	 hermes-re0-con 			b6tsb23:7018	 hermes-re1-con 			b6tsb23:7019	 idefix-re0-con 			b6tsb25:7004	 idefix-re1-con 			b6tsb25:7005	 alcoholix-re0-con		b6tsb25:7006	 alcoholix-re1-con		b6tsb25:7007	 photogenix-re0-con 		b6tsb25:7008	 photogenix-re1-con 		b6tsb25:7009	 dogmatix-re0-con  		b6tsb25:7010	 dogmatix-re1-con  		b6tsb25:7011	 automatix-re0-con  		b6tsb25:7016	 automatix-re1-con  		b6tsb25:7017	 dynamix-re0-con			b6tsb23:7020	 gilby-re0-con			b6tsb17:7024	 mustang-re0-con			b6tsb17:7019	 camaro-re0-con			b6tsb17:7020	 getafix-re0-con 		b6tsb25:7012	 getafix-re1-con 		b6tsb25:7013	 botanix-re0-con 		b6tsb25:7014	 botanix-re1-con 		b6tsb25:7015	 paris-re0-con			b6tsb17:7010	 paris-re1-con			b6tsb17:7011	 knicks-re0-con			b6tsb25:7034	 knicks-re1-con			b6tsb25:7035	 seahawks-re0-con		b6tsb25:7036	 seahawks-re1-con		b6tsb25:7037	 matrix-re0-con			b6tsb25:7038	 matrix-re1-con			b6tsb25:7039	 cacophonix-re0-con		b6tsb25:7040	 cacophonix-re1-con		b6tsb25:7041	 tjure-re0-con			b6tsb25:7033	 mavericks-re0-con		b6tsb25:7032	 colts-re0-con			b6tsb25:7031	 snorre-re0-con			b6tsb25:7030	 mini-re0-con			b6tsb23:7021	 mini-re1-con			b6tsb23:7022	 wickie-re0-con			b6tsd25:7028	 tintin-re0-con 			b6tse25:7042	 tintin-re1-con 			b6tse25:7043	 wukong-re0-con 			b6tse25:7044	 wukong-re1-con 			b6tse25:7045	 kurt-re0-con 			b6tse23:7035	 kurt-re1-con 			b6tse23:7036	 rockets-re0-con			b6tse23:7023	 rockets-re1-con			b6tse23:7024	 earth-re0-con			b6tse25:7011	 earth-re1-con			b6tse25:7012	 deadalus-re0-con		b6tse25:7009	 deadalus-re1-con		b6tse25:7010	 holland-re0-con			b6tsb25:7026	 holland-re1-con			b6tsb25:7027	 greece-re0-con			b6tsb25:7018	 greece-re1-con			b6tsb25:7019	 turkey-re0-con			b6tsb25:7028	 egypt-re0-con			b6tsb25:7029	 vmx                                 10.85.4.17       vmx-vre                             10.85.4.102      }
+    set domain_suffix_con jtac-west.jnpr.net
+    set domain_suffix jtac-east.jnpr.net
+    set debug 0
+    proc getcmd {cmdfile} {
+       set ulist {}
+        set file [open $cmdfile r]
+        while {[gets $cmdfile buf] != -1} {
+            if {[scan $buf "%s" cmd] == 1} {
+               lappend ulist $cmd
+            }
+        }
+        close $file
+        error "no cmd found in file $cmdfile"
+    }
+    proc myputs {msg} {
+        puts "\[[exec date]:[lindex [info level 1] 0]:..$msg..\]"
+    }
+    proc myexpect {pattern datasent {mytimeout 60}} {
+        set controlC \x03
+        set timeout $mytimeout
+        expect  {
+            "Type the hot key to suspend the connection: <CTRL>Z" {
+                send "\r"; exp_continue
+            }
+            -re "$pattern" {
+                exp_send "$datasent\r"
+            }
+            timeout {
+                myputs "timeout in ${timeout}s without a match! ctrl-c to break out!"
+                exp_send "$controlC"
+                return 1
+            }
+            -re "connection closed by foreign host" {
+                myputs "connection closed by the router!"; exit
+            }
+            eof {
+                myputs "spawned process terminated!"; exit
+            }
+            full_buffer {
+                myputs "got full buffer!"
+                exp_continue;
+            }
+        }
+    }
+    proc do_patterns_actions {router dataarray {pattern_timeout 120} {pa_intv 0}} {
+        global debug cmd_output_array
+        upvar $dataarray da
+        if $debug {myputs "start pattern-action sequence:"}
+        if {$debug==3} {send_log "[parray da]\n"}
+        if {[info exists da($router)]} {
+            if $debug {myputs "pattern-action data for $router now looks:"}
+            if $debug {myputs "  -$da($router)-"}
+        } else {
+            myputs "pattern-action data for $router doesn't exist, check your config!"
+            return 1
+        }
+        set l $da($router) 
+        set j 1
+        for {set i 0} {$i<=[expr [llength $l]-1]} {incr i 2} {
+            set pattern [lindex $l $i]	
+            set datasent  [lindex $l [expr $i+1]]
+            set time_now [exec date +"%s"]
+            myexpect $pattern $datasent 180
+            incr j
+            sleep $pa_intv
+        }
+    }
+    proc persist_login1 {login_script routername args} {
+        global debug
+        if {[llength $args]} {
+            set port [lindex $args 0]
+            spawn -noecho $login_script $routername $args
+        } else {
+            spawn -noecho $login_script $routername
+        }
+        if $debug {myputs "spawn_id in att script is $spawn_id"}
+        expect {
+            -i $spawn_id -re "Escape character is" {
+                myputs "the router is alive"
+                return $spawn_id
+            }
+            -i $spawn_id -nocase "Connection timed out" {
+                myputs "connection explicit timeout, try again!"
+                catch {close $spawn_id;wait $spawn_id}
+                if {[llength $args]} {
+                    set port [lindex $args 0]
+                    persist_login1 $login_script $routername $args
+                } else {
+                    persist_login1 $login_script $routername
+                }
+            }
+            -i $spawn_id default         {
+                myputs "get eof/implicit timeout, try again!"
+                sleep 1
+                catch {close $spawn_id;wait $spawn_id}
+                if {[llength $args]} {
+                    set port [lindex $args 0]
+                    persist_login1 $login_script $routername $args
+                } else {
+                    persist_login1 $login_script $routername
+                }
+            }
+        }
+    }
+    if $argc<1 {
+       send_tty "Usage: $argv0 hostname/IP\[:port\] \[account\] \[password\]\r\n"
+       exit -1
+    }
+    set scriptbasename [exec basename $argv0]
+    set log_dir ./
+    set jnprse_pass "Stop@jnpr#"
+    set rtr_name [lindex $argv 0] 
+    set rtr_name_ori $rtr_name
+    if { [info exists HostMap([lindex $argv 0])] } {
+       set rtr_name $HostMap([lindex $argv 0])
+       if $debug {myputs "the router name is $rtr_name"}
+    }
+    if {$scriptbasename == "attn"} {
+        set rtr_user j-tac-nz1
+        set rtr_pwd Zhao\$jnpr\$
+    } elseif {$scriptbasename == ".attp"} {
+        set rtr_user j-tac-ps1
+        set rtr_pwd Song_jtac#
+        } elseif {$scriptbasename == "attse"} {
+        set rtr_user jnpr-se
+        set rtr_pwd EGS!@jnpr
+        set rtr_pwd Juniper@jnpr@
+    } elseif {$scriptbasename == "attjtac"} {
+        set rtr_user jtac
+        set rtr_pwd jnpr123
+    } elseif {$scriptbasename == "attde"} {
+        set rtr_user j-dev-5
+        set rtr_pwd 5O_P5BwUT
+    } elseif {$scriptbasename == ".jtaclab" || $scriptbasename == "telnet1"} {
+        set rtr_user lab
+        set rtr_pwd herndon1
+        if {$rtr_name == "10.85.4.17"} {
+            set rtr_user labroot
+            set rtr_pwd lab123
+        }
+        set log_dir ./
+    } else {
+    }
+    if {[file exists $log_dir]} {
+    } else {
+        send_tty "dir $log_dir doesn't exist, creating one...\n"
+        if [catch {file mkdir $log_dir} failed_reason] {
+            send_tty "failed to creating dir $log_dir: $failed_reason\n"
+            exit 1
+        } else {
+            send_tty "...done!\n"
+        }
+    }
+    set port 0
+    if {$scriptbasename == ".jtaclab" || $scriptbasename == "telnet1"} {
+       set rtr_name_short $rtr_name
+       if [regexp {(.*):(.*)} $rtr_name -> rtr_name port] {
+           if $debug {myputs "router name contains port info: $port"}
+           if [regexp {^\d+\.\d+.\d+\.\d+$} $rtr_name] {
+               if $debug {myputs "router name is IP address, won't attach domain name"}
+           } else {
+               if $debug {myputs "router name is not IP address, will attach domain name"}
+               append rtr_name ".$domain_suffix_con"
+           }
+       } else {
+           if $debug {myputs "router name does not contain port info"}
+           if [regexp {^\d+\.\d+.\d+\.\d+$} $rtr_name] {
+               if $debug {myputs "router name is IP address, won't attach domain name"}
+           } else {
+               if $debug {myputs "router name is not IP address, will attach domain name"}
+               append rtr_name ".$domain_suffix"
+           }
+       }
+    }
+    if $argc>1 {
+       set rtr_user [lindex $argv 1]
+    }
+    if $argc>2 {
+       set rtr_pwd [lindex $argv 2]
+    }
+    set timeout -1
+    if {                                             $scriptbasename == "attn"           ||       $scriptbasename == ".attp"           ||       $scriptbasename == "attse"          ||       $scriptbasename == "attjtac"        ||       $scriptbasename == "attde" } {               set login_info($rtr_name)       [list            "assword"  "$jnprse_pass"                    ">$"           "$rtr_name"                   "login: "      "$rtr_user"                   "Password:"    "$rtr_pwd"                    ">"            "set cli screen-width 300"    ">"            "set cli timestamp"    ]
+        spawn -noecho ssh -o "StrictHostKeyChecking no" jnpr-se@12.3.167.8
+        do_patterns_actions $rtr_name login_info
+    } elseif { $scriptbasename == ".jtaclab" || $scriptbasename == "telnet1" } {
+        set login_info($rtr_name)       [list                "login: "      "$rtr_user"                   "assword:"    "$rtr_pwd"                    ">"             "set cli screen-width 300"       ">"            "set cli timestamp"    ]
+        if $port {                           ;#if login_info provided
+            set spawn_id [persist_login1 telnet $rtr_name $port]
+            if $debug {myputs "persist_login telnet $rtr_name $port"}
+        } else {
+            if $debug {myputs "persist_login telnet $rtr_name"}
+            set spawn_id [persist_login1 telnet $rtr_name]
+        }
+        expect  {
+            "Type the hot key to suspend the connection: <CTRL>Z" {
+                send "\r"; exp_continue
+            }
+            "ogin: $" {
+                exp_send "$rtr_user\r";exp_continue
+            }
+            -re "assword:" {
+                exp_send "$rtr_pwd\r";exp_continue
+            }
+            -re ">" {
+                exp_send "set cli screen-width 300\r"
+                expect ">" { exp_send "set cli timestamp\r" }
+            }
+            -re "(\\\$|#) $" {      #for unix CLIes
+                exp_send "date\r"
+            }
+        }
+        if {$scriptbasename == "telnet1"} {
+            if $argc>1 {
+               set command [lindex $argv 1]
+            }
+            myexpect ">" $command 180
+            expect {
+                -re "@\[A-Za-z0-9.-\]+>"
+            }
+            puts "\n"
+            exit
+        }
+    } else {
+    }
+    if {$scriptbasename == ".jtaclab" || $scriptbasename == "telnet1"} {
+       set rtr_name $rtr_name_short
+    }
+    set time                        [exec date +%Y-%m%d-%H%M-%S]
+    set time                        [exec date ]
+    set mylog_file                  "$log_dir/$rtr_name_ori.log"
+    send_tty "current log file $mylog_file\n"
+    set f [open $mylog_file a]
+    puts $f "
+    <<<<<<<<<<<<<<<<<<< new logs since: <<<<<<<<<<<<<<<<<<<<<<<
+    < $time $env(USER) 
+    <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+    "
+    close $f
+    log_file $mylog_file
+    set anti_idle_timeout 		60
+    set anti_idle_string 		" \177"	
+    set cmdlist {}
+    interact {
+        timeout $anti_idle_timeout {
+            send $anti_idle_string
+        }
+        -echo -re "!i" {
+            puts "\n"
+            parray HostMap
+            puts "\n"
+        }
+    }
+

@@ -1,0 +1,27 @@
+#!/bin/zsh
+#usage:
+
+#strange, following var substitution works for zsh but not working for bash
+#bash bring this complaint, looks it doesn't like the blank bet 'run' and 'show"
+#                     show|cmd=ping|cmd=clear|cmd=terminal|cmd=tech-support|cmd=virtual|cmd=dir|cmd=copy: No such file or directory
+a="cmd=show|cmd=run show|cmd=ping|cmd=clear|cmd=terminal|cmd=tech-support|cmd=virtual|cmd=dir|cmd=copy"
+
+#filter button
+ft=$2
+
+
+if [ $ft -eq 1 ]; then
+{
+    #use "," as deliminator,get only 1st and 14th field, put them into another file
+    #remove all "non-config-cmd" plus the "virtual" command, and 
+    #change delimiter from , to blank, then remove dup lines based on 3rd colomn only
+    #then uniq it 
+    #(this sharply reduce the lines) 
+    less -N $1 | cut -d , -f 1,14 | grep -iEv $a | cut -f 1-3 -d , --output-delimiter=" " | uniq -f 3 | less -N 
+}
+else
+{ 
+    #no filter, just reformat
+    less -N $1 | cut -d , -f 1,14 | cut -f 1-3 -d , --output-delimiter=" " | uniq -f 3 | less -N
+}
+fi
